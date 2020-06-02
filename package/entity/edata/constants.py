@@ -1,0 +1,9 @@
+class CONSTANTS:
+    ENV_DEVELOPMENT = "env_development"
+    ENV_PRODUCTION = "env_production"
+    SAMPLING_RATE = 1048.00
+    FILTER_MIN_FREQUENCY = 10.00
+    FILTER_MAX_FREQUENCY = 500.00
+    FILTER_ORDER = 10.00
+
+
