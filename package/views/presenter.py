@@ -21,14 +21,13 @@ class Presenter:
     # Main control
     def Update_SV_image(self):
         print("SV time {}".format(self.SV_time))
-        print("\nevent list\n", self.event_timestamp_list)
+        # print("\nevent list\n", self.event_timestamp_list)
         if self.SV_time % self.cycle_time == 0:
             print("idle")
-            logger.info('\nidle LSL clock: {}'.format(self.router.get_LSL_clock() + self.router.get_lsl_offset()))
+            logger.info('\nidle server clock: {}'.format(self.router.get_server_clock()))
             if self.task_counter < self.new_task_table.shape[0]:
                 self.event_timestamp_list.append(
-                    [self.event_table_dictionary[self.new_task_table[self.task_counter][0]],
-                     self.router.get_LSL_clock() + self.router.get_lsl_offset()])
+                    [self.event_table_dictionary['Idle'], self.router.get_server_clock()])
 
             print("\nTASK COUNTER: ", self.task_counter)
             if self.task_counter > 0:
@@ -50,38 +49,39 @@ class Presenter:
             self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/idle.png" % os.getcwd()))
         elif self.SV_time % self.cycle_time == self.idle_time:
             print("focus")
-            # logger.info('\nfocus LSL clock: %s' % self.router.get_LSL_clock() + self.router.get_lsl_offset())
+            logger.info('\nfocus server clock: %s' % self.router.get_server_clock())
             self.event_timestamp_list.append(
-                [self.event_table_dictionary['Focus'], self.router.get_LSL_clock() + self.router.get_lsl_offset()])
+                [self.event_table_dictionary['Focus'], self.router.get_server_clock()])
             # Focus
             self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/focus.png" % os.getcwd()))
         elif self.SV_time % self.cycle_time == self.focus_time:
             print("prepare")
-            # logger.info('\nprepare LSL clock: %s' % self.router.get_LSL_clock() + self.router.get_lsl_offset())
+            logger.info('\nprepare server clock: %s' % self.router.get_server_clock())
             self.event_timestamp_list.append(
-                [self.event_table_dictionary['Prepare'], self.router.get_LSL_clock() + self.router.get_lsl_offset()])
+                [self.event_table_dictionary['Prepare'], self.router.get_server_clock()])
             # Prepare
             self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/prepare.png" % os.getcwd()))
         elif self.SV_time % self.cycle_time == self.prepare_time:
             print("two")
             # Two
-            # logger.info('\ntwo LSL clock: %s' % self.router.get_LSL_clock() + self.router.get_lsl_offset())
+            logger.info('\ntwo server clock: %s' % self.router.get_server_clock())
             self.event_timestamp_list.append(
-                [self.event_table_dictionary['Two'], self.router.get_LSL_clock() + self.router.get_lsl_offset()])
+                [self.event_table_dictionary['Two'], self.router.get_server_clock()])
             self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/two.png" % os.getcwd()))
         elif self.SV_time % self.cycle_time == self.two_time:
             print("one")
             # One
-            # logger.info('\none LSL clock: %s' % self.router.get_LSL_clock() + self.router.get_lsl_offset())
+            logger.info('\none server clock: %s' % self.router.get_server_clock())
             self.event_timestamp_list.append(
-                [self.event_table_dictionary['One'], self.router.get_LSL_clock() + self.router.get_lsl_offset()])
+                [self.event_table_dictionary['One'], self.router.get_server_clock()])
             self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/one.png" % os.getcwd()))
         elif self.SV_time % self.cycle_time == self.one_time:
             print("task")
             # Task
-            # logger.info('\ntask LSL clock: %s' % self.router.get_LSL_clock() + self.router.get_lsl_offset())
+            logger.info('\ntask server clock: %s' % self.router.get_server_clock())
             self.event_timestamp_list.append(
-                [self.event_table_dictionary['Task'], self.router.get_LSL_clock() + self.router.get_lsl_offset()])
+                [self.event_table_dictionary[self.new_task_table[self.task_counter - 1][0]],
+                 self.router.get_server_clock()])
             self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/task.png" % os.getcwd()))
         elif self.SV_time % self.cycle_time == self.task_time:
             print("relax")
@@ -616,7 +616,7 @@ class Presenter:
 
     def read_template_buffer(self):
         pre_data_in = np.copy(self.template_buffer[- 6 * int(self.sr.sample_rate):, :])
-        pre_data_in = np.copy(pre_data_in[:, 0:9])
+        pre_data_in = np.copy(pre_data_in)
         print('pre data in shape: ', pre_data_in.shape)
         return pre_data_in
 
@@ -625,11 +625,12 @@ class Presenter:
 
         # update single channel scale
         # print("single channel scale: ", self.single_channel_scale)
+        channel_to_scale = self.channel_to_scale_column_index * 16 + self.channel_to_scale_row_index
         if self.ui.checkBox_single_channel_scale.isChecked() \
                 and self.channel_to_scale_row_index != -1 \
                 and self.channel_to_scale_column_index != -1 \
-                and self.channel_to_scale_row_index in self.channels_to_show_idx:
-            self.eeg[:, self.channel_to_scale_row_index] = self.eeg[:, self.channel_to_scale_row_index] * self.single_channel_scale
+                and channel_to_scale in self.channels_to_show_idx:
+            self.eeg[:, channel_to_scale] = self.eeg[:, channel_to_scale] * self.single_channel_scale
 
         # We have to remove those indexes that reached time = 0
         # leeq
@@ -679,7 +680,9 @@ class Presenter:
     def update_MRCP_plot(self):
         self.set_MRCP_window_size(6)
         self.raw_trial_MRCP = self.read_template_buffer()
-        self.processed_trial_MRCP = Utils.preprocess(self.raw_trial_MRCP)
+        ch_list = self.channel_labels.tolist()
+        lap_ch_list = [ch_list.index('Cz'), ch_list.index('C3'), ch_list.index('C4'),ch_list.index('Fz'), ch_list.index('Pz')]
+        self.processed_trial_MRCP = Utils.preprocess(self.raw_trial_MRCP, lap_ch_list)
         # save each MRCP and raw signals into total MRCP list
         self.total_trials_MRCP.append(self.processed_trial_MRCP)
         self.total_trials_raw_MRCP.append(np.transpose(self.raw_trial_MRCP).flatten())

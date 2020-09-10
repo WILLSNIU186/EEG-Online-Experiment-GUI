@@ -27,6 +27,7 @@ from scipy.signal import butter, lfilter, lfiltic, buttord
 from pycnbi.pycnbi_config import CAP, LAPLACIAN
 from pycnbi import logger
 from builtins import input
+import pdb
 
 mne.set_log_level('ERROR')
 os.environ['OMP_NUM_THREADS'] = '1' # actually improves performance for multitaper
@@ -612,6 +613,7 @@ def lsl_channel_list(inlet):
         raise TypeError
     root = ET.fromstring(inlet.info().as_xml())
     desc = root.find('desc')
+    # pdb.set_trace()
     ch_list = []
     for ch in desc.find('channels').getchildren():
         ch_name = ch.find('label').text

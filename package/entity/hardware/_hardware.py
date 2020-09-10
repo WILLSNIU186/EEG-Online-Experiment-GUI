@@ -27,8 +27,12 @@ class HardwareAdditionalMethods:
                 print("\nbuffer length: ",self.streamReceiver.get_buflen())
                 duration = str(datetime.timedelta(seconds=int(self.streamReceiver.get_buflen())))
                 logger.info('RECORDING %s' % duration)
-                logger.info('\nLSL clock: %s' %self.streamReceiver.get_lsl_clock())
+                logger.info('\nLSL clock: %s' % self.streamReceiver.get_lsl_clock())
                 logger.info('Server timestamp = %s' % self.streamReceiver.get_server_clock())
+                logger.info('offset {}'.format(self.streamReceiver.get_lsl_clock() - self.streamReceiver.get_server_clock()))
+                self.lsl_time_list.append(self.streamReceiver.get_lsl_clock())
+                self.server_time_list.append(self.streamReceiver.get_server_clock())
+                self.offset_time_list.append(self.streamReceiver.get_lsl_offset())
                 next_sec += 1
 
             self.streamReceiver.set_window_size(self.MRCP_window_size)
@@ -44,7 +48,14 @@ class HardwareAdditionalMethods:
                 'sample_rate': self.streamReceiver.get_sample_rate(), 'channels': self.streamReceiver.get_num_channels(),
                 'ch_names': self.streamReceiver.get_channel_names(), 'lsl_time_offset': self.streamReceiver.lsl_time_offset}
         logger.info('Saving raw data ...')
+
         self.write_recorded_data_to_csv(data)
+        temp_lsl_list = self.lsl_time_list.copy()
+        temp_lsl_list.insert(0,0)
+        temp_lsl_list.pop()
+        print("lsl clock", self.lsl_time_list)
+        print('temp lsl list', temp_lsl_list)
+        print(np.subtract(self.lsl_time_list, temp_lsl_list))
         print("timestamp len before flush", len(self.streamReceiver.timestamps[0]))
         print("buffer len before flushing: ", len(self.streamReceiver.buffers[0]))
         self.streamReceiver.flush_buffer()
@@ -54,11 +65,22 @@ class HardwareAdditionalMethods:
 
     def write_recorded_data_to_csv(self, data):
         # eeg_file = "%s/raw_eeg.csv" % (Variables.get_sub_folder_path())
-        eeg_file = Variables.get_raw_eeg_file_path()
+        pdb.set_trace()
+        # eeg_file = Variables.get_raw_eeg_file_path()
+        eeg_file = self.eeg_file_path
         logger.info(eeg_file)
         raw_data_with_time_stamps = np.c_[data['timestamps'], data['signals']]
         with open(eeg_file, 'w') as f:
             np.savetxt(eeg_file, raw_data_with_time_stamps, delimiter=',', fmt='%.5f', header = '')
 
         logger.info('Saved to %s\n' % eeg_file)
+
+    def write_timestamps_to_csv(self):
+        eeg_timestamp_file = Variables.get_raw_eeg_timestamp_file_path()
+        logger.info(eeg_timestamp_file)
+        pdb.set_trace()
+        time_stamps = np.c_[self.lsl_time_list, self.server_time_list, self.offset_time_list]
+        with open(eeg_timestamp_file, 'w') as f:
+            np.savetxt(eeg_timestamp_file, time_stamps, delimiter=',', fmt='%.5f', header = '')
+
 

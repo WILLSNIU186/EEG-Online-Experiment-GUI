@@ -31,6 +31,7 @@ class Variables:
         cls.__high_pass_data_in = np.array([])
         cls.__protocol_path = ""
         cls.__raw_eeg_file_path = ""
+        cls.__raw_eeg_timestamp_file_path = ""
 
     @classmethod
     def set_current_environment(cls, new_environment):
@@ -162,3 +163,11 @@ class Variables:
     @classmethod
     def get_raw_eeg_file_path(cls):
         return cls.__raw_eeg_file_path
+
+    @classmethod
+    def set_raw_eeg_timestamp_file_path(cls, file_path):
+        cls.__raw_eeg_timestamp_file_path = file_path
+
+    @classmethod
+    def get_raw_eeg_timestamp_file_path(cls):
+        return cls.__raw_eeg_timestamp_file_path

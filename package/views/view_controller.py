@@ -57,7 +57,7 @@ class ViewController:
             logger.info("rec clicked")
             Variables.add_run_counter()
 
-            path = "{}/Run{}".format(Variables.get_base_folder_path(), Variables.get_run_counter())
+            path = "{}\Run{}".format(Variables.get_base_folder_path(), Variables.get_run_counter())
             Variables.set_sub_folder_path(path)
             try:
                 os.makedirs(Variables.get_sub_folder_path())
@@ -65,8 +65,12 @@ class ViewController:
                 print("Creation of the directory %s failed" % Variables.get_sub_folder_path())
 
 
-            eeg_file = "%s/raw_eeg.csv" % (Variables.get_sub_folder_path())
+            eeg_file = "%s\\raw_eeg.csv" % (Variables.get_sub_folder_path())
             Variables.set_raw_eeg_file_path(eeg_file)
+            eeg_timestamp_file = "%s/raw_eeg_timestamp.csv" % (Variables.get_sub_folder_path())
+            Variables.set_raw_eeg_timestamp_file_path(eeg_timestamp_file)
+
+            self.router.set_raw_eeg_file_path()
             print(Variables.get_raw_eeg_file_path())
 
             self.ui.label_run_number.setText(str(Variables.get_run_counter()))
@@ -88,7 +92,7 @@ class ViewController:
             print(0)
             self.ui.statusBar.showMessage("Recording stopped")
             logger.info("stop rec clicked")
-            print("get raw eeg file path",Variables.get_raw_eeg_file_path())
+            print("get raw eeg file path", Variables.get_raw_eeg_file_path())
             self.Runtimer.stop()
             self.router.stop_recording()
             if self.total_trials_raw_MRCP != [] and self.total_trials_MRCP != []:
@@ -335,7 +339,6 @@ class ViewController:
     def onClicked_button_update_channel_name(self):
         self.channel_labels[self.selected_channel_row_index] = self.ui.table_channels.item(self.selected_channel_row_index, self.selected_channel_column_index).text()
 
-
     def onSelectionChanged_table(self):
 
         # Remove current plot
@@ -396,14 +399,14 @@ class ViewController:
             # Python's log(x, 10) has a rounding bug. Use log10(x) instead.
             # new_scale = self.scale + max(1, 10 ** int(math.log10(self.scale)))
             # self.update_plot_scale(new_scale)
-            self.single_channel_scale += 0.2
+            self.single_channel_scale *= 2
         if (key == QtCore.Qt.Key_Space):
             self.stop_plot = not self.stop_plot
         if (key == QtCore.Qt.Key_Down):
             if self.single_channel_scale >= 0:
-                self.single_channel_scale -= 0.2
+                self.single_channel_scale /= 2
             else:
-                self.single_channel_scale = 0
+                self.single_channel_scale = 1
 
         if (key == QtCore.Qt.Key_Left):
             self.update_plot_seconds(self.seconds_to_show - 1)

@@ -144,12 +144,12 @@ class Utils:
 
 
     @staticmethod
-    def preprocess(dataIn):
+    def preprocess(dataIn, ch_list):
         '''
         dataIn: sample * chan
         '''
         # data_chan_selected = dataIn[:, 0:9]
-        data_chan_selected = dataIn[:, [6,5,7,8,4]]
+        data_chan_selected = dataIn[:, ch_list]
         # data_CAR = data_chan_selected - np.transpose(
         #     np.tile(np.mean(data_chan_selected, 1), (9, 1)))  # common average reference
         data_CAR = data_chan_selected - np.transpose(

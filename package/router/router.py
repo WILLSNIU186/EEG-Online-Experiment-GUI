@@ -20,3 +20,9 @@ class Router:
 
     def get_lsl_offset(self):
         return self.__interactor.get_lsl_offset()
+
+    def get_server_clock(self):
+        return self.__interactor.get_server_clock()
+
+    def set_raw_eeg_file_path(self):
+        self.__interactor.set_raw_eeg_file_path()

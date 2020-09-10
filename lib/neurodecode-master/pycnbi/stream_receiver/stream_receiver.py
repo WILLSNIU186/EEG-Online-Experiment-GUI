@@ -169,6 +169,18 @@ class StreamReceiver:
                         amps.append(si)
                         server_found = True
                         break
+                    elif 'NE-EEG' in amp_name:
+                        logger.info('Found an NE server %s (type %s, amp_serial %s) @ %s.' % (amp_name, si.type(), amp_serial, si.hostname()))
+                        # ch_list = pu.lsl_channel_list(inlet)
+                        ch_list = ['P7', 'P4', 'Cz', 'Pz', 'P3', 'P8', 'O1', 'O2', 'T8', 'F8', 'C4', 'F4', 'Fp2', 'Fz',
+                                   'C3', 'F3', 'Fp1', 'T7', 'F7', 'Oz', 'PO4', 'FC6', 'FC2', 'AF4', 'CP6', 'CP2', 'CP1',
+                                   'CP5', 'FC1', 'FC5', 'AF3', 'PO3']
+                        # self._lsl_tr_channel = find_event_channel(ch_names=ch_list)
+                        channels = len(ch_list)
+                        amps.append(si)
+                        server_found = True
+                        break
+
                     elif find_any:
                         logger.info('Found a streaming server %s (type %s, amp_serial %s) @ %s.' % (amp_name, si.type(), amp_serial, si.hostname()))
                         ch_list = pu.lsl_channel_list(inlet)

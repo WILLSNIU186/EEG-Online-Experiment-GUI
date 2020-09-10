@@ -48,7 +48,7 @@ from . import get_m_jin as abcdef
 import pdb
 from pycnbi.stream_receiver.stream_receiver import StreamReceiver
 from . import view_controller, presenter
-from .layouts import main_layout6, subject_layout
+from .layouts import main_layout7, subject_layout
 from ..router import router
 from ..entity.edata.variables import Variables
 from ..entity.edata.utils import Utils
@@ -58,7 +58,7 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
     def __init__(self, amp_name, amp_serial, state=mp.Value('i', 1), queue=None):
         super(MainView, self).__init__()
         self.router = router.Router()
-        self.ui = main_layout6.MainLayout()
+        self.ui = main_layout7.MainLayout()
         self.ui.setupUi(self)
 
         self.window = QMainWindow()
@@ -89,6 +89,7 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.init_scope_GUI()
         self.init_timer()  # timer for scope refreshing
         self.init_Runtimer()  # timer for record, train and test
+        # pdb.set_trace()
 
     #
     #	Initializes config file
@@ -569,13 +570,13 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
             self.ui.doubleSpinBox_lp.setValue(float(
                 self.scope_settings.get("filtering",
                                         "bandpass_cutoff_frequency").split(' ')[1]))
-            self.ui.doubleSpinBox_lp.setMinimum(0.1)
+            self.ui.doubleSpinBox_lp.setMinimum(0)
             self.ui.doubleSpinBox_lp.setMaximum(self.sr.sample_rate / 2 - 0.1)
-            self.ui.doubleSpinBox_lp.setDecimals(1)
+            # self.ui.doubleSpinBox_lp.setDecimals()
             self.ui.doubleSpinBox_lp.setSingleStep(1)
-            self.ui.doubleSpinBox_hp.setMinimum(0.1)
+            self.ui.doubleSpinBox_hp.setMinimum(0)
             self.ui.doubleSpinBox_hp.setMaximum(self.sr.sample_rate / 2 - 0.1)
-            self.ui.doubleSpinBox_hp.setDecimals(1)
+            # self.ui.doubleSpinBox_hp.setDecimals(1)
             self.ui.doubleSpinBox_hp.setSingleStep(1)
             self.ui.pushButton_bp.click()
 
@@ -669,6 +670,7 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
     def init_Runtimer(self):
 
         self.Runtimer = QtCore.QTimer(self)
+        self.Runtimer.setTimerType(QtCore.Qt.PreciseTimer)
         self.Runtimer.timeout.connect(self.Time)
 
     # QtCore.QTimer.singleShot( 20, self.update_loop )
@@ -727,6 +729,7 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
             if item is not None:
                 self.channel_to_scale_row_index =  item.row()
                 self.channel_to_scale_column_index = item.column()
+                print("RRRRRRRRR", self.channel_to_scale_row_index, self.channel_to_scale_column_index)
 
                 # print('Table Item:', item.row(), item.column())
                 # self.menu = QMenu(self)

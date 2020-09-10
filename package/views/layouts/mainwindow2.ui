@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tab_subjec_information">
      <attribute name="title">
@@ -1028,6 +1028,9 @@
          <height>27</height>
         </rect>
        </property>
+       <property name="decimals">
+        <number>3</number>
+       </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_bandpass">
        <property name="geometry">
@@ -1051,6 +1054,9 @@
          <height>27</height>
         </rect>
        </property>
+       <property name="decimals">
+        <number>3</number>
+       </property>
       </widget>
       <widget class="QDoubleSpinBox" name="doubleSpinBox_lp">
        <property name="geometry">
@@ -1060,6 +1066,9 @@
          <width>69</width>
          <height>27</height>
         </rect>
+       </property>
+       <property name="decimals">
+        <number>3</number>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_car">
@@ -1110,6 +1119,9 @@
          <height>27</height>
         </rect>
        </property>
+       <property name="decimals">
+        <number>3</number>
+       </property>
       </widget>
       <widget class="QDoubleSpinBox" name="doubleSpinBox_lc_lowpass">
        <property name="geometry">
@@ -1119,6 +1131,9 @@
          <width>69</width>
          <height>27</height>
         </rect>
+       </property>
+       <property name="decimals">
+        <number>3</number>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_low_pass">
@@ -1155,6 +1170,9 @@
          <width>69</width>
          <height>27</height>
         </rect>
+       </property>
+       <property name="decimals">
+        <number>3</number>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_highpass">
