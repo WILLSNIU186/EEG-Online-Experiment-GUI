@@ -65,7 +65,7 @@ class HardwareAdditionalMethods:
 
     def write_recorded_data_to_csv(self, data):
         # eeg_file = "%s/raw_eeg.csv" % (Variables.get_sub_folder_path())
-        pdb.set_trace()
+        # pdb.set_trace()
         # eeg_file = Variables.get_raw_eeg_file_path()
         eeg_file = self.eeg_file_path
         logger.info(eeg_file)
@@ -78,7 +78,7 @@ class HardwareAdditionalMethods:
     def write_timestamps_to_csv(self):
         eeg_timestamp_file = Variables.get_raw_eeg_timestamp_file_path()
         logger.info(eeg_timestamp_file)
-        pdb.set_trace()
+        # pdb.set_trace()
         time_stamps = np.c_[self.lsl_time_list, self.server_time_list, self.offset_time_list]
         with open(eeg_timestamp_file, 'w') as f:
             np.savetxt(eeg_timestamp_file, time_stamps, delimiter=',', fmt='%.5f', header = '')

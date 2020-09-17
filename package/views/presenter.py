@@ -29,69 +29,110 @@ class Presenter:
                 self.event_timestamp_list.append(
                     [self.event_table_dictionary['Idle'], self.router.get_server_clock()])
 
+            self.SV_window.label_current_trial.setText(str(self.task_counter +1))
+            self.SV_window.label_total_trial.setText(str(self.new_task_table.shape[0]))
+
             print("\nTASK COUNTER: ", self.task_counter)
             if self.task_counter > 0:
-                self.update_MRCP_plot()
+                # self.update_MRCP_plot()
                 # update interval time
                 if self.ui.checkBox_randomize_interval_time.isChecked():
                     self.idle_time = randint(0,6)
-                    self.focus_time = self.idle_time + randint(0,2)
-                    self.prepare_time = self.focus_time + randint(0,1)
-                    self.two_time = self.prepare_time + randint(0,1)
+                    self.focus_time = self.idle_time + int(self.ui.focusTimeLineEdit.text())
+                    self.prepare_time = self.focus_time + int(self.ui.prepareTimeLineEdit.text())
+                    self.two_time = self.prepare_time + int(self.ui.twoTimeLineEdit.text())
                     self.one_time = self.two_time + int(self.ui.oneTimeLineEdit.text())
                     self.task_time = self.one_time + int(self.ui.taskTimeLineEdit.text())
                     self.relax_time = self.task_time + 2
                     self.cycle_time = self.relax_time
 
             self.update_SV_task()
-            self.task_counter += 1
+            # self.task_counter += 1
+
+
             # Idle
-            self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/idle.png" % os.getcwd()))
+            # self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/idle.png" % os.getcwd()))
+            self.SV_window.label.setStyleSheet("color: green;")
+            self.SV_window.label.setText("IDLE")
+
         elif self.SV_time % self.cycle_time == self.idle_time:
             print("focus")
             logger.info('\nfocus server clock: %s' % self.router.get_server_clock())
             self.event_timestamp_list.append(
                 [self.event_table_dictionary['Focus'], self.router.get_server_clock()])
             # Focus
-            self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/focus.png" % os.getcwd()))
+            # self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/focus.png" % os.getcwd()))
+            self.SV_window.label.setStyleSheet("color: blue;")
+            self.SV_window.label.setText("FOCUS")
         elif self.SV_time % self.cycle_time == self.focus_time:
             print("prepare")
             logger.info('\nprepare server clock: %s' % self.router.get_server_clock())
             self.event_timestamp_list.append(
                 [self.event_table_dictionary['Prepare'], self.router.get_server_clock()])
             # Prepare
-            self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/prepare.png" % os.getcwd()))
+            # self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/prepare.png" % os.getcwd()))
+            self.SV_window.label.setStyleSheet("color: black;")
+            self.SV_window.label.setText("PREPARE")
         elif self.SV_time % self.cycle_time == self.prepare_time:
             print("two")
             # Two
             logger.info('\ntwo server clock: %s' % self.router.get_server_clock())
             self.event_timestamp_list.append(
                 [self.event_table_dictionary['Two'], self.router.get_server_clock()])
-            self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/two.png" % os.getcwd()))
+            # self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/two.png" % os.getcwd()))
+            self.SV_window.label.setText("TWO")
         elif self.SV_time % self.cycle_time == self.two_time:
             print("one")
             # One
             logger.info('\none server clock: %s' % self.router.get_server_clock())
             self.event_timestamp_list.append(
                 [self.event_table_dictionary['One'], self.router.get_server_clock()])
-            self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/one.png" % os.getcwd()))
+            # self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/one.png" % os.getcwd()))
+            self.SV_window.label.setText("ONE")
         elif self.SV_time % self.cycle_time == self.one_time:
             print("task")
             # Task
             logger.info('\ntask server clock: %s' % self.router.get_server_clock())
+            # self.event_timestamp_list.append(
+            #     [self.event_table_dictionary[self.new_task_table[self.task_counter - 1][0]],
+            #      self.router.get_server_clock()])
             self.event_timestamp_list.append(
-                [self.event_table_dictionary[self.new_task_table[self.task_counter - 1][0]],
+                [self.event_table_dictionary[self.new_task_table[self.task_counter ][0]],
                  self.router.get_server_clock()])
-            self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/task.png" % os.getcwd()))
+            # self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/task.png" % os.getcwd()))
+            self.SV_window.label.setStyleSheet("color: red;")
+            self.SV_window.label.setText("TASK")
         elif self.SV_time % self.cycle_time == self.task_time:
             print("relax")
             # relax
-            self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/idle.png" % os.getcwd()))
+            # self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/idle.png" % os.getcwd()))
+            self.SV_window.label.setStyleSheet("color: green;")
+            self.SV_window.label.setText("IDLE")
             self.SV_time = -2
+
+
+
+        elif self.SV_time % self.cycle_time == self.task_time +1:
+            self.update_MRCP_plot()
+            # add task counter and check for break
+            self.task_counter += 1
+            self.break_trial_number = int(self.ui.lineEdit_break_trial_number.text())
+            if self.task_counter % self.break_trial_number == 0 and self.task_counter != 0:
+                self.window.hide()
+                self.is_experiment_on = False
 
         self.SV_time += 1
 
     def update_SV_task(self):
+        # # Update SV UI according to task list
+        # if self.task_counter < self.new_task_table.shape[0]:
+        #     self.SV_window.label_task_content.setText(self.new_task_table[self.task_counter][1])
+        #     self.SV_window.label_instruction_image.setPixmap(QtGui.QPixmap(self.new_task_table[self.task_counter][2]))
+        #     self.play_task_sound(self.new_task_table[self.task_counter][3])
+        # else:
+        #     self.stop_SV()
+
+
         # Update SV UI according to task list
         if self.task_counter < self.new_task_table.shape[0]:
             self.SV_window.label_task_content.setText(self.new_task_table[self.task_counter][1])
@@ -115,6 +156,8 @@ class Presenter:
     def Time(self):
         if self.is_experiment_on:
             self.Update_SV_image()
+
+
         Variables.add_one_run_time_counter()
         time_show = Variables.get_run_time_counter()
         self.ui.lcdNumber_timer.display(time_show)
@@ -535,38 +578,6 @@ class Presenter:
             logger.exception()
             pdb.set_trace()
 
-    def read_eeg_cnbiloop(self):
-        # Reading in python is blocking, so it will wait until having the amount of data needed
-        # Read timestamp. 1 value, type double
-        timestamp = struct.unpack("<d", self.fin.read(8 * 1))
-        # Read index. 1 value, type uint64
-        index = struct.unpack("<Q", self.fin.read(8 * 1))
-        # Read labels. self.config.labels, type double
-        labels = struct.unpack("<" + str(self.config['labels']) + "I",
-                               self.fin.read(4 * self.config['labels']))
-        # Read eeg. self.config.samples*self.config.eeg_ch, type float
-        beeg = struct.unpack("<" + str(
-            self.config['samples'] * self.config['eeg_channels']) + "f",
-                             self.fin.read(
-                                 4 * self.config['samples'] * self.config['eeg_channels']))
-        self.eeg = np.reshape(list(beeg),
-                              (self.config['samples'], self.config['eeg_channels']))
-        # Read exg. self.config.samples*self.config.exg_ch, type float
-        bexg = struct.unpack("<" + str(
-            self.config['samples'] * self.config['exg_channels']) + "f",
-                             self.fin.read(
-                                 4 * self.config['samples'] * self.config['exg_channels']))
-        self.exg = np.reshape(list(bexg),
-                              (self.config['samples'], self.config['exg_channels']))
-        # Read tri. self.config.samples*self.config.tri_ch, type float
-        self.tri = struct.unpack("<" + str(
-            self.config['samples'] * self.config['tri_channels']) + "i",
-                                 self.fin.read(
-                                     4 * self.config['samples'] * self.config['tri_channels']))
-
-        #
-        #	Bandpas + CAR filtering
-        #
 
     def filter_signal(self):
 
@@ -615,7 +626,7 @@ class Presenter:
         self.template_buffer[-len(self.ts_list):, :] = np.transpose(high_pass_data_out)
 
     def read_template_buffer(self):
-        pre_data_in = np.copy(self.template_buffer[- 6 * int(self.sr.sample_rate):, :])
+        pre_data_in = np.copy(self.template_buffer[- 5 * int(self.sr.sample_rate):, :])
         pre_data_in = np.copy(pre_data_in)
         print('pre data in shape: ', pre_data_in.shape)
         return pre_data_in
@@ -678,7 +689,7 @@ class Presenter:
         self.MRCP_window_size = MRCP_window_size
 
     def update_MRCP_plot(self):
-        self.set_MRCP_window_size(6)
+        self.set_MRCP_window_size(5)
         self.raw_trial_MRCP = self.read_template_buffer()
         ch_list = self.channel_labels.tolist()
         lap_ch_list = [ch_list.index('Cz'), ch_list.index('C3'), ch_list.index('C4'),ch_list.index('Fz'), ch_list.index('Pz')]

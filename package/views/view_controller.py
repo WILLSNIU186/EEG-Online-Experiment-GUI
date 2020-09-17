@@ -115,8 +115,8 @@ class ViewController:
             self.ui.tableWidget_task_event_number.setRowCount(0)
             self.ui.graphicsView.clear()
 
-    def onClicked_button_stop_SV(self):
-        self.stop_SV()
+    # def onClicked_button_stop_SV(self):
+    #     self.stop_SV()
 
     def onClicked_button_start_SV(self):
         self.ui.statusBar.showMessage("Tasks started")
@@ -243,6 +243,14 @@ class ViewController:
         self.ui.tableWidget_task_event_number.setRowCount(len(self.event_list))
         for i in range(len(self.event_list)):
             self.ui.tableWidget_task_event_number.setItem(i, 0, QTableWidgetItem(self.event_list[i]))
+        self.idle_time = int(self.ui.idleTimeLineEdit.text())
+        self.focus_time = self.idle_time + int(self.ui.focusTimeLineEdit.text())
+        self.prepare_time = self.focus_time + int(self.ui.prepareTimeLineEdit.text())
+        self.two_time = self.prepare_time + int(self.ui.twoTimeLineEdit.text())
+        self.one_time = self.two_time + int(self.ui.oneTimeLineEdit.text())
+        self.task_time = self.one_time + int(self.ui.taskTimeLineEdit.text())
+        self.relax_time = self.task_time + 2
+        self.cycle_time = self.relax_time
 
     def onClicked_button_save_protocol(self):
         _, self.protocol = self.get_task_name_table_content()

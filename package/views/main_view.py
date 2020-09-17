@@ -48,7 +48,7 @@ from . import get_m_jin as abcdef
 import pdb
 from pycnbi.stream_receiver.stream_receiver import StreamReceiver
 from . import view_controller, presenter
-from .layouts import main_layout7, subject_layout
+from .layouts import main_layout8, subject_layout1
 from ..router import router
 from ..entity.edata.variables import Variables
 from ..entity.edata.utils import Utils
@@ -58,11 +58,11 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
     def __init__(self, amp_name, amp_serial, state=mp.Value('i', 1), queue=None):
         super(MainView, self).__init__()
         self.router = router.Router()
-        self.ui = main_layout7.MainLayout()
+        self.ui = main_layout8.MainLayout()
         self.ui.setupUi(self)
 
         self.window = QMainWindow()
-        self.SV_window = subject_layout.SubjectLayout()
+        self.SV_window = subject_layout1.SubjectLayout()
         self.SV_window.setupUi(self.window)
 
         # redirect_stdout_to_queue(logger, queue, 'INFO')
@@ -299,8 +299,10 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
 
         self.b_lp, self.a_lp = Utils.butter_lowpass(3, int(self.sr.sample_rate), 2)
         self.b_hp, self.a_hp = Utils.butter_highpass(0.05, int(self.sr.sample_rate), 2)
-        self.initial_condition_list_lp = Utils.construct_initial_condition_list(self.b_lp, self.a_lp, self.config['eeg_channels'])
-        self.initial_condition_list_hp = Utils.construct_initial_condition_list(self.b_hp, self.a_hp, self.config['eeg_channels'])
+        self.initial_condition_list_lp = Utils.construct_initial_condition_list(self.b_lp, self.a_lp,
+                                                                                self.config['eeg_channels'])
+        self.initial_condition_list_hp = Utils.construct_initial_condition_list(self.b_hp, self.a_hp,
+                                                                                self.config['eeg_channels'])
 
         self.screen_width = 522
         self.screen_height = 160
@@ -310,7 +312,6 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.setFocusPolicy(QtCore.Qt.ClickFocus)
         self.setFocus()
         self.show()
-
 
     def init_panel_GUI_stop_recording(self):
         # Tabs
@@ -409,8 +410,10 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
 
         self.b_lp, self.a_lp = Utils.butter_lowpass(3, int(self.sr.sample_rate), 2)
         self.b_hp, self.a_hp = Utils.butter_highpass(0.05, int(self.sr.sample_rate), 2)
-        self.initial_condition_list_lp = Utils.construct_initial_condition_list(self.b_lp, self.a_lp, self.config['eeg_channels'])
-        self.initial_condition_list_hp = Utils.construct_initial_condition_list(self.b_hp, self.a_hp, self.config['eeg_channels'])
+        self.initial_condition_list_lp = Utils.construct_initial_condition_list(self.b_lp, self.a_lp,
+                                                                                self.config['eeg_channels'])
+        self.initial_condition_list_hp = Utils.construct_initial_condition_list(self.b_hp, self.a_hp,
+                                                                                self.config['eeg_channels'])
 
         self.screen_width = 522
         self.screen_height = 160
@@ -420,7 +423,6 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.setFocusPolicy(QtCore.Qt.ClickFocus)
         self.setFocus()
         self.show()
-
 
     def init_SV_GUI(self):
         self.SVStatus = 0
@@ -497,7 +499,19 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
                 idx += 1
 
         # Plot initialization
+        # Plotting colors. If channels > 16, colors will roll back to the beginning
+        self.colors = np.array(
+            [[255, 0, 0], [0, 255, 0], [0, 0, 255], [255, 255, 0],
+             [0, 255, 255], [255, 0, 255], [128, 100, 100], [0, 128, 0],
+             [0, 128, 128], [128, 128, 0], [255, 128, 128], [128, 0, 128],
+             [128, 255, 0], [255, 128, 0], [0, 255, 128], [128, 0, 255]])
+
+
+        # pen = pg.mkColor(self.colors)
+        # self.main_plot_handler.getAxis('left').setTextPen('b')
+
         self.main_plot_handler.getAxis('left').setTicks(values_axis)
+
         self.main_plot_handler.setRange(xRange=[0, self.seconds_to_show],
                                         yRange=[+1.5 * self.scale,
                                                 -0.5 * self.scale - self.scale * self.config['eeg_channels']])
@@ -511,13 +525,6 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.x_ticks = np.zeros(self.config['sf'] * self.seconds_to_show);
         for x in range(0, self.config['sf'] * self.seconds_to_show):
             self.x_ticks[x] = (x * 1) / float(self.config['sf'])
-
-        # Plotting colors. If channels > 16, colors will roll back to the beginning
-        self.colors = np.array(
-            [[255, 0, 0], [0, 255, 0], [0, 0, 255], [255, 255, 0],
-             [0, 255, 255], [255, 0, 255], [128, 100, 100], [0, 128, 0],
-             [0, 128, 128], [128, 128, 0], [255, 128, 128], [128, 0, 128],
-             [128, 255, 0], [255, 128, 0], [0, 255, 128], [128, 0, 255]])
 
         # We want a lightweight scope, so we downsample the plotting to 64 Hz
         self.subsampling_value = self.config['sf'] / 64
@@ -721,18 +728,18 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
     # 			EVENT HANDLERS
     # ----------------------------------------------------------------------------------------------------
     def eventFilter(self, source, event):
-        if(event.type() == QtCore.QEvent.MouseButtonPress and
-           event.buttons() == QtCore.Qt.RightButton and
-           source is self.ui.table_channels.viewport()):
+        if (event.type() == QtCore.QEvent.MouseButtonPress and
+                event.buttons() == QtCore.Qt.RightButton and
+                source is self.ui.table_channels.viewport()):
             item = self.ui.table_channels.itemAt(event.pos())
             # print('Global Pos:', event.globalPos())
             if item is not None:
-                self.channel_to_scale_row_index =  item.row()
+                self.channel_to_scale_row_index = item.row()
                 self.channel_to_scale_column_index = item.column()
                 print("RRRRRRRRR", self.channel_to_scale_row_index, self.channel_to_scale_column_index)
 
                 # print('Table Item:', item.row(), item.column())
                 # self.menu = QMenu(self)
                 # self.menu.addAction(item.text())         #(QAction('test'))
-                #menu.exec_(event.globalPos())
+                # menu.exec_(event.globalPos())
         return super(MainView, self).eventFilter(source, event)

@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab_subjec_information">
      <attribute name="title">
@@ -784,6 +784,45 @@
         <bool>true</bool>
        </attribute>
       </widget>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>660</x>
+        <y>520</y>
+        <width>81</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Break on every</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_break_trial_number">
+      <property name="geometry">
+       <rect>
+        <x>740</x>
+        <y>520</y>
+        <width>31</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>30</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>780</x>
+        <y>520</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>trials</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_event_and_file_management">
