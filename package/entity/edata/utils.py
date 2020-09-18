@@ -167,6 +167,13 @@ class Utils:
         return file
 
     @staticmethod
+    def write_event_number_to_csv(dict):
+        file = "{}/event_annotation.csv".format(Variables.get_base_folder_path())
+        print(file)
+        pd.DataFrame.from_dict(data=dict, orient='index').to_csv(file, header=False)
+
+
+    @staticmethod
     def save_protocol_to_csv(data, file):
         Variables.set_protocol_path(file)
         with open(file, 'w') as f:

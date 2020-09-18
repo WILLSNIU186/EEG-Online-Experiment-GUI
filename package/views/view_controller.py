@@ -11,6 +11,7 @@ import pdb
 from ..entity.edata.variables import Variables
 import time
 import datetime
+import pandas as pd
 from ..router import router
 
 DEBUG_TRIGGER = False  # TODO: parameterize
@@ -158,7 +159,8 @@ class ViewController:
         self.additional_comment = self.ui.plainTextEdit_additional_comments.toPlainText()
         self.ui.tab_subjec_information.setEnabled(False)
 
-        path = "records\{}".format(self.first_name + "_" + self.last_name + datetime.datetime.today().strftime('%Y-%m-%d'))
+        base_path = self.choose_base_folder()
+        path = r"{}\{}".format(base_path, self.first_name + "_" + self.last_name + datetime.datetime.today().strftime('%Y-%m-%d'))
         Variables.set_base_folder_path(path)
         try:
             os.makedirs(Variables.get_base_folder_path())
@@ -261,7 +263,8 @@ class ViewController:
     # Event Management buttons
 
     def onClicked_button_save_event_number(self):
-        self.get_event_number_table_content()
+        event_dict = self.get_event_number_table_content()
+        Utils.write_event_number_to_csv(event_dict)
 
     # Oscilloscope buttons
     def onActivated_checkbox_bandpass(self):

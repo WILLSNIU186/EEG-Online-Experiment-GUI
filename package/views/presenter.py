@@ -208,7 +208,8 @@ class Presenter:
     def openFileNameDialog_image(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()", "",
+        fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()",
+                                                  r"C:\uw_ebionics_mrcp_online_interface_python\package\views\icon",
                                                   "Image files (*.jpg *.png)", options=options)
         if fileName:
             print(fileName)
@@ -220,7 +221,8 @@ class Presenter:
     def openFileNameDialog_sound(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()", "",
+        fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()",
+                                                  r"C:\uw_ebionics_mrcp_online_interface_python\package\views\sounds",
                                                   "Audio files (*.mp3 *.wav)", options=options)
         if fileName:
             print(fileName)
@@ -232,7 +234,8 @@ class Presenter:
     def openFileNameDialog_protocol(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()", "",
+        fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()",
+                                                  r"C:\uw_ebionics_mrcp_online_interface_python\experimental_protocols",
                                                   "csv files (*.csv *.txt)", options=options)
         if fileName:
             self.protocol_path = fileName
@@ -261,11 +264,18 @@ class Presenter:
     def saveFileNameDialog_protocol(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getSaveFileName(self, "QFileDialog.getSaveFileName()", "",
+        fileName, _ = QFileDialog.getSaveFileName(self, "QFileDialog.getSaveFileName()",
+                                                  r"C:\uw_ebionics_mrcp_online_interface_python\experimental_protocols",
                                                   "csv files (*.csv)", options=options)
         if fileName:
             print(fileName)
             Utils.save_protocol_to_csv(self.protocol, fileName)
+
+    def choose_base_folder(self):
+        dir_name = QFileDialog.getExistingDirectory(self, "", r"D:\OneDrive - University of Waterloo\Jiansheng\MRCP_folder\MRCP_online_interface\records", QFileDialog.ShowDirsOnly)
+        if dir_name:
+            print(dir_name)
+        return dir_name
 
     def play_task_sound(self, sound_path):
         logger.info("Played")
@@ -304,6 +314,7 @@ class Presenter:
             self.event_name_list.append(self.ui.tableWidget_task_event_number.item(i, 0).text())
             self.event_number_list.append(int(self.ui.tableWidget_task_event_number.item(i, 1).text()))
         self.event_table_dictionary = dict(zip(self.event_name_list, self.event_number_list))
+        return self.event_table_dictionary
         # print("TTTTTTTTTTTTTTTTTTTTTTTTTTTT\n", self.event_table_dictionary)
 
     def init_task_event_number_table(self):
