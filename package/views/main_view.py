@@ -44,7 +44,7 @@ from builtins import input
 from pycnbi import logger
 from random import randrange
 from . import get_m_jin as abcdef
-
+from twisted.internet import task, reactor
 import pdb
 from pycnbi.stream_receiver.stream_receiver import StreamReceiver
 from . import view_controller, presenter
@@ -52,6 +52,7 @@ from .layouts import main_layout8, subject_layout1
 from ..router import router
 from ..entity.edata.variables import Variables
 from ..entity.edata.utils import Utils
+from timeloop import Timeloop
 
 
 class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter):
@@ -667,18 +668,23 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
     # 	Initializes the QT timer, which will call the update function every 20 ms
     #
     def init_timer(self):
-
+        self.os_time_list1 = []
         QtCore.QCoreApplication.processEvents()
         QtCore.QCoreApplication.flush()
         self.timer = QtCore.QTimer(self)
+        self.timer.setTimerType(QtCore.Qt.PreciseTimer)
         self.timer.timeout.connect(self.update_loop)
         self.timer.start(20)
 
     def init_Runtimer(self):
+        self.time_show = 0
+        self.os_time_list = []
+        # self.Runtimer = QtCore.QTimer(self)
+        # self.Runtimer.setTimerType(QtCore.Qt.PreciseTimer)
+        # self.Runtimer.timeout.connect(self.Time)
+        self.Runtimer = task.LoopingCall(self.Time)
 
-        self.Runtimer = QtCore.QTimer(self)
-        self.Runtimer.setTimerType(QtCore.Qt.PreciseTimer)
-        self.Runtimer.timeout.connect(self.Time)
+
 
     # QtCore.QTimer.singleShot( 20, self.update_loop )
 

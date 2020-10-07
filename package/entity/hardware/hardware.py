@@ -37,6 +37,7 @@ class Hardware(_hardware.HardwareAdditionalMethods):
                                              amp_serial=Variables.get_amp_serial(), amp_name=Variables.get_amp_name())
         self.thread = threading.Thread(target=self.record)
         self.thread.start()
+        # self.record()
 
 
     def stop_recording_data(self):

@@ -12,6 +12,8 @@ from ..entity.edata.utils import Utils
 import os
 from scipy.signal import butter, lfilter, lfiltic, buttord
 import math
+import time
+from twisted.internet import task, reactor
 
 DEBUG_TRIGGER = False  # TODO: parameterize
 NUM_X_CHANNELS = 16  # TODO: parameterize
@@ -118,8 +120,12 @@ class Presenter:
             self.task_counter += 1
             self.break_trial_number = int(self.ui.lineEdit_break_trial_number.text())
             if self.task_counter % self.break_trial_number == 0 and self.task_counter != 0:
-                self.window.hide()
+                # self.window.hide()
                 self.is_experiment_on = False
+                if self.task_counter >= self.new_task_table.shape[0]:
+                    print("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR")
+                    self.stop_SV()
+
 
         self.SV_time += 1
 
@@ -142,32 +148,37 @@ class Presenter:
             self.stop_SV()
 
     def stop_SV(self):
-        self.ui.statusBar.showMessage("Tasks finished")
+        print("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT")
         self.is_experiment_on = False
+        # self.window.hide()
+        self.ui.statusBar.showMessage("Tasks finished")
+
         self.ui.label_content_available_temp.setText(
             "{} - {}".format(self.temp_counter_list[0], self.temp_counter_list[-1]))
         self.ui.label_content_Disp_temp.setText(
             "{} - {}".format(self.temp_counter_list[0], self.temp_counter_list[-1]))
         self.ui.label_content_current_temp.setText(" ")
         self.event_file_path = Utils.write_data_to_csv(self.event_timestamp_list, 'event.csv')
+        print(self.event_file_path)
         # self.save_event_file_to_csv()
-        self.window.hide()
+
 
     def Time(self):
+        os_time = time.time()
+        self.os_time_list.append(os_time)
         if self.is_experiment_on:
             self.Update_SV_image()
+        # Variables.add_one_run_time_counter()
+        # time_show = Variables.get_run_time_counter()
+        self.time_show += 1
+        self.ui.lcdNumber_timer.display(self.time_show)
 
-
-        Variables.add_one_run_time_counter()
-        time_show = Variables.get_run_time_counter()
-        self.ui.lcdNumber_timer.display(time_show)
-
-    def Reset(self):
-
-        self.Runtimer.stop()
-        Variables.set_run_time_counter(0)
-        time = Variables.get_run_time_counter()
-        self.ui.lcdNumber_timer.display(time)
+    # def Reset(self):
+    #
+    #     self.Runtimer.stop()
+    #     Variables.set_run_time_counter(0)
+    #     time = Variables.get_run_time_counter()
+    #     self.ui.lcdNumber_timer.display(time)
 
         #
         #	Called by repaint()
@@ -506,6 +517,8 @@ class Presenter:
             # ', BP: ' + self.bool_parser[self.apply_bandpass] + (' [' + str(self.doubleSpinBox_hp.value()) + '-' + str(self.doubleSpinBox_lp.value()) + '] Hz' if self.apply_bandpass else ''))
 
     def update_loop(self):
+        os_time = time.time()
+        self.os_time_list1.append(os_time)
         #  Sharing variable to stop at the GUI level
         if not self.state.value:
             logger.info('Viewer stopped')

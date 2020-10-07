@@ -11,6 +11,9 @@ import pdb
 from ..entity.edata.variables import Variables
 import time
 import datetime
+from timeloop import Timeloop
+from twisted.internet import task, reactor
+from threading import Thread
 import pandas as pd
 from ..router import router
 
@@ -81,11 +84,14 @@ class ViewController:
             self.update_table_file_path()
 
             self.router.start_recording()
-            Variables.set_run_time_counter(0)
-            time_show = Variables.get_run_time_counter()
-            self.ui.lcdNumber_timer.display(time_show)
+            # Variables.set_run_time_counter(0)
+            # time_show = Variables.get_run_time_counter()
+            self.time_show = 0
+            self.ui.lcdNumber_timer.display(self.time_show)
 
-            self.Runtimer.start(1000)
+            self.Runtimer.start(1)
+            self.t = Thread(target=reactor.run, args=(False,))
+            self.t.start()
 
             timestamp = time.strftime('%Y%m%d-%H%M%S', time.localtime())
             print("\nlocal time stamp: ", timestamp)
@@ -94,8 +100,14 @@ class ViewController:
             self.ui.statusBar.showMessage("Recording stopped")
             logger.info("stop rec clicked")
             print("get raw eeg file path", Variables.get_raw_eeg_file_path())
+            #
+            # self.t.join()
+            reactor.stop()
             self.Runtimer.stop()
+
             self.router.stop_recording()
+            Utils.write_data_to_csv(self.os_time_list, "os_time_list.csv")
+            Utils.write_data_to_csv(self.os_time_list1, "os_time_list1.csv")
             if self.total_trials_raw_MRCP != [] and self.total_trials_MRCP != []:
                 no_trials = len(self.total_trials_raw_MRCP)
                 no_channels = 9
