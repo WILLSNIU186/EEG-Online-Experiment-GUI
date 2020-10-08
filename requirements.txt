@@ -63,7 +63,7 @@ prometheus-client==0.8.0
 prompt-toolkit==3.0.3
 psutil==5.7.0
 ptyprocess==0.6.0
--e git+https://github.com/WILLSNIU186/uw_eboinics_experimental_interface.git@283ef3fd1c49c8b49b943162bc708c606689fb8c#egg=pycnbi&subdirectory=lib\neurodecode-master
+-e git+https://github.com/WILLSNIU186/uw_eboinics_experimental_interface.git@53a144625f6bb4d0643402ba965cf2472e2156e8#egg=pycnbi&subdirectory=lib\neurodecode-master
 pycparser==2.20
 pygments==2.5.2
 pylsl==1.13.1
