@@ -1,14 +1,5 @@
 # MRCP Online Interface (python)
 
-Developed in University of Waterloo, Canada.
-<br>
-Contact Persons
-<br>
-Ning Jiang: n34jiang@uwaterloo.ca
-<br>
-Jiansheng Niu: j26niu@uwaterloo.ca
-
-## Usage
 This application is designed to communicate with most lab-streaming-layer(LSL) supported hardware
 and to provide an experimental protocol equipped GUI for real-time data collection.
 <br>
@@ -36,6 +27,12 @@ pip install -r requirements.txt
 ```buildoutcfg
 python main.py
 ```
+## Contribution
+Developed in University of Waterloo, Canada.
+<br>
+Contact Persons
+<br>
+Jiansheng Niu: j26niu@uwaterloo.ca
 
 ## Citation
 [1] https://github.com/dbdq/neurodecode.git
