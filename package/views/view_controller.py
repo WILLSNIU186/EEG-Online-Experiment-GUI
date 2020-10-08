@@ -68,7 +68,6 @@ class ViewController:
             except OSError:
                 print("Creation of the directory %s failed" % Variables.get_sub_folder_path())
 
-
             eeg_file = "%s\\raw_eeg.csv" % (Variables.get_sub_folder_path())
             Variables.set_raw_eeg_file_path(eeg_file)
             eeg_timestamp_file = "%s/raw_eeg_timestamp.csv" % (Variables.get_sub_folder_path())
@@ -108,6 +107,8 @@ class ViewController:
             self.router.stop_recording()
             Utils.write_data_to_csv(self.os_time_list, "os_time_list.csv")
             Utils.write_data_to_csv(self.os_time_list1, "os_time_list1.csv")
+            Utils.write_dict_to_csv(self.create_channel_dict(), "channels.csv")
+            Utils.write_dict_to_csv(self.bad_epoch_dict, "bad_epochs.csv")
             if self.total_trials_raw_MRCP != [] and self.total_trials_MRCP != []:
                 no_trials = len(self.total_trials_raw_MRCP)
                 no_channels = 9
@@ -130,6 +131,10 @@ class ViewController:
 
     # def onClicked_button_stop_SV(self):
     #     self.stop_SV()
+    def create_channel_dict(self):
+        keys = list(range(len(self.channel_labels.tolist())))
+        channel_dict = dict(zip(keys, self.channel_labels.tolist()))
+        return channel_dict
 
     def onClicked_button_start_SV(self):
         self.ui.statusBar.showMessage("Tasks started")
@@ -172,7 +177,8 @@ class ViewController:
         self.ui.tab_subjec_information.setEnabled(False)
 
         base_path = self.choose_base_folder()
-        path = r"{}\{}".format(base_path, self.first_name + "_" + self.last_name + datetime.datetime.today().strftime('%Y-%m-%d'))
+        path = r"{}\{}".format(base_path,
+                               self.first_name + "_" + self.last_name + datetime.datetime.today().strftime('%Y-%m-%d'))
         Variables.set_base_folder_path(path)
         try:
             os.makedirs(Variables.get_base_folder_path())
@@ -244,16 +250,14 @@ class ViewController:
             self.ui.tableWidget_tasks.setItem(i, 2, QTableWidgetItem(self.new_task_table[i][2]))
             self.ui.tableWidget_tasks.setItem(i, 3, QTableWidgetItem(self.new_task_table[i][3]))
 
-
-
     def onClicked_toolButton_load_protocol(self):
         self.openFileNameDialog_protocol()
 
-
     def onClicked_experimental_protocol_finish(self):
         self.ui.tab_experimental_protocol.setEnabled(False)
-        unique_task_list = np.unique(self.task_list)
-        self.event_list = unique_task_list.tolist() + ['Idle', 'Focus', 'Prepare', 'Two', 'One', 'Task']
+        self.new_task_list = self.new_task_table[:,0].tolist()
+        self.unique_task_list = np.unique(self.new_task_list)
+        self.event_list = self.unique_task_list.tolist() + ['Idle', 'Focus', 'Prepare', 'Two', 'One', 'Task']
         self.ui.tableWidget_task_event_number.setRowCount(len(self.event_list))
         for i in range(len(self.event_list)):
             self.ui.tableWidget_task_event_number.setItem(i, 0, QTableWidgetItem(self.event_list[i]))
@@ -265,6 +269,16 @@ class ViewController:
         self.task_time = self.one_time + int(self.ui.taskTimeLineEdit.text())
         self.relax_time = self.task_time + 2
         self.cycle_time = self.relax_time
+        # write to class epoch counter table
+        self.ui.tableWidget_class_epoch_counter.setRowCount(len(self.unique_task_list))
+        for i in range(len(self.unique_task_list)):
+            self.ui.tableWidget_class_epoch_counter.setItem(i, 0, QTableWidgetItem(self.unique_task_list[i]))
+        # write to bad epoch table
+        self.ui.tableWidget_bad_epoch.setRowCount(len(self.unique_task_list))
+        for i in range(len(self.unique_task_list)):
+            self.ui.tableWidget_bad_epoch.setItem(i, 0, QTableWidgetItem(self.unique_task_list[i]))
+        # create bad epoch dict
+        self.bad_epoch_dict = {k: [] for k in self.unique_task_list}
 
     def onClicked_button_save_protocol(self):
         _, self.protocol = self.get_task_name_table_content()
@@ -306,66 +320,74 @@ class ViewController:
         self.apply_car = self.ui.checkBox_car.isChecked()
         self.update_title_scope()
 
-
     def onValueChanged_spinbox_time(self):
         self.update_plot_seconds(self.ui.spinBox_time.value())
 
     def onActivated_combobox_scale(self):
-        if self.ui.checkBox_single_channel_scale.isChecked():
-            self.single_channel_scale = self.single_scales_range[self.ui.comboBox_scale.currentIndex()]
-
-        else:
-            # self.single_channel_scale = 0
-            self.update_plot_scale(self.scales_range[self.ui.comboBox_scale.currentIndex()])
+        self.update_plot_scale(self.scales_range[self.ui.comboBox_scale.currentIndex()])
 
     def onClicked_button_bp(self):
-        if (self.ui.doubleSpinBox_lp.value() > self.ui.doubleSpinBox_hp.value()):
-            self.apply_bandpass = True
-            self.b_bandpass_scope, self.a_bandpass_scope, self.zi_bandpass_scope = Utils.butter_bandpass_scope(self.ui.doubleSpinBox_hp.value(),
-                                                            self.ui.doubleSpinBox_lp.value(),
-                                                            self.config['sf'],
-                                                            self.config['eeg_channels'])
-        self.update_title_scope()
+        if self.ui.checkBox_change_filter.isChecked():
+            if (self.ui.doubleSpinBox_lp.value() > self.ui.doubleSpinBox_hp.value()):
+                self.apply_bandpass = True
+                self.b_bandpass_scope_refilter, self.a_bandpass_scope_refilter, self.zi_bandpass_scope_refilter = \
+                    Utils.butter_bandpass_scope(
+                    self.ui.doubleSpinBox_hp.value(),
+                    self.ui.doubleSpinBox_lp.value(),
+                    self.config['sf'],
+                    self.config['eeg_channels'])
+        else:
+            if (self.ui.doubleSpinBox_lp.value() > self.ui.doubleSpinBox_hp.value()):
+                self.apply_bandpass = True
+                self.b_bandpass_scope, self.a_bandpass_scope, self.zi_bandpass_scope = Utils.butter_bandpass_scope(
+                    self.ui.doubleSpinBox_hp.value(),
+                    self.ui.doubleSpinBox_lp.value(),
+                    self.config['sf'],
+                    self.config['eeg_channels'])
+            self.update_title_scope()
 
     def onClicked_button_notch(self):
-        if (self.ui.doubleSpinBox_hc_notch.value() > self.ui.doubleSpinBox_lc_notch.value()):
-            self.apply_notch = True
-            self.b_notch_scope, self.a_notch_scope, self.zi_notch_scope = Utils.butter_notch_scope(
-                                                            self.ui.doubleSpinBox_hc_notch.value(),
-                                                            self.ui.doubleSpinBox_lc_notch.value(),
-                                                            self.config['sf'],
-                                                            self.config['eeg_channels'])
+        if self.ui.checkBox_change_filter.isChecked():
+            if (self.ui.doubleSpinBox_hc_notch.value() > self.ui.doubleSpinBox_lc_notch.value()):
+                self.apply_notch = True
+                self.b_notch_scope_refilter, self.a_notch_scope_refilter, self.zi_notch_scope_refilter = \
+                    Utils.butter_notch_scope(
+                    self.ui.doubleSpinBox_hc_notch.value(),
+                    self.ui.doubleSpinBox_lc_notch.value(),
+                    self.config['sf'],
+                    self.config['eeg_channels'])
+        else:
+            if (self.ui.doubleSpinBox_hc_notch.value() > self.ui.doubleSpinBox_lc_notch.value()):
+                self.apply_notch = True
+                self.b_notch_scope, self.a_notch_scope, self.zi_notch_scope = Utils.butter_notch_scope(
+                    self.ui.doubleSpinBox_hc_notch.value(),
+                    self.ui.doubleSpinBox_lc_notch.value(),
+                    self.config['sf'],
+                    self.config['eeg_channels'])
 
-    def onClicked_button_lowpass(self):
-        if (self.ui.doubleSpinBox_lc_lowpass.value() > 0.0):
-            self.apply_lowpass = True
-            self.b_lowpass_scope, self.a_lowpass_scope, self.zi_lowpass_scope = Utils.butter_lowpass_scope(
-                                                            self.ui.doubleSpinBox_lc_lowpass.value(),
-                                                            self.config['sf'],
-                                                            self.config['eeg_channels'])
-
-
-    def onClicked_button_highpass(self):
-        if (self.ui.doubleSpinBox_lc_highpass.value() > 0.0):
-            self.apply_highpass = True
-            self.b_highpass_scope, self.a_highpass_scope, self.zi_highpass_scope = Utils.butter_highpass_scope(
-                                                            self.ui.doubleSpinBox_lc_highpass.value(),
-                                                            self.config['sf'],
-                                                            self.config['eeg_channels'])
 
     def onDoubleClicked_channel_table(self):
         for idx in self.ui.table_channels.selectionModel().selectedIndexes():
             self.selected_channel_row_index = idx.row()
             self.selected_channel_column_index = idx.column()
-
+            print("ch index: {}, {}".format(self.selected_channel_row_index, self.selected_channel_column_index))
 
     def onClicked_button_update_channel_name(self):
-        self.channel_labels[self.selected_channel_row_index] = self.ui.table_channels.item(self.selected_channel_row_index, self.selected_channel_column_index).text()
+        # self.channel_labels[self.selected_channel_column_index * 16 + self.selected_channel_row_index] = \
+        #     self.ui.table_channels.item(self.selected_channel_row_index, self.selected_channel_column_index).text()
+        idx = 0
+        new_channel_labels = []
+        for y in range(0, 4):
+            for x in range(0, NUM_X_CHANNELS):
+                if (idx < self.config['eeg_channels']):
+                    new_channel_labels.append(self.ui.table_channels.item(x, y).text())
+                    idx += 1
+        self.channel_labels = np.asarray(new_channel_labels)
+        print("channel labels: {}".format(self.channel_labels))
 
     def onSelectionChanged_table(self):
 
         # Remove current plot
-        print(self.channels_to_show_idx)
         for x in range(0, len(self.channels_to_show_idx)):
             self.main_plot_handler.removeItem(self.curve_eeg[x])
 
@@ -376,7 +398,6 @@ class ViewController:
         for y in range(0, 4):
             for x in range(0, NUM_X_CHANNELS):
                 if (idx < self.config['eeg_channels']):
-                    # if (self.table_channels.isItemSelected( # Qt4 only
                     if (QTableWidgetItem.isSelected(  # Qt5
                             self.ui.table_channels.item(x, y))):
                         self.channels_to_show_idx.append(idx)
@@ -464,7 +485,7 @@ class ViewController:
         for element in self.input_temp_list:
             del self.total_trials_MRCP[element - 1]
         # self.display_temp_list = [x for x in self.total_MRCP_inds if x not in self.input_temp_list]
-        self.display_temp_list = list(range(1,len(self.total_trials_MRCP)+1))
+        self.display_temp_list = list(range(1, len(self.total_trials_MRCP) + 1))
         self.ui.label_content_Disp_temp.setText("{}".format(self.display_temp_list))
         self.ui.label_content_available_temp.setText("{}".format(self.display_temp_list))
         self.plot_display_temp()
@@ -482,3 +503,10 @@ class ViewController:
         self.ui.graphicsView.clear()
         self.MRCP_plot(self.mean_MRCP)
 
+    def onClicked_button_bad_epoch(self):
+        current_task = self.new_task_list[self.task_counter]
+        row_number = self.unique_task_list.tolist().index(current_task)
+        epoch_number = self.find_epoch_number()
+        self.bad_epoch_dict[current_task].append(epoch_number+1)
+        self.ui.tableWidget_bad_epoch.setItem(row_number, 1, QTableWidgetItem(str(self.bad_epoch_dict[current_task])))
+        # self.ui.tableWidget_class_epoch_counter.viewport().update()

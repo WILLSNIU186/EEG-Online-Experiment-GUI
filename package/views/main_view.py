@@ -48,7 +48,7 @@ from twisted.internet import task, reactor
 import pdb
 from pycnbi.stream_receiver.stream_receiver import StreamReceiver
 from . import view_controller, presenter
-from .layouts import main_layout8, subject_layout1
+from .layouts import main_layout11, subject_layout1
 from ..router import router
 from ..entity.edata.variables import Variables
 from ..entity.edata.utils import Utils
@@ -59,7 +59,11 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
     def __init__(self, amp_name, amp_serial, state=mp.Value('i', 1), queue=None):
         super(MainView, self).__init__()
         self.router = router.Router()
-        self.ui = main_layout8.MainLayout()
+        # os.chdir(r"C:\uw_ebionics_mrcp_online_interface_python\package\views")
+        # print("Current Working Directory ", os.getcwd())
+        self.ui = main_layout11.Ui_MainWindow()
+        # os.chdir(r"C:\uw_ebionics_mrcp_online_interface_python")
+        # print("Current Working Directory ", os.getcwd())
         self.ui.setupUi(self)
 
         self.window = QMainWindow()
@@ -184,13 +188,9 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.ui.checkBox_car.stateChanged.connect(self.onActivated_checkbox_car)
         self.ui.checkBox_bandpass.stateChanged.connect(self.onActivated_checkbox_bandpass)
         self.ui.checkBox_notch.stateChanged.connect(self.onActivated_checkbox_notch)
-        self.ui.checkBox_low_pass.stateChanged.connect(self.onActivated_checkbox_lowpass)
-        self.ui.checkBox_highpass.stateChanged.connect(self.onActivated_checkbox_highpass)
 
         self.ui.pushButton_bp.clicked.connect(self.onClicked_button_bp)
         self.ui.pushButton_apply_notch.clicked.connect(self.onClicked_button_notch)
-        self.ui.pushButton_apply_lowpass.clicked.connect(self.onClicked_button_lowpass)
-        self.ui.pushButton_apply_highpass.clicked.connect(self.onClicked_button_highpass)
 
         self.ui.table_channels.itemSelectionChanged.connect(self.onSelectionChanged_table)
         self.ui.table_channels.doubleClicked.connect(self.onDoubleClicked_channel_table)
@@ -241,17 +241,14 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
 
         # Oscilloscope
         self.ui.comboBox_scale.setCurrentIndex(4)
-        self.ui.checkBox_car.setChecked(
-            int(self.scope_settings.get("filtering", "apply_car_filter")))
-        self.ui.checkBox_bandpass.setChecked(
-            int(self.scope_settings.get("filtering", "apply_bandpass_filter")))
-        self.ui.pushButton_apply_notch.setEnabled(False)
-        self.ui.doubleSpinBox_lc_notch.setEnabled(False)
-        self.ui.doubleSpinBox_hc_notch.setEnabled(False)
-        self.ui.pushButton_apply_lowpass.setEnabled(False)
-        self.ui.doubleSpinBox_lc_lowpass.setEnabled(False)
-        self.ui.pushButton_apply_highpass.setEnabled(False)
-        self.ui.doubleSpinBox_lc_highpass.setEnabled(False)
+        self.ui.checkBox_notch.setChecked(True)
+        # self.ui.checkBox_car.setChecked(
+        #     int(self.scope_settings.get("filtering", "apply_car_filter")))
+        # self.ui.checkBox_bandpass.setChecked(
+        #     int(self.scope_settings.get("filtering", "apply_bandpass_filter")))
+        self.ui.pushButton_apply_notch.setEnabled(True)
+        self.ui.doubleSpinBox_lc_notch.setEnabled(True)
+        self.ui.doubleSpinBox_hc_notch.setEnabled(True)
 
         # initialize channel selection panel in main view GUI
         self.channels_to_show_idx = []
@@ -282,6 +279,8 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.single_channel_scale = 1
 
         # MRCP tab
+        self.init_class_epoch_counter_table()
+        self.init_class_bad_epoch_table()
         self.show_TID_events = False
         self.show_LPT_events = False
         self.show_Key_events = False
@@ -304,7 +303,7 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
                                                                                 self.config['eeg_channels'])
         self.initial_condition_list_hp = Utils.construct_initial_condition_list(self.b_hp, self.a_hp,
                                                                                 self.config['eeg_channels'])
-
+        self.ui.pushButton_bad_epoch.clicked.connect(self.onClicked_button_bad_epoch)
         self.screen_width = 522
         self.screen_height = 160
         # self.setGeometry(100,100, self.screen_width, self.screen_height)
@@ -352,17 +351,15 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
 
         # Oscilloscope
         self.ui.comboBox_scale.setCurrentIndex(4)
-        self.ui.checkBox_car.setChecked(
-            int(self.scope_settings.get("filtering", "apply_car_filter")))
-        self.ui.checkBox_bandpass.setChecked(
-            int(self.scope_settings.get("filtering", "apply_bandpass_filter")))
-        self.ui.pushButton_apply_notch.setEnabled(False)
+        self.ui.checkBox_notch.setChecked(True)
+        # self.ui.checkBox_car.setChecked(
+        #     int(self.scope_settings.get("filtering", "apply_car_filter")))
+        # self.ui.checkBox_bandpass.setChecked(
+        #     int(self.scope_settings.get("filtering", "apply_bandpass_filter")))
+        # self.ui.pushButton_apply_notch.setEnabled(False)
         self.ui.doubleSpinBox_lc_notch.setEnabled(False)
         self.ui.doubleSpinBox_hc_notch.setEnabled(False)
-        self.ui.pushButton_apply_lowpass.setEnabled(False)
-        self.ui.doubleSpinBox_lc_lowpass.setEnabled(False)
-        self.ui.pushButton_apply_highpass.setEnabled(False)
-        self.ui.doubleSpinBox_lc_highpass.setEnabled(False)
+
 
         # # initialize channel selection panel in main view GUI
         # self.channels_to_show_idx = []
@@ -393,6 +390,8 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.single_channel_scale = 1
 
         # MRCP tab
+        self.init_class_epoch_counter_table()
+        self.init_class_bad_epoch_table()
         self.show_TID_events = False
         self.show_LPT_events = False
         self.show_Key_events = False
@@ -415,7 +414,7 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
                                                                                 self.config['eeg_channels'])
         self.initial_condition_list_hp = Utils.construct_initial_condition_list(self.b_hp, self.a_hp,
                                                                                 self.config['eeg_channels'])
-
+        self.ui.pushButton_bad_epoch.clicked.connect(self.onClicked_button_bad_epoch)
         self.screen_width = 522
         self.screen_height = 160
         # self.setGeometry(100,100, self.screen_width, self.screen_height)
@@ -550,8 +549,7 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.events_text = []
 
         # CAR initialization
-        self.apply_car = int(
-            self.scope_settings.get("filtering", "apply_car_filter"))
+        self.apply_car = False
         self.matrix_car = np.zeros(
             (self.config['eeg_channels'], self.config['eeg_channels']),
             dtype=float)
@@ -569,49 +567,40 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.matrix_lap[0, 2] = -0.25
 
         # BP initialization
-        self.apply_bandpass = int(
-            self.scope_settings.get("filtering", "apply_bandpass_filter"))
+        self.apply_bandpass = 1
         if (self.apply_bandpass):
-            self.ui.doubleSpinBox_hp.setValue(float(
-                self.scope_settings.get("filtering",
-                                        "bandpass_cutoff_frequency").split(' ')[0]))
-            self.ui.doubleSpinBox_lp.setValue(float(
-                self.scope_settings.get("filtering",
-                                        "bandpass_cutoff_frequency").split(' ')[1]))
+            self.ui.doubleSpinBox_lp.setValue(40.0)
+            self.ui.doubleSpinBox_hp.setValue(1.0)
             self.ui.doubleSpinBox_lp.setMinimum(0)
             self.ui.doubleSpinBox_lp.setMaximum(self.sr.sample_rate / 2 - 0.1)
-            # self.ui.doubleSpinBox_lp.setDecimals()
             self.ui.doubleSpinBox_lp.setSingleStep(1)
             self.ui.doubleSpinBox_hp.setMinimum(0)
             self.ui.doubleSpinBox_hp.setMaximum(self.sr.sample_rate / 2 - 0.1)
-            # self.ui.doubleSpinBox_hp.setDecimals(1)
             self.ui.doubleSpinBox_hp.setSingleStep(1)
             self.ui.pushButton_bp.click()
 
         # notch initialization
-        self.apply_notch = int(
-            self.scope_settings.get("filtering", "apply_notch_filter"))
+        self.apply_notch = 1
         if (self.apply_notch):
-            self.ui.doubleSpinBox_lc_notch.setValue(float(
-                self.scope_settings.get("filtering",
-                                        "notch_cutoff_frequency").split(' ')[0]))
-            self.ui.doubleSpinBox_hc_notch.setValue(float(
-                self.scope_settings.get("filtering",
-                                        "notch_cutoff_frequency").split(' ')[1]))
+            self.ui.doubleSpinBox_lc_notch.setValue(58.0)
+            self.ui.doubleSpinBox_hc_notch.setValue(62.0)
             self.ui.doubleSpinBox_lc_notch.setMinimum(0.1)
             self.ui.doubleSpinBox_lc_notch.setMaximum(self.sr.sample_rate / 2 - 0.1)
-            self.ui.doubleSpinBox_lc_notch.setDecimals(1)
             self.ui.doubleSpinBox_lc_notch.setSingleStep(1)
             self.ui.doubleSpinBox_hc_notch.setMinimum(0.1)
             self.ui.doubleSpinBox_hc_notch.setMaximum(self.sr.sample_rate / 2 - 0.1)
-            self.ui.doubleSpinBox_hc_notch.setDecimals(1)
             self.ui.doubleSpinBox_hc_notch.setSingleStep(1)
             self.ui.pushButton_apply_notch.click()
 
-        self.apply_lowpass = 0
-        self.apply_highpass = 0
-        self.ui.checkBox_bandpass.setChecked(self.apply_car)
+
         self.ui.checkBox_bandpass.setChecked(self.apply_bandpass)
+
+        self.b_bandpass_scope_refilter = self.b_bandpass_scope
+        self.a_bandpass_scope_refilter = self.a_bandpass_scope
+        self.zi_bandpass_scope_refilter = self.zi_bandpass_scope
+        self.b_notch_scope_refilter = self.b_notch_scope
+        self.a_notch_scope_refilter = self.a_notch_scope
+        self.zi_notch_scope_refilter = self.zi_notch_scope
 
         self.update_title_scope()
 

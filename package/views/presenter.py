@@ -31,15 +31,16 @@ class Presenter:
                 self.event_timestamp_list.append(
                     [self.event_table_dictionary['Idle'], self.router.get_server_clock()])
 
-            self.SV_window.label_current_trial.setText(str(self.task_counter +1))
+            self.SV_window.label_current_trial.setText(str(self.task_counter + 1))
             self.SV_window.label_total_trial.setText(str(self.new_task_table.shape[0]))
+            self.set_epoch_number()
 
             print("\nTASK COUNTER: ", self.task_counter)
             if self.task_counter > 0:
                 # self.update_MRCP_plot()
                 # update interval time
                 if self.ui.checkBox_randomize_interval_time.isChecked():
-                    self.idle_time = randint(0,6)
+                    self.idle_time = randint(0, 6)
                     self.focus_time = self.idle_time + int(self.ui.focusTimeLineEdit.text())
                     self.prepare_time = self.focus_time + int(self.ui.prepareTimeLineEdit.text())
                     self.two_time = self.prepare_time + int(self.ui.twoTimeLineEdit.text())
@@ -50,7 +51,6 @@ class Presenter:
 
             self.update_SV_task()
             # self.task_counter += 1
-
 
             # Idle
             # self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/idle.png" % os.getcwd()))
@@ -99,7 +99,7 @@ class Presenter:
             #     [self.event_table_dictionary[self.new_task_table[self.task_counter - 1][0]],
             #      self.router.get_server_clock()])
             self.event_timestamp_list.append(
-                [self.event_table_dictionary[self.new_task_table[self.task_counter ][0]],
+                [self.event_table_dictionary[self.new_task_table[self.task_counter][0]],
                  self.router.get_server_clock()])
             # self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/task.png" % os.getcwd()))
             self.SV_window.label.setStyleSheet("color: red;")
@@ -114,18 +114,18 @@ class Presenter:
 
 
 
-        elif self.SV_time % self.cycle_time == self.task_time +1:
+        elif self.SV_time % self.cycle_time == self.task_time + 1:
             self.update_MRCP_plot()
             # add task counter and check for break
+            # if self.task_counter < self.new_task_table.shape[0]:
             self.task_counter += 1
             self.break_trial_number = int(self.ui.lineEdit_break_trial_number.text())
             if self.task_counter % self.break_trial_number == 0 and self.task_counter != 0:
                 # self.window.hide()
                 self.is_experiment_on = False
-                if self.task_counter >= self.new_task_table.shape[0]:
-                    print("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR")
-                    self.stop_SV()
-
+            if self.task_counter >= self.new_task_table.shape[0]:
+                print("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR")
+                self.stop_SV()
 
         self.SV_time += 1
 
@@ -137,7 +137,6 @@ class Presenter:
         #     self.play_task_sound(self.new_task_table[self.task_counter][3])
         # else:
         #     self.stop_SV()
-
 
         # Update SV UI according to task list
         if self.task_counter < self.new_task_table.shape[0]:
@@ -162,7 +161,6 @@ class Presenter:
         print(self.event_file_path)
         # self.save_event_file_to_csv()
 
-
     def Time(self):
         os_time = time.time()
         self.os_time_list.append(os_time)
@@ -180,9 +178,9 @@ class Presenter:
     #     time = Variables.get_run_time_counter()
     #     self.ui.lcdNumber_timer.display(time)
 
-        #
-        #	Called by repaint()
-        #
+    #
+    #	Called by repaint()
+    #
 
     # Subject Information
 
@@ -205,13 +203,12 @@ class Presenter:
         task_table_list.append(self.task_image_path_list)
         task_table_list.append(self.task_sound_path_list)
         task_table = np.c_[np.asarray(self.task_list),
-                                np.asarray(self.task_descriptor_list),
-                                np.asarray(self.task_image_path_list),
-                                np.asarray(self.task_sound_path_list)]
+                           np.asarray(self.task_descriptor_list),
+                           np.asarray(self.task_image_path_list),
+                           np.asarray(self.task_sound_path_list)]
         print("tasks list:\n", task_table)
         task_table_list = np.transpose(np.asarray(task_table_list))
         return task_table, task_table_list
-
 
     def show_task_instruction_image(self):
         self.ui.label_task_instruction_image.setPixmap(QtGui.QPixmap(self.task_image_path))
@@ -271,7 +268,6 @@ class Presenter:
         self.ui.groupBox_sequence_manager.setEnabled(True)
         self.ui.groupBox_task_manager.setEnabled(True)
 
-
     def saveFileNameDialog_protocol(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
@@ -283,7 +279,9 @@ class Presenter:
             Utils.save_protocol_to_csv(self.protocol, fileName)
 
     def choose_base_folder(self):
-        dir_name = QFileDialog.getExistingDirectory(self, "", r"D:\OneDrive - University of Waterloo\Jiansheng\MRCP_folder\MRCP_online_interface\records", QFileDialog.ShowDirsOnly)
+        dir_name = QFileDialog.getExistingDirectory(self, "",
+                                                    r"D:\OneDrive - University of Waterloo\Jiansheng\MRCP_folder\MRCP_online_interface\records",
+                                                    QFileDialog.ShowDirsOnly)
         if dir_name:
             print(dir_name)
         return dir_name
@@ -292,12 +290,10 @@ class Presenter:
         logger.info("Played")
         QtMultimedia.QSound.play(sound_path)
 
-
     def init_task_name_table(self):
         self.ui.tableWidget_tasks.setColumnCount(4)
         self.ui.tableWidget_tasks.setHorizontalHeaderLabels(
             ["Task name", "Task description", "Task image", "Task sound"])
-
 
     def init_table_file_path(self):
         self.ui.tableWidget_file_path.setColumnCount(2)
@@ -351,6 +347,37 @@ class Presenter:
             self.paintInterface(qp)
             qp.end()
 
+        # Online Experiment
+
+        # def get_c_table_content(self):
+        #     self.event_number_list = []
+        #     self.event_name_list = []
+        #     for i in range(self.ui.tableWidget_task_event_number.rowCount()):
+        #         self.event_name_list.append(self.ui.tableWidget_task_event_number.item(i, 0).text())
+        #         self.event_number_list.append(int(self.ui.tableWidget_task_event_number.item(i, 1).text()))
+        #     self.event_table_dictionary = dict(zip(self.event_name_list, self.event_number_list))
+        #     return self.event_table_dictionary
+        #     # print("TTTTTTTTTTTTTTTTTTTTTTTTTTTT\n", self.event_table_dictionary)
+    def find_epoch_number(self):
+        current_task = self.new_task_list[self.task_counter]
+        return np.where(np.asarray(self.new_task_list) == current_task)[0].tolist().index(self.task_counter)
+
+    def set_epoch_number(self):
+        current_task = self.new_task_list[self.task_counter]
+        row_number = self.unique_task_list.tolist().index(current_task)
+        epoch_number = self.find_epoch_number()
+        self.ui.tableWidget_class_epoch_counter.setItem(row_number, 1, QTableWidgetItem(str(epoch_number+1)))
+        self.ui.tableWidget_class_epoch_counter.viewport().update()
+        self.ui.tableWidget_class_epoch_counter.selectRow(row_number)
+
+    def init_class_epoch_counter_table(self):
+        self.ui.tableWidget_class_epoch_counter.setColumnCount(2)
+        self.ui.tableWidget_class_epoch_counter.setHorizontalHeaderLabels(["Task name", "current no."])
+
+    def init_class_bad_epoch_table(self):
+        self.ui.tableWidget_bad_epoch.setColumnCount(2)
+        self.ui.tableWidget_bad_epoch.setHorizontalHeaderLabels(["Task name", "bad epochs"])
+
         #
         #	Update stuff on the interface. Only graphical updates should be added here
         #
@@ -358,19 +385,19 @@ class Presenter:
     def paintInterface(self, qp):
         # only works for 16 channel single channel rescale
 
-            # print("I RUNNNNNNNNNNN")
-            # print("single scale ", self.single_channel_scale)
-            # print("scale ", self.scale)
+        # print("I RUNNNNNNNNNNN")
+        # print("single scale ", self.single_channel_scale)
+        # print("scale ", self.scale)
 
-            # for x in range(0, len(self.channels_to_show_idx)):
-            #     if self.channels_to_show_idx[x] == self.channel_to_scale_row_index:
-            #         print("single scale: ", self.single_channel_scale)
-            #         print(type(self.data_plot))
-            #         self.data_plot[:, self.channels_to_show_idx[x]] = self.data_plot[:, self.channels_to_show_idx[x]] * 1.1
-            #         print(self.data_plot[:, self.channels_to_show_idx[x]])
-            #
-            #     self.curve_eeg[x].setData(x=self.x_ticks,
-            #                               y=self.data_plot[:, self.channels_to_show_idx[x]] - x * self.scale)
+        # for x in range(0, len(self.channels_to_show_idx)):
+        #     if self.channels_to_show_idx[x] == self.channel_to_scale_row_index:
+        #         print("single scale: ", self.single_channel_scale)
+        #         print(type(self.data_plot))
+        #         self.data_plot[:, self.channels_to_show_idx[x]] = self.data_plot[:, self.channels_to_show_idx[x]] * 1.1
+        #         print(self.data_plot[:, self.channels_to_show_idx[x]])
+        #
+        #     self.curve_eeg[x].setData(x=self.x_ticks,
+        #                               y=self.data_plot[:, self.channels_to_show_idx[x]] - x * self.scale)
 
         # Update EEG channels
         # print("paintInterface")
@@ -407,7 +434,7 @@ class Presenter:
         # Y Tick labels
         values = []
         for x in range(0, len(self.channels_to_show_idx)):
-            values.append((-x  * self.scale,
+            values.append((-x * self.scale,
                            self.channel_labels[self.channels_to_show_idx[x]]))
 
         values_axis = []
@@ -602,29 +629,44 @@ class Presenter:
             logger.exception()
             pdb.set_trace()
 
-
     def filter_signal(self):
+        self.channels_to_filter = list(range(len(self.channel_labels)))
+
+        if self.ui.checkBox_change_filter.isChecked():
+            self.channels_to_refilter = []
+            self.sub_channel_names = self.read_sub_channel_names()
+            for sub_channel_name in self.sub_channel_names:
+                channel_to_refilter = self.channel_labels.tolist().index(sub_channel_name)
+                self.channels_to_refilter.append(channel_to_refilter)
+                self.channels_to_filter.remove(channel_to_refilter)
+
+            if (self.apply_bandpass):
+                for x in self.channels_to_refilter:
+                    self.eeg[:, x], self.zi_bandpass_scope_refilter[:, x] = lfilter(self.b_bandpass_scope_refilter,
+                                                                                    self.a_bandpass_scope_refilter,
+                                                                                    self.eeg[:, x], -1,
+                                                                                    self.zi_bandpass_scope_refilter[:,
+                                                                                    x])
+
+            if (self.apply_notch):
+                for x in self.channels_to_refilter:
+                    self.eeg[:, x], self.zi_notch_scope_refilter[:, x] = lfilter(self.b_notch_scope_refilter,
+                                                                                 self.a_notch_scope_refilter,
+                                                                                 self.eeg[:, x], -1,
+                                                                                 self.zi_notch_scope_refilter[:, x])
+
 
         if (self.apply_bandpass):
-            for x in range(0, self.eeg.shape[1]):
+            for x in self.channels_to_filter:
                 self.eeg[:, x], self.zi_bandpass_scope[:, x] = lfilter(self.b_bandpass_scope, self.a_bandpass_scope,
-                                                        self.eeg[:, x], -1, self.zi_bandpass_scope[:, x])
+                                                                       self.eeg[:, x], -1, self.zi_bandpass_scope[:, x])
 
         if (self.apply_notch):
-            for x in range(0, self.eeg.shape[1]):
+            for x in self.channels_to_filter:
                 self.eeg[:, x], self.zi_notch_scope[:, x] = lfilter(self.b_notch_scope, self.a_notch_scope,
-                                                        self.eeg[:, x], -1, self.zi_notch_scope[:, x])
+                                                                    self.eeg[:, x], -1, self.zi_notch_scope[:, x])
 
-        if (self.apply_lowpass):
-            for x in range(0, self.eeg.shape[1]):
-                self.eeg[:, x], self.zi_lowpass_scope[:, x] = lfilter(self.b_lowpass_scope, self.a_lowpass_scope,
-                                                        self.eeg[:, x], -1, self.zi_lowpass_scope[:, x])
-
-        if (self.apply_highpass):
-            for x in range(0, self.eeg.shape[1]):
-                self.eeg[:, x], self.zi_highpass_scope[:, x] = lfilter(self.b_lowpass_scope, self.a_lowpass_scope,
-                                                        self.eeg[:, x], -1, self.zi_lowpass_scope[:, x])
-        # We only apply CAR if selected AND there are at least 2 channels. Otherwise it makes no sense
+      # We only apply CAR if selected AND there are at least 2 channels. Otherwise it makes no sense
         if (self.apply_car) and (len(self.channels_to_show_idx) > 1):
             self.eeg = np.dot(self.matrix_car, np.transpose(self.eeg))
             self.eeg = np.transpose(self.eeg)
@@ -655,17 +697,30 @@ class Presenter:
         print('pre data in shape: ', pre_data_in.shape)
         return pre_data_in
 
+    def read_sub_channel_names(self):
+        str_sub_channel = self.ui.lineEdit_subchannel_names.text()
+        sub_channel_names = str_sub_channel.split()
+        return sub_channel_names
+
     def update_ringbuffers(self):
-
-
         # update single channel scale
         # print("single channel scale: ", self.single_channel_scale)
         channel_to_scale = self.channel_to_scale_column_index * 16 + self.channel_to_scale_row_index
-        if self.ui.checkBox_single_channel_scale.isChecked() \
-                and self.channel_to_scale_row_index != -1 \
-                and self.channel_to_scale_column_index != -1 \
-                and channel_to_scale in self.channels_to_show_idx:
-            self.eeg[:, channel_to_scale] = self.eeg[:, channel_to_scale] * self.single_channel_scale
+        if self.ui.checkBox_change_scale.isChecked():
+            self.channels_to_scale = []
+            self.sub_channel_names = self.read_sub_channel_names()
+            for sub_channel_name in self.sub_channel_names:
+                channel_to_scale = self.channel_labels.tolist().index(sub_channel_name)
+                self.channels_to_scale.append(channel_to_scale)
+            self.eeg[:, self.channels_to_scale] = self.eeg[:, self.channels_to_scale] * self.single_channel_scale
+            # pdb.set_trace()
+            # print("sub chs: {}".format(self.channels_to_scale))
+
+        # if self.ui.checkBox_single_channel_scale.isChecked() \
+        #         and self.channel_to_scale_row_index != -1 \
+        #         and self.channel_to_scale_column_index != -1 \
+        #         and channel_to_scale in self.channels_to_show_idx:
+        #     self.eeg[:, channel_to_scale] = self.eeg[:, channel_to_scale] * self.single_channel_scale
 
         # We have to remove those indexes that reached time = 0
         # leeq
@@ -716,7 +771,8 @@ class Presenter:
         self.set_MRCP_window_size(5)
         self.raw_trial_MRCP = self.read_template_buffer()
         ch_list = self.channel_labels.tolist()
-        lap_ch_list = [ch_list.index('Cz'), ch_list.index('C3'), ch_list.index('C4'),ch_list.index('Fz'), ch_list.index('Pz')]
+        lap_ch_list = [ch_list.index('Cz'), ch_list.index('C3'), ch_list.index('C4'), ch_list.index('Fz'),
+                       ch_list.index('Pz')]
         self.processed_trial_MRCP = Utils.preprocess(self.raw_trial_MRCP, lap_ch_list)
         # save each MRCP and raw signals into total MRCP list
         self.total_trials_MRCP.append(self.processed_trial_MRCP)

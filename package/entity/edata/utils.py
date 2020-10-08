@@ -167,6 +167,12 @@ class Utils:
         return file
 
     @staticmethod
+    def write_dict_to_csv(dict, file_name):
+        file = "{}/{}".format(Variables.get_sub_folder_path(), file_name)
+        print(file)
+        pd.DataFrame.from_dict(data=dict, orient='index').to_csv(file, header=False)
+
+    @staticmethod
     def write_event_number_to_csv(dict):
         file = "{}/event_annotation.csv".format(Variables.get_base_folder_path())
         print(file)

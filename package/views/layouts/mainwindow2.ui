@@ -19,12 +19,12 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>831</width>
+      <width>861</width>
       <height>661</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="tab_subjec_information">
      <attribute name="title">
@@ -142,6 +142,12 @@
         <font>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="toolTip">
+        <string>this will be used as folder name</string>
+       </property>
+       <property name="placeholderText">
+        <string/>
        </property>
       </widget>
       <widget class="QLineEdit" name="lineEdit_last_name">
@@ -355,6 +361,9 @@
         <pointsize>8</pointsize>
        </font>
       </property>
+      <property name="toolTip">
+       <string>click to finish experimental protocal design</string>
+      </property>
       <property name="text">
        <string>Finish</string>
       </property>
@@ -494,8 +503,11 @@
          <height>17</height>
         </rect>
        </property>
+       <property name="toolTip">
+        <string>randomize idle time between 2s amd 6s</string>
+       </property>
        <property name="text">
-        <string>Randomize interval time(4-15s)</string>
+        <string>Randomize interval time</string>
        </property>
       </widget>
      </widget>
@@ -519,6 +531,9 @@
          <width>41</width>
          <height>41</height>
         </rect>
+       </property>
+       <property name="toolTip">
+        <string>click this to finish task class adding</string>
        </property>
        <property name="text">
         <string>Done</string>
@@ -559,6 +574,9 @@
          <height>20</height>
         </rect>
        </property>
+       <property name="placeholderText">
+        <string>e.g. AD_L</string>
+       </property>
       </widget>
       <widget class="QLabel" name="label_choose_image_for_task">
        <property name="geometry">
@@ -581,6 +599,9 @@
          <width>41</width>
          <height>41</height>
         </rect>
+       </property>
+       <property name="toolTip">
+        <string>add a task class, be sure to click done when all task classes are added</string>
        </property>
        <property name="text">
         <string>ADD</string>
@@ -640,6 +661,9 @@
          <height>20</height>
         </rect>
        </property>
+       <property name="placeholderText">
+        <string>e.g. ankel dorsiflexion left</string>
+       </property>
       </widget>
       <widget class="QLabel" name="label_choose_sound_for_task">
        <property name="geometry">
@@ -676,6 +700,9 @@
          <height>23</height>
         </rect>
        </property>
+       <property name="toolTip">
+        <string>add all tasks to task table</string>
+       </property>
        <property name="text">
         <string>Create Sequence</string>
        </property>
@@ -688,6 +715,9 @@
          <width>75</width>
          <height>23</height>
         </rect>
+       </property>
+       <property name="toolTip">
+        <string>randomize tasks</string>
        </property>
        <property name="text">
         <string>Randomize</string>
@@ -711,6 +741,9 @@
          <width>91</width>
          <height>16</height>
         </rect>
+       </property>
+       <property name="toolTip">
+        <string>the number of tasks for each class</string>
        </property>
        <property name="text">
         <string>Group Number:</string>
@@ -1016,30 +1049,14 @@
         </property>
        </item>
       </widget>
-      <widget class="QCheckBox" name="checkBox_single_channel_scale">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>30</y>
-         <width>171</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="focusPolicy">
-        <enum>Qt::TabFocus</enum>
-       </property>
-       <property name="text">
-        <string>change single channel scale</string>
-       </property>
-      </widget>
      </widget>
      <widget class="QGroupBox" name="groupBox_filter_manager">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>300</y>
-        <width>441</width>
-        <height>291</height>
+        <y>280</y>
+        <width>641</width>
+        <height>331</height>
        </rect>
       </property>
       <property name="title">
@@ -1162,90 +1179,12 @@
         <number>3</number>
        </property>
       </widget>
-      <widget class="QDoubleSpinBox" name="doubleSpinBox_lc_lowpass">
-       <property name="geometry">
-        <rect>
-         <x>160</x>
-         <y>180</y>
-         <width>69</width>
-         <height>27</height>
-        </rect>
-       </property>
-       <property name="decimals">
-        <number>3</number>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_low_pass">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>180</y>
-         <width>141</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Lowpass Filter</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pushButton_apply_lowpass">
-       <property name="geometry">
-        <rect>
-         <x>340</x>
-         <y>180</y>
-         <width>99</width>
-         <height>27</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Apply Lowpass</string>
-       </property>
-      </widget>
-      <widget class="QDoubleSpinBox" name="doubleSpinBox_lc_highpass">
-       <property name="geometry">
-        <rect>
-         <x>160</x>
-         <y>240</y>
-         <width>69</width>
-         <height>27</height>
-        </rect>
-       </property>
-       <property name="decimals">
-        <number>3</number>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="checkBox_highpass">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>240</y>
-         <width>141</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Highpass Filter</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pushButton_apply_highpass">
-       <property name="geometry">
-        <rect>
-         <x>340</x>
-         <y>240</y>
-         <width>99</width>
-         <height>27</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Apply Highpass</string>
-       </property>
-      </widget>
      </widget>
      <widget class="QGroupBox" name="groupBox_channel_manager">
       <property name="geometry">
        <rect>
-        <x>500</x>
-        <y>20</y>
+        <x>660</x>
+        <y>30</y>
         <width>151</width>
         <height>581</height>
        </rect>
@@ -1713,8 +1652,85 @@
          <height>31</height>
         </rect>
        </property>
+       <property name="toolTip">
+        <string>double left click channel names to change and click this button to update</string>
+       </property>
        <property name="text">
         <string>Update channel name</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_3">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>20</y>
+        <width>431</width>
+        <height>251</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Sub Channel Manager</string>
+      </property>
+      <widget class="QLineEdit" name="lineEdit_subchannel_names">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>70</y>
+         <width>381</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="placeholderText">
+        <string>enter channels to change and seperated by space (e.g. Cz Fpz P7)</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_3">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>40</y>
+         <width>121</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Channel Names</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="checkBox_change_scale">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>130</y>
+         <width>101</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>check this to scale sub channels by using up and down arrows</string>
+       </property>
+       <property name="statusTip">
+        <string/>
+       </property>
+       <property name="text">
+        <string>Change scale</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="checkBox_change_filter">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>180</y>
+         <width>121</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>check this to change filter design for sub channels</string>
+       </property>
+       <property name="text">
+        <string>Change filter</string>
        </property>
       </widget>
      </widget>
@@ -1728,7 +1744,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>821</width>
+        <width>851</width>
         <height>631</height>
        </rect>
       </property>
@@ -1743,9 +1759,9 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
-          <width>801</width>
-          <height>561</height>
+          <y>10</y>
+          <width>591</width>
+          <height>551</height>
          </rect>
         </property>
         <property name="currentIndex">
@@ -1892,7 +1908,7 @@
          <widget class="QGraphicsView" name="graphicsView">
           <property name="geometry">
            <rect>
-            <x>20</x>
+            <x>30</x>
             <y>30</y>
             <width>551</width>
             <height>311</height>
@@ -1917,12 +1933,12 @@
            <rect>
             <x>20</x>
             <y>10</y>
-            <width>121</width>
+            <width>531</width>
             <height>16</height>
            </rect>
           </property>
           <property name="text">
-           <string>Online MRCP Extractor</string>
+           <string>Online MRCP Extractor (large laplacian around Cz)</string>
           </property>
          </widget>
         </widget>
@@ -1930,6 +1946,52 @@
          <attribute name="title">
           <string>SSVEP</string>
          </attribute>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_task_monitor">
+        <property name="geometry">
+         <rect>
+          <x>610</x>
+          <y>20</y>
+          <width>221</width>
+          <height>541</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Task Monitor</string>
+        </property>
+        <widget class="QTableWidget" name="tableWidget_class_epoch_counter">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>30</y>
+           <width>201</width>
+           <height>191</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton_bad_epoch">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>250</y>
+           <width>71</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>bad epoch</string>
+         </property>
+        </widget>
+        <widget class="QTableWidget" name="tableWidget_bad_epoch">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>330</y>
+           <width>191</width>
+           <height>201</height>
+          </rect>
+         </property>
         </widget>
        </widget>
       </widget>
