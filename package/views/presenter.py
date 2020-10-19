@@ -12,7 +12,9 @@ from ..entity.edata.utils import Utils
 import os
 from scipy.signal import butter, lfilter, lfiltic, buttord
 import math
+from playsound import playsound
 import time
+from threading import Thread
 from twisted.internet import task, reactor
 
 DEBUG_TRIGGER = False  # TODO: parameterize
@@ -40,7 +42,7 @@ class Presenter:
                 # self.update_MRCP_plot()
                 # update interval time
                 if self.ui.checkBox_randomize_interval_time.isChecked():
-                    self.idle_time = randint(0, 6)
+                    self.idle_time = randint(1, 6)
                     self.focus_time = self.idle_time + int(self.ui.focusTimeLineEdit.text())
                     self.prepare_time = self.focus_time + int(self.ui.prepareTimeLineEdit.text())
                     self.two_time = self.prepare_time + int(self.ui.twoTimeLineEdit.text())
@@ -142,7 +144,8 @@ class Presenter:
         if self.task_counter < self.new_task_table.shape[0]:
             self.SV_window.label_task_content.setText(self.new_task_table[self.task_counter][1])
             self.SV_window.label_instruction_image.setPixmap(QtGui.QPixmap(self.new_task_table[self.task_counter][2]))
-            self.play_task_sound(self.new_task_table[self.task_counter][3])
+            # self.play_task_sound(self.new_task_table[self.task_counter][3])
+            Thread(target=self.play_task_sound, args=(self.new_task_table[self.task_counter][3],)).start()
         else:
             self.stop_SV()
 
@@ -157,8 +160,8 @@ class Presenter:
         self.ui.label_content_Disp_temp.setText(
             "{} - {}".format(self.temp_counter_list[0], self.temp_counter_list[-1]))
         self.ui.label_content_current_temp.setText(" ")
-        self.event_file_path = Utils.write_data_to_csv(self.event_timestamp_list, 'event.csv')
-        print(self.event_file_path)
+        # self.event_file_path = Utils.write_data_to_csv(self.event_timestamp_list, 'event.csv')
+        # print(self.event_file_path)
         # self.save_event_file_to_csv()
 
     def Time(self):
@@ -235,7 +238,8 @@ class Presenter:
         if fileName:
             print(fileName)
             self.task_sound_path = fileName
-            self.play_task_sound(self.task_sound_path)
+            # self.play_task_sound(self.task_sound_path)
+            Thread(target=self.play_task_sound, args=(self.task_sound_path,)).start()
         else:
             self.task_sound_path = " "
 
@@ -287,8 +291,9 @@ class Presenter:
         return dir_name
 
     def play_task_sound(self, sound_path):
-        logger.info("Played")
-        QtMultimedia.QSound.play(sound_path)
+        logger.info("Played, sound path: {}".format(sound_path))
+        playsound(sound_path)
+        # QtMultimedia.QSound.play(sound_path)
 
     def init_task_name_table(self):
         self.ui.tableWidget_tasks.setColumnCount(4)

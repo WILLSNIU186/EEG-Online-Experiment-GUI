@@ -1,0 +1,5 @@
+# task_name, task_description, image_path, sound_path
+WE_L,left wrist extension,C:/uw_ebionics_mrcp_online_interface_python/package/views/icon/WE_left.png,C:/uw_ebionics_mrcp_online_interface_python/package/views/sounds/WE_left.wav
+WE_R,right wrist extension,C:/uw_ebionics_mrcp_online_interface_python/package/views/icon/WE_right.png,C:/uw_ebionics_mrcp_online_interface_python/package/views/sounds/WE_right.wav
+IE_L,left index finger extension,C:/uw_ebionics_mrcp_online_interface_python/package/views/icon/IE_left.png,C:/uw_ebionics_mrcp_online_interface_python/package/views/sounds/IE_left.wav
+IE_R,right index finger extension,C:/uw_ebionics_mrcp_online_interface_python/package/views/icon/IE_right.png,C:/uw_ebionics_mrcp_online_interface_python/package/views/sounds/IE_right.wav

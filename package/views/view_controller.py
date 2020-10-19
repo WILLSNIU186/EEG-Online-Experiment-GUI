@@ -109,12 +109,14 @@ class ViewController:
             Utils.write_data_to_csv(self.os_time_list1, "os_time_list1.csv")
             Utils.write_dict_to_csv(self.create_channel_dict(), "channels.csv")
             Utils.write_dict_to_csv(self.bad_epoch_dict, "bad_epochs.csv")
-            if self.total_trials_raw_MRCP != [] and self.total_trials_MRCP != []:
-                no_trials = len(self.total_trials_raw_MRCP)
-                no_channels = 9
-                raw_MRCP = np.reshape(np.asarray(self.total_trials_raw_MRCP), (no_trials * no_channels, -1))
-                self.raw_mrcp_file_path = Utils.write_data_to_csv(raw_MRCP, "raw_mrcp.csv")
-                self.mrcp_template_file_path = Utils.write_data_to_csv(self.total_trials_MRCP, "mrcp_template.csv")
+            self.event_file_path = Utils.write_data_to_csv(self.event_timestamp_list, 'event.csv')
+            print(self.event_file_path)
+            # if self.total_trials_raw_MRCP != [] and self.total_trials_MRCP != []:
+            #     no_trials = len(self.total_trials_raw_MRCP)
+            #     no_channels = 9
+            #     # raw_MRCP = np.reshape(np.asarray(self.total_trials_raw_MRCP), (no_trials * no_channels, -1))
+            #     # self.raw_mrcp_file_path = Utils.write_data_to_csv(raw_MRCP, "raw_mrcp.csv")
+            #     # self.mrcp_template_file_path = Utils.write_data_to_csv(self.total_trials_MRCP, "mrcp_template.csv")
 
             self.update_table_file_path()
             Variables.init_Variables_for_next_run()
