@@ -144,20 +144,24 @@ class ViewController:
         self.is_experiment_on = True
         self.window.show()
 
-    def closeEvent(self, event):
-        '''
-        reply = QtGui.QMessageBox.question(self, "Quit", "Are you sure you want to quit?", QtGui.QMessageBox.Yes | QtGui.QMessageBox.No, QtGui.QMessageBox.Yes)
-        if (reply == QtGui.QMessageBox.Yes):
-            if (self.pushButton_stoprec.isEnabled()):
-                subprocess.Popen(["cl_rpc", "closexdf"], close_fds=True)
-            self.fin.close()
-            exit()
-        '''
-        # leeq
-        if (self.ui.pushButton_stoprec.isEnabled()):
-            subprocess.Popen(["cl_rpc", "closexdf"], close_fds=True)
-        with self.state.get_lock():
-            self.state.value = 0
+    # def closeEvent(self):
+    #     '''
+    #     reply = QtGui.QMessageBox.question(self, "Quit", "Are you sure you want to quit?", QtGui.QMessageBox.Yes | QtGui.QMessageBox.No, QtGui.QMessageBox.Yes)
+    #     if (reply == QtGui.QMessageBox.Yes):
+    #         if (self.pushButton_stoprec.isEnabled()):
+    #             subprocess.Popen(["cl_rpc", "closexdf"], close_fds=True)
+    #         self.fin.close()
+    #         exit()
+    #     '''
+    #     # # leeq
+    #     # if (self.ui.pushButton_stoprec.isEnabled()):
+    #     #     subprocess.Popen(["cl_rpc", "closexdf"], close_fds=True)
+    #     # with self.state.get_lock():
+    #     #     self.state.value = 0
+    #     if can_exit:
+    #         event.accept()  # let the window close
+    #     else:
+    #         event.ignore()
 
         # ----------------------------------------------------------------------------------------------------
         # 		END OF EVENT HANDLERS
@@ -436,8 +440,8 @@ class ViewController:
 
     def keyPressEvent(self, event):
         key = event.key()
-        if (key == QtCore.Qt.Key_Escape):
-            self.closeEvent(None)
+        # if (key == QtCore.Qt.Key_Escape):
+        #     self.closeEvent(None)
         if (key == QtCore.Qt.Key_H):
             self.show_help = not self.show_help
             self.trigger_help()

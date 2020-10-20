@@ -48,7 +48,7 @@ from twisted.internet import task, reactor
 import pdb
 from pycnbi.stream_receiver.stream_receiver import StreamReceiver
 from . import view_controller, presenter
-from .layouts import main_layout11, subject_layout1
+from .layouts import main_layout13, subject_layout2
 from ..router import router
 from ..entity.edata.variables import Variables
 from ..entity.edata.utils import Utils
@@ -61,13 +61,13 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.router = router.Router()
         # os.chdir(r"C:\uw_ebionics_mrcp_online_interface_python\package\views")
         # print("Current Working Directory ", os.getcwd())
-        self.ui = main_layout11.Ui_MainWindow()
+        self.ui = main_layout13.Ui_MainWindow()
         # os.chdir(r"C:\uw_ebionics_mrcp_online_interface_python")
         # print("Current Working Directory ", os.getcwd())
         self.ui.setupUi(self)
 
         self.window = QMainWindow()
-        self.SV_window = subject_layout1.SubjectLayout()
+        self.SV_window = subject_layout2.SubjectLayout()
         self.SV_window.setupUi(self.window)
 
         # redirect_stdout_to_queue(logger, queue, 'INFO')
