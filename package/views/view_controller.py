@@ -1,21 +1,17 @@
-import math
 import os
-import subprocess
-import numpy as np
-from PyQt5.QtWidgets import QTableWidget, QAbstractItemView, QTableWidgetItem, QWidget, QHBoxLayout, \
-    QApplication, QMainWindow
-from PyQt5 import QtCore, QtGui
-from ..entity.edata.utils import Utils
-from pycnbi import logger
-import pdb
-from ..entity.edata.variables import Variables
-import time
 import datetime
-from timeloop import Timeloop
-from twisted.internet import task, reactor
+import os
+import time
 from threading import Thread
-import pandas as pd
-from ..router import router
+
+import numpy as np
+from PyQt5 import QtCore
+from PyQt5.QtWidgets import QTableWidgetItem
+from pycnbi import logger
+from twisted.internet import reactor
+
+from ..entity.edata.utils import Utils
+from ..entity.edata.variables import Variables
 
 DEBUG_TRIGGER = False  # TODO: parameterize
 NUM_X_CHANNELS = 16  # TODO: parameterize

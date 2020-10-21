@@ -15,22 +15,15 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="6">
-     <widget class="QLabel" name="label_run">
-      <property name="text">
-       <string>Run </string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QPushButton" name="pushButton_Main_switch">
+    <item row="1" column="2">
+     <widget class="QPushButton" name="pushButton_rec">
       <property name="text">
        <string/>
       </property>
       <property name="icon">
-       <iconset resource="../icon/poweroff.qrc">
-        <normaloff>:/poweroffimage/PowerOff.jpg</normaloff>
-        <normalon>:/poweronimage/PowerOn.jpg</normalon>:/poweroffimage/PowerOff.jpg</iconset>
+       <iconset resource="images.qrc">
+        <normaloff>:/play/play.jpg</normaloff>
+        <normalon>:/pause/pause.jpg</normalon>:/play/play.jpg</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -41,19 +34,9 @@
       <property name="checkable">
        <bool>true</bool>
       </property>
-      <property name="checked">
-       <bool>false</bool>
-      </property>
      </widget>
     </item>
-    <item row="1" column="7">
-     <widget class="QLabel" name="label_run_number">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="8">
+    <item row="1" column="6">
      <widget class="QLCDNumber" name="lcdNumber_timer">
       <property name="font">
        <font>
@@ -71,22 +54,15 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="1">
-     <widget class="QLabel" name="label_scope">
-      <property name="text">
-       <string>Scope</string>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="3">
      <widget class="QPushButton" name="pushButton_start_SV">
       <property name="text">
        <string/>
       </property>
       <property name="icon">
-       <iconset resource="../icon/play.qrc">
-        <normaloff>:/playimage/play.jpg</normaloff>
-        <normalon>:/pauseimage/pause.jpg</normalon>:/playimage/play.jpg</iconset>
+       <iconset resource="images.qrc">
+        <normaloff>:/play/play.jpg</normaloff>
+        <normalon>:/pause/pause.jpg</normalon>:/play/play.jpg</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -99,57 +75,36 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="4">
-     <widget class="QPushButton" name="pushButton_start_train">
+    <item row="2" column="1">
+     <widget class="QLabel" name="label_scope">
       <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset resource="../icon/play.qrc">
-        <normaloff>:/playimage/play.jpg</normaloff>
-        <normalon>:/pauseimage/pause.jpg</normalon>:/playimage/play.jpg</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>41</width>
-        <height>41</height>
-       </size>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
+       <string>Scope</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="2">
-     <widget class="QPushButton" name="pushButton_rec">
+    <item row="1" column="4">
+     <widget class="QLabel" name="label_run">
       <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset resource="../icon/play.qrc">
-        <normaloff>:/playimage/play.jpg</normaloff>
-        <normalon>:/pauseimage/pause.jpg</normalon>:/playimage/play.jpg</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>41</width>
-        <height>41</height>
-       </size>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
+       <string>Run </string>
       </property>
      </widget>
     </item>
     <item row="1" column="5">
-     <widget class="QPushButton" name="pushButton_start_test">
+     <widget class="QLabel" name="label_run_number">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="pushButton_Main_switch">
       <property name="text">
        <string/>
       </property>
       <property name="icon">
-       <iconset resource="../icon/play.qrc">
-        <normaloff>:/playimage/play.jpg</normaloff>
-        <normalon>:/pauseimage/pause.jpg</normalon>:/playimage/play.jpg</iconset>
+       <iconset resource="images.qrc">
+        <normaloff>:/poweroff/PowerOff.jpg</normaloff>
+        <normalon>:/poweron/PowerOn.jpg</normalon>:/poweroff/PowerOff.jpg</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -159,6 +114,9 @@
       </property>
       <property name="checkable">
        <bool>true</bool>
+      </property>
+      <property name="checked">
+       <bool>false</bool>
       </property>
      </widget>
     </item>
@@ -168,9 +126,9 @@
        <string/>
       </property>
       <property name="icon">
-       <iconset resource="../icon/scopeoff.qrc">
-        <normaloff>:/scopeoffimage/scope_bw.jpg</normaloff>
-        <normalon>:/scopeonimage/scope.jpg</normalon>:/scopeoffimage/scope_bw.jpg</iconset>
+       <iconset resource="images.qrc">
+        <normaloff>:/scopeoff/scope_bw.jpg</normaloff>
+        <normalon>:/scopeon/scope.jpg</normalon>:/scopeoff/scope_bw.jpg</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -203,21 +161,7 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="5">
-     <widget class="QLabel" name="label_Test">
-      <property name="text">
-       <string>Test</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="4">
-     <widget class="QLabel" name="label_Train">
-      <property name="text">
-       <string>Train</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0" colspan="9">
+    <item row="0" column="0" colspan="7">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
        <number>4</number>
@@ -1808,12 +1752,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="../icon/poweroff.qrc"/>
-  <include location="../icon/pause.qrc"/>
-  <include location="../icon/play.qrc"/>
-  <include location="../icon/scopeoff.qrc"/>
-  <include location="../icon/scopeOn.qrc"/>
-  <include location="../icon/poweron.qrc"/>
+  <include location="images.qrc"/>
  </resources>
  <connections/>
 </ui>

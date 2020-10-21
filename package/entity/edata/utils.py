@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
 import numpy as np
-from numpy import mean, sqrt, square
-from scipy.signal import butter, filtfilt, lfilter, lfiltic, lfilter_zi
-from .variables import Variables
 import pandas as pd
-import pdb
+from numpy import mean, sqrt, square
+from scipy.signal import butter, lfilter, lfilter_zi
+
+from .variables import Variables
 
 
 class Utils:

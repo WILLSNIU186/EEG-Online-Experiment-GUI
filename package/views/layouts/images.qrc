@@ -1,0 +1,20 @@
+<RCC>
+  <qresource prefix="poweroff">
+    <file>PowerOff.jpg</file>
+  </qresource>
+  <qresource prefix="poweron">
+    <file>PowerOn.jpg</file>
+  </qresource>
+  <qresource prefix="play">
+    <file>play.jpg</file>
+  </qresource>
+  <qresource prefix="pause">
+    <file>pause.jpg</file>
+  </qresource>
+  <qresource prefix="scopeon">
+    <file>scope.jpg</file>
+  </qresource>
+  <qresource prefix="scopeoff">
+    <file>scope_bw.jpg</file>
+  </qresource>
+</RCC>

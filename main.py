@@ -1,9 +1,13 @@
 #!/usr/bin/env python
 import sys
-from PyQt5 import QtWidgets
-from package.views import main_view
-from package.entity.edata import constants, variables
+
 import pycnbi.utils.pycnbi_utils as pu
+from PyQt5 import QtWidgets
+
+from package.entity.edata import constants, variables
+from package.views import main_view
+from package.views.stream_selector_view import StreamSelectorView
+
 
 def display_views():
     if len(sys.argv) == 2:
@@ -21,8 +25,10 @@ def display_views():
     ex = main_view.MainView(variables.Variables.get_amp_name(), variables.Variables.get_amp_serial())
     sys.exit(app.exec_())
 
-
 if __name__ == "__main__":
     variables.Variables.set_current_environment(constants.CONSTANTS.ENV_DEVELOPMENT)
 
-    display_views()
+    app = QtWidgets.QApplication(sys.argv)
+    stream_selector_view = StreamSelectorView()
+    ex = main_view.MainView(variables.Variables.get_amp_name(), variables.Variables.get_amp_serial())
+    sys.exit(app.exec_())

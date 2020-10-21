@@ -1,21 +1,21 @@
+import os
+import pdb
 import sys
+import time
+from random import randrange, randint
+from threading import Thread
+
 import numpy as np
 import pyqtgraph as pg
+from PyQt5 import QtGui
 from PyQt5.QtGui import QPainter
-from PyQt5 import QtGui, QtCore, QtMultimedia
 from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem
-from pycnbi import logger
-from random import randrange, randint
-import pdb
-from ..entity.edata.variables import Variables
-from ..entity.edata.utils import Utils
-import os
-from scipy.signal import butter, lfilter, lfiltic, buttord
-import math
 from playsound import playsound
-import time
-from threading import Thread
-from twisted.internet import task, reactor
+from pycnbi import logger
+from scipy.signal import lfilter
+
+from ..entity.edata.utils import Utils
+from ..entity.edata.variables import Variables
 
 DEBUG_TRIGGER = False  # TODO: parameterize
 NUM_X_CHANNELS = 16  # TODO: parameterize
@@ -150,7 +150,6 @@ class Presenter:
             self.stop_SV()
 
     def stop_SV(self):
-        print("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT")
         self.is_experiment_on = False
         # self.window.hide()
         self.ui.statusBar.showMessage("Tasks finished")
@@ -220,7 +219,7 @@ class Presenter:
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
         fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()",
-                                                  r"C:\uw_ebionics_mrcp_online_interface_python\package\views\icon",
+                                                  r"package\views\icon",
                                                   "Image files (*.jpg *.png)", options=options)
         if fileName:
             print(fileName)
@@ -233,7 +232,7 @@ class Presenter:
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
         fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()",
-                                                  r"C:\uw_ebionics_mrcp_online_interface_python\package\views\sounds",
+                                                  r"package\views\sounds",
                                                   "Audio files (*.mp3 *.wav)", options=options)
         if fileName:
             print(fileName)
@@ -247,7 +246,7 @@ class Presenter:
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
         fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()",
-                                                  r"C:\uw_ebionics_mrcp_online_interface_python\experimental_protocols",
+                                                  r"experimental_protocols",
                                                   "csv files (*.csv *.txt)", options=options)
         if fileName:
             self.protocol_path = fileName
@@ -276,7 +275,7 @@ class Presenter:
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
         fileName, _ = QFileDialog.getSaveFileName(self, "QFileDialog.getSaveFileName()",
-                                                  r"C:\uw_ebionics_mrcp_online_interface_python\experimental_protocols",
+                                                  r"experimental_protocols",
                                                   "csv files (*.csv)", options=options)
         if fileName:
             print(fileName)
@@ -291,8 +290,12 @@ class Presenter:
         return dir_name
 
     def play_task_sound(self, sound_path):
-        logger.info("Played, sound path: {}".format(sound_path))
-        playsound(sound_path)
+        try:
+            logger.info("Played, sound path: {}".format(sound_path))
+            playsound(sound_path)
+        except:
+            logger.info("sound path: {} not found".format(sound_path))
+            self.ui.statusBar.showMessage("sound path not found")
         # QtMultimedia.QSound.play(sound_path)
 
     def init_task_name_table(self):
@@ -363,6 +366,7 @@ class Presenter:
         #     self.event_table_dictionary = dict(zip(self.event_name_list, self.event_number_list))
         #     return self.event_table_dictionary
         #     # print("TTTTTTTTTTTTTTTTTTTTTTTTTTTT\n", self.event_table_dictionary)
+
     def find_epoch_number(self):
         current_task = self.new_task_list[self.task_counter]
         return np.where(np.asarray(self.new_task_list) == current_task)[0].tolist().index(self.task_counter)
@@ -371,7 +375,7 @@ class Presenter:
         current_task = self.new_task_list[self.task_counter]
         row_number = self.unique_task_list.tolist().index(current_task)
         epoch_number = self.find_epoch_number()
-        self.ui.tableWidget_class_epoch_counter.setItem(row_number, 1, QTableWidgetItem(str(epoch_number+1)))
+        self.ui.tableWidget_class_epoch_counter.setItem(row_number, 1, QTableWidgetItem(str(epoch_number + 1)))
         self.ui.tableWidget_class_epoch_counter.viewport().update()
         self.ui.tableWidget_class_epoch_counter.selectRow(row_number)
 
@@ -660,7 +664,6 @@ class Presenter:
                                                                                  self.eeg[:, x], -1,
                                                                                  self.zi_notch_scope_refilter[:, x])
 
-
         if (self.apply_bandpass):
             for x in self.channels_to_filter:
                 self.eeg[:, x], self.zi_bandpass_scope[:, x] = lfilter(self.b_bandpass_scope, self.a_bandpass_scope,
@@ -671,7 +674,7 @@ class Presenter:
                 self.eeg[:, x], self.zi_notch_scope[:, x] = lfilter(self.b_notch_scope, self.a_notch_scope,
                                                                     self.eeg[:, x], -1, self.zi_notch_scope[:, x])
 
-      # We only apply CAR if selected AND there are at least 2 channels. Otherwise it makes no sense
+        # We only apply CAR if selected AND there are at least 2 channels. Otherwise it makes no sense
         if (self.apply_car) and (len(self.channels_to_show_idx) > 1):
             self.eeg = np.dot(self.matrix_car, np.transpose(self.eeg))
             self.eeg = np.transpose(self.eeg)
@@ -773,21 +776,28 @@ class Presenter:
         self.MRCP_window_size = MRCP_window_size
 
     def update_MRCP_plot(self):
-        self.set_MRCP_window_size(5)
-        self.raw_trial_MRCP = self.read_template_buffer()
-        ch_list = self.channel_labels.tolist()
-        lap_ch_list = [ch_list.index('Cz'), ch_list.index('C3'), ch_list.index('C4'), ch_list.index('Fz'),
-                       ch_list.index('Pz')]
-        self.processed_trial_MRCP = Utils.preprocess(self.raw_trial_MRCP, lap_ch_list)
-        # save each MRCP and raw signals into total MRCP list
-        self.total_trials_MRCP.append(self.processed_trial_MRCP)
-        self.total_trials_raw_MRCP.append(np.transpose(self.raw_trial_MRCP).flatten())
+        try:
+            self.set_MRCP_window_size(5)
+            self.raw_trial_MRCP = self.read_template_buffer()
+            ch_list = self.channel_labels.tolist()
+            lap_ch_list = [ch_list.index(self.ui.lineEdit_lap_central.text()),
+                           ch_list.index(self.ui.lineEdit_lap_1.text()),
+                           ch_list.index(self.ui.lineEdit_lap_2.text()),
+                           ch_list.index(self.ui.lineEdit_lap_3.text()),
+                           ch_list.index(self.ui.lineEdit_lap_4.text())]
+            self.processed_trial_MRCP = Utils.preprocess(self.raw_trial_MRCP, lap_ch_list)
+            # save each MRCP and raw signals into total MRCP list
+            self.total_trials_MRCP.append(self.processed_trial_MRCP)
+            self.total_trials_raw_MRCP.append(np.transpose(self.raw_trial_MRCP).flatten())
 
-        self.line_width = 4
-        self.MRCP_plot(self.processed_trial_MRCP)
-        self.temp_counter += 1
-        self.temp_counter_list.append(self.temp_counter)
-        self.ui.label_content_current_temp.setText(str(self.temp_counter))
+            self.line_width = 4
+            self.MRCP_plot(self.processed_trial_MRCP)
+            self.temp_counter += 1
+            self.temp_counter_list.append(self.temp_counter)
+            self.ui.label_content_current_temp.setText(str(self.temp_counter))
+        except:
+            logger.info('MRCP extractor went wrong')
+            self.ui.statusBar.showMessage("are lap channels exist?")
 
     def MRCP_plot(self, about_to_plot_MRCP):
         # pdb.set_trace()

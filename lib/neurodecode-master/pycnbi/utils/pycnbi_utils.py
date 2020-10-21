@@ -23,11 +23,10 @@ import numpy as np
 import multiprocessing as mp
 import xml.etree.ElementTree as ET
 import pycnbi.utils.q_common as qc
-from scipy.signal import butter, lfilter, lfiltic, buttord
-from pycnbi.pycnbi_config import CAP, LAPLACIAN
+from scipy.signal import butter, buttord
 from pycnbi import logger
-from builtins import input
-import pdb
+
+# from package.views.stream_selector_view import StreamSelectorView
 
 mne.set_log_level('ERROR')
 os.environ['OMP_NUM_THREADS'] = '1' # actually improves performance for multitaper
@@ -530,7 +529,7 @@ def butter_bandpass(highcut, lowcut, fs, num_ch):
     return b, a, zi
 
 #----------------------------------------------------------------------
-def list_lsl_streams(state=None, logger=logger, ignore_markers=False):
+def list_lsl_streams(window, state=None, logger=logger, ignore_markers=False):
     """
     """
     import time
@@ -572,24 +571,28 @@ def list_lsl_streams(state=None, logger=logger, ignore_markers=False):
         else:
             amp_ser = amp_serial
         logger.info('%d: %s (Serial %s)' % (i, amp_name, amp_ser))
+        window.selector_window.textEdit_streaminfo.append('%d: %s (Serial %s)' % (i, amp_name, amp_ser))
 
+    window.stream_selector_window.show()
     return amp_list, streamInfos
 
 
 
-def search_lsl(state=None, logger=logger, ignore_markers=False):
+def search_lsl(amp_list, streamInfos, index,state=None, logger=logger, ignore_markers=False):
 
     #  List the avaiable LSL streams
-    amp_list, streamInfos = list_lsl_streams(state, logger, ignore_markers)
+    # amp_list, streamInfos = list_lsl_streams(window, state, logger, ignore_markers)
 
     if len(amp_list) == 1:
         index = 0
     else:
-        index = input('Amp index? Hit enter without index to select the first server.\n>> ')
-        if index.strip() == '':
-            index = 0
-        else:
-            index = int(index.strip())
+        pass
+        # index = input('Amp index? Hit enter without index to select the first server.\n>> ')
+        # if index.strip() == '':
+        #     index = 0
+        # else:
+        #     index = int(index.strip())
+
     amp_index, amp_name, amp_serial = amp_list[index]
     si = streamInfos[amp_index]
     assert amp_name == si.name()

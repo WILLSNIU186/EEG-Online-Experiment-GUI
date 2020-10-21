@@ -18,52 +18,30 @@ from __future__ import print_function, division, unicode_literals
 DEBUG_TRIGGER = False  # TODO: parameterize
 NUM_X_CHANNELS = 16  # TODO: parameterize
 
-import functools
-import os
 import sys
-import pdb
-import time
-import math
 import struct
-import traceback
-import subprocess
 import numpy as np
 import pyqtgraph as pg
-import pycnbi.utils.pycnbi_utils as pu
 import multiprocessing as mp
-from PyQt5.QtWidgets import QMainWindow, QApplication, QTableWidgetItem
+from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
 from PyQt5 import QtCore
-from PyQt5.QtGui import QPainter, QPen, QColor
-from PyQt5 import QtGui
-from pathlib import Path
-from scipy.signal import butter, lfilter, lfiltic, buttord
-import pycnbi.utils.q_common as qc
 from configparser import RawConfigParser
-from builtins import input
 
 from pycnbi import logger
-from random import randrange
-from . import get_m_jin as abcdef
-from twisted.internet import task, reactor
-import pdb
+from twisted.internet import task
 from pycnbi.stream_receiver.stream_receiver import StreamReceiver
 from . import view_controller, presenter
-from .layouts import main_layout13, subject_layout2
+from .layouts import main_layout16, subject_layout2
 from ..router import router
 from ..entity.edata.variables import Variables
 from ..entity.edata.utils import Utils
-from timeloop import Timeloop
 
 
 class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter):
     def __init__(self, amp_name, amp_serial, state=mp.Value('i', 1), queue=None):
         super(MainView, self).__init__()
         self.router = router.Router()
-        # os.chdir(r"C:\uw_ebionics_mrcp_online_interface_python\package\views")
-        # print("Current Working Directory ", os.getcwd())
-        self.ui = main_layout13.Ui_MainWindow()
-        # os.chdir(r"C:\uw_ebionics_mrcp_online_interface_python")
-        # print("Current Working Directory ", os.getcwd())
+        self.ui = main_layout16.Ui_MainWindow()
         self.ui.setupUi(self)
 
         self.window = QMainWindow()
@@ -162,8 +140,8 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.ui.pushButton_start_SV.clicked.connect(self.onClicked_button_start_SV)
         self.ui.pushButton_scope_switch.clicked.connect(self.onClicked_button_scope_switch)
         self.ui.pushButton_rec.clicked.connect(self.onClicked_button_rec)
-        self.ui.pushButton_start_train.clicked.connect(self.onClicked_button_train)
-        self.ui.pushButton_start_test.clicked.connect(self.onClicked_button_test)
+        # self.ui.pushButton_start_train.clicked.connect(self.onClicked_button_train)
+        # self.ui.pushButton_start_test.clicked.connect(self.onClicked_button_test)
 
         # Subject information
         self.ui.pushButton_save.clicked.connect(self.onClicked_button_save_subject_information)
@@ -311,6 +289,7 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.setWindowTitle('EEG Scope Panel')
         self.setFocusPolicy(QtCore.Qt.ClickFocus)
         self.setFocus()
+        logger.info('GUI show')
         self.show()
 
     def init_panel_GUI_stop_recording(self):
@@ -359,7 +338,6 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         # self.ui.pushButton_apply_notch.setEnabled(False)
         self.ui.doubleSpinBox_lc_notch.setEnabled(False)
         self.ui.doubleSpinBox_hc_notch.setEnabled(False)
-
 
         # # initialize channel selection panel in main view GUI
         # self.channels_to_show_idx = []
@@ -461,9 +439,9 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.single_scales_range = [0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.5, 1.7, 1.8, 2]
 
         # Scale in uV
-        self.scale = int(self.scope_settings.get("plot", "scale_plot"))
+        self.scale = 100
         # Time window to show in seconds
-        self.seconds_to_show = int(self.scope_settings.get("plot", "time_plot"))
+        self.seconds_to_show = 10
 
         # Y Tick labels. Use values from the config file.
         self.channel_labels = []
@@ -505,7 +483,6 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
              [0, 255, 255], [255, 0, 255], [128, 100, 100], [0, 128, 0],
              [0, 128, 128], [128, 128, 0], [255, 128, 128], [128, 0, 128],
              [128, 255, 0], [255, 128, 0], [0, 255, 128], [128, 0, 255]])
-
 
         # pen = pg.mkColor(self.colors)
         # self.main_plot_handler.getAxis('left').setTextPen('b')
@@ -592,7 +569,6 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
             self.ui.doubleSpinBox_hc_notch.setSingleStep(1)
             self.ui.pushButton_apply_notch.click()
 
-
         self.ui.checkBox_bandpass.setChecked(self.apply_bandpass)
 
         self.b_bandpass_scope_refilter = self.b_bandpass_scope
@@ -627,7 +603,8 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
     #
     def init_loop_cnbiloop(self):
 
-        self.fin = open(self.scope_settings.get("internal", "path_pipe"), 'r')
+        # self.fin = open(self.scope_settings.get("internal", "path_pipe"), 'r')
+        self.fin = open(r'/tmp/cl.pipe.ndf.10')
 
         # 12 unsigned ints (4 bytes)
         data = struct.unpack("<12I", self.fin.read(4 * 12))
@@ -672,8 +649,6 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         # self.Runtimer.setTimerType(QtCore.Qt.PreciseTimer)
         # self.Runtimer.timeout.connect(self.Time)
         self.Runtimer = task.LoopingCall(self.Time)
-
-
 
     # QtCore.QTimer.singleShot( 20, self.update_loop )
 
