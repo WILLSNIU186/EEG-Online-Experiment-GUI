@@ -141,29 +141,9 @@ class ViewController:
         self.window.show()
 
     # def closeEvent(self):
-    #     '''
-    #     reply = QtGui.QMessageBox.question(self, "Quit", "Are you sure you want to quit?", QtGui.QMessageBox.Yes | QtGui.QMessageBox.No, QtGui.QMessageBox.Yes)
-    #     if (reply == QtGui.QMessageBox.Yes):
-    #         if (self.pushButton_stoprec.isEnabled()):
-    #             subprocess.Popen(["cl_rpc", "closexdf"], close_fds=True)
-    #         self.fin.close()
-    #         exit()
-    #     '''
-    #     # # leeq
-    #     # if (self.ui.pushButton_stoprec.isEnabled()):
-    #     #     subprocess.Popen(["cl_rpc", "closexdf"], close_fds=True)
-    #     # with self.state.get_lock():
-    #     #     self.state.value = 0
-    #     if can_exit:
-    #         event.accept()  # let the window close
-    #     else:
-    #         event.ignore()
 
-        # ----------------------------------------------------------------------------------------------------
-        # 		END OF EVENT HANDLERS
-        # ----------------------------------------------------------------------------------------------------
 
-    # Device
+
 
     # Subject Information button
     def onClicked_button_save_subject_information(self):

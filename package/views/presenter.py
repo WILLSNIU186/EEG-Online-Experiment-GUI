@@ -126,7 +126,7 @@ class Presenter:
                 # self.window.hide()
                 self.is_experiment_on = False
             if self.task_counter >= self.new_task_table.shape[0]:
-                print("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR")
+                logger.info('SV stopped')
                 self.stop_SV()
 
         self.SV_time += 1
@@ -153,12 +153,15 @@ class Presenter:
         self.is_experiment_on = False
         # self.window.hide()
         self.ui.statusBar.showMessage("Tasks finished")
+        try:
+            self.ui.label_content_available_temp.setText(
+                "{} - {}".format(self.temp_counter_list[0], self.temp_counter_list[-1]))
+            self.ui.label_content_Disp_temp.setText(
+                "{} - {}".format(self.temp_counter_list[0], self.temp_counter_list[-1]))
+            self.ui.label_content_current_temp.setText(" ")
+        except:
+            logger.info('MRCP template went wrong')
 
-        self.ui.label_content_available_temp.setText(
-            "{} - {}".format(self.temp_counter_list[0], self.temp_counter_list[-1]))
-        self.ui.label_content_Disp_temp.setText(
-            "{} - {}".format(self.temp_counter_list[0], self.temp_counter_list[-1]))
-        self.ui.label_content_current_temp.setText(" ")
         # self.event_file_path = Utils.write_data_to_csv(self.event_timestamp_list, 'event.csv')
         # print(self.event_file_path)
         # self.save_event_file_to_csv()
@@ -798,6 +801,8 @@ class Presenter:
         except:
             logger.info('MRCP extractor went wrong')
             self.ui.statusBar.showMessage("are lap channels exist?")
+        finally:
+            pass
 
     def MRCP_plot(self, about_to_plot_MRCP):
         # pdb.set_trace()
