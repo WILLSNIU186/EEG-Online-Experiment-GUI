@@ -7,6 +7,7 @@ backcall==0.1.0
 biosignalsnotebooks==0.6.4
 bleach==3.1.5
 bokeh==2.2.2
+cached-property==1.5.2
 certifi==2020.6.20
 cffi==1.14.2
 chardet==3.0.4
@@ -18,6 +19,7 @@ DateTime==4.3
 decorator==4.4.1
 defusedxml==0.6.0
 entrypoints==0.3
+fancycompleter==0.9.1
 future==0.18.2
 h5py==2.10.0
 hyperlink==20.0.1
@@ -42,13 +44,16 @@ jupyter-core==4.6.3
 jupyter-highlight-selected-word==0.2.0
 jupyter-latex-envs==1.4.6
 jupyter-nbextensions-configurator==0.4.1
+jupyterlab==2.2.9
 jupyterlab-pygments==0.1.1
+jupyterlab-server==1.2.0
 kiwisolver==1.1.0
 libmagic==1.0
 lxml==4.5.2
 MarkupSafe==1.1.1
+matlab==0.1
 matlab-kernel==0.16.9
-matlabengineforpython===R2018a
+matlabruntimeforpython===R2019a
 matplotlib==3.2.0rc3
 metakernel==0.24.4
 mistune==0.8.4
@@ -65,6 +70,7 @@ packaging==20.4
 pandas==1.0.3
 pandocfilters==1.4.2
 parso==0.6.2
+pdbpp==0.10.2
 pefile==2019.4.18
 pexpect==4.8.0
 philistine==0.1
@@ -76,9 +82,9 @@ prometheus-client==0.8.0
 prompt-toolkit==3.0.3
 psutil==5.7.0
 ptyprocess==0.6.0
--e git+https://github.com/WILLSNIU186/uw_eboinics_experimental_interface.git@1c426fe78fb20fa6cec576d96158589012d689b4#egg=pycnbi&subdirectory=lib\neurodecode-master
+pycnbi==0.9.dev0
 pycparser==2.20
-pygments==2.5.2
+Pygments==2.5.2
 PyHamcrest==2.0.2
 pyinstaller==4.0
 pyinstaller-hooks-contrib==2020.9
@@ -86,7 +92,10 @@ pylsl==1.13.1
 pyparsing==2.4.6
 PyQt5==5.14.1
 PyQt5-sip==12.7.1
+PyQt5-stubs==5.14.2.2
 pyqtgraph==0.11.0rc0
+pyreadline==2.1
+pyrepl==0.9.0
 pyriemann==0.2.6
 pyrsistent==0.17.3
 pyserial==3.4
@@ -98,7 +107,7 @@ PyWavelets==1.1.1
 pywin32==228
 pywin32-ctypes==0.2.0
 pywinpty==0.5.7
-pyxdf==1.16.3.dev2+g8757401
+pyxdf==1.16.3
 PyYAML==5.3.1
 pyzmq==19.0.1
 qtconsole==4.7.7
@@ -112,6 +121,7 @@ simplejson==3.17.0
 six==1.14.0
 terminado==0.8.3
 testpath==0.4.4
+threadpoolctl==2.1.0
 tornado==6.0.4
 traitlets==4.3.3
 Twisted==20.3.0
@@ -121,6 +131,7 @@ wcwidth==0.1.8
 webencodings==0.5.1
 wget==3.2
 widgetsnbextension==3.5.1
+wmctrl==0.3
 xgboost==1.0.1
 zipp==3.1.0
 zope.interface==5.1.2

@@ -24,13 +24,13 @@ class HardwareAdditionalMethods:
             self.streamReceiver.acquire("recorder using")
 
             if self.streamReceiver.get_buflen() > next_sec:
-                print("\nbuffer length: ",self.streamReceiver.get_buflen())
+                # print("\nbuffer length: ",self.streamReceiver.get_buflen())
                 duration = str(datetime.timedelta(seconds=int(self.streamReceiver.get_buflen())))
                 logger.info('RECORDING %s' % duration)
-                logger.info('\nLSL clock: %s' % self.streamReceiver.get_lsl_clock())
-                logger.info('Server timestamp = %s' % self.streamReceiver.get_server_clock())
-                logger.info('offset {}'.format(self.streamReceiver.get_lsl_clock() - self.streamReceiver.get_server_clock()))
-                # self.lsl_time_list.append(self.streamReceiver.get_lsl_clock())
+                # logger.info('\nLSL clock: %s' % self.streamReceiver.get_lsl_clock())
+                # logger.info('Server timestamp = %s' % self.streamReceiver.get_server_clock())
+                # logger.info('offset {}'.format(self.streamReceiver.get_lsl_clock() - self.streamReceiver.get_server_clock()))
+                # # self.lsl_time_list.append(self.streamReceiver.get_lsl_clock())
                 # self.server_time_list.append(self.streamReceiver.get_server_clock())
                 # self.offset_time_list.append(self.streamReceiver.get_lsl_offset())
                 next_sec += 1

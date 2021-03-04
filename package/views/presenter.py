@@ -24,11 +24,11 @@ NUM_X_CHANNELS = 16  # TODO: parameterize
 class Presenter:
     # Main control
     def Update_SV_image(self):
-        print("SV time {}".format(self.SV_time))
+        # print("SV time {}".format(self.SV_time))
         # print("\nevent list\n", self.event_timestamp_list)
         if self.SV_time % self.cycle_time == 0:
-            print("idle")
-            logger.info('\nidle server clock: {}'.format(self.router.get_server_clock()))
+            # print("idle")
+            # logger.info('\nidle server clock: {}'.format(self.router.get_server_clock()))
             if self.task_counter < self.new_task_table.shape[0]:
                 self.event_timestamp_list.append(
                     [self.event_table_dictionary['Idle'], self.router.get_server_clock()])
@@ -37,7 +37,7 @@ class Presenter:
             self.SV_window.label_total_trial.setText(str(self.new_task_table.shape[0]))
             self.set_epoch_number()
 
-            print("\nTASK COUNTER: ", self.task_counter)
+            # print("\nTASK COUNTER: ", self.task_counter)
             if self.task_counter > 0:
                 # self.update_MRCP_plot()
                 # update interval time
@@ -60,8 +60,8 @@ class Presenter:
             self.SV_window.label.setText("IDLE")
 
         elif self.SV_time % self.cycle_time == self.idle_time:
-            print("focus")
-            logger.info('\nfocus server clock: %s' % self.router.get_server_clock())
+            # print("focus")
+            # logger.info('\nfocus server clock: %s' % self.router.get_server_clock())
             self.event_timestamp_list.append(
                 [self.event_table_dictionary['Focus'], self.router.get_server_clock()])
             # Focus
@@ -69,8 +69,8 @@ class Presenter:
             self.SV_window.label.setStyleSheet("color: blue;")
             self.SV_window.label.setText("FOCUS")
         elif self.SV_time % self.cycle_time == self.focus_time:
-            print("prepare")
-            logger.info('\nprepare server clock: %s' % self.router.get_server_clock())
+            # print("prepare")
+            # logger.info('\nprepare server clock: %s' % self.router.get_server_clock())
             self.event_timestamp_list.append(
                 [self.event_table_dictionary['Prepare'], self.router.get_server_clock()])
             # Prepare
@@ -78,25 +78,25 @@ class Presenter:
             self.SV_window.label.setStyleSheet("color: black;")
             self.SV_window.label.setText("PREPARE")
         elif self.SV_time % self.cycle_time == self.prepare_time:
-            print("two")
+            # print("two")
             # Two
-            logger.info('\ntwo server clock: %s' % self.router.get_server_clock())
+            # logger.info('\ntwo server clock: %s' % self.router.get_server_clock())
             self.event_timestamp_list.append(
                 [self.event_table_dictionary['Two'], self.router.get_server_clock()])
             # self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/two.png" % os.getcwd()))
             self.SV_window.label.setText("TWO")
         elif self.SV_time % self.cycle_time == self.two_time:
-            print("one")
+            # print("one")
             # One
-            logger.info('\none server clock: %s' % self.router.get_server_clock())
+            # logger.info('\none server clock: %s' % self.router.get_server_clock())
             self.event_timestamp_list.append(
                 [self.event_table_dictionary['One'], self.router.get_server_clock()])
             # self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/one.png" % os.getcwd()))
             self.SV_window.label.setText("ONE")
         elif self.SV_time % self.cycle_time == self.one_time:
-            print("task")
+            # print("task")
             # Task
-            logger.info('\ntask server clock: %s' % self.router.get_server_clock())
+            # logger.info('\ntask server clock: %s' % self.router.get_server_clock())
             # self.event_timestamp_list.append(
             #     [self.event_table_dictionary[self.new_task_table[self.task_counter - 1][0]],
             #      self.router.get_server_clock()])
@@ -107,7 +107,7 @@ class Presenter:
             self.SV_window.label.setStyleSheet("color: red;")
             self.SV_window.label.setText("TASK")
         elif self.SV_time % self.cycle_time == self.task_time:
-            print("relax")
+            # print("relax")
             # relax
             # self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/idle.png" % os.getcwd()))
             self.SV_window.label.setStyleSheet("color: green;")
@@ -294,7 +294,7 @@ class Presenter:
 
     def play_task_sound(self, sound_path):
         try:
-            logger.info("Played, sound path: {}".format(sound_path))
+            # logger.info("Played, sound path: {}".format(sound_path))
             playsound(sound_path)
         except:
             logger.info("sound path: {} not found".format(sound_path))
@@ -582,7 +582,7 @@ class Presenter:
         except Exception as e:
             logger.exception('Exception. Dropping into a shell.')
             print(str(e))
-            pdb.set_trace()
+            # pdb.set_trace()
         finally:
             # self.updating= False
             # using singleShot instead
@@ -639,7 +639,7 @@ class Presenter:
             pass
         except:
             logger.exception()
-            pdb.set_trace()
+            # pdb.set_trace()
 
     def filter_signal(self):
         self.channels_to_filter = list(range(len(self.channel_labels)))
@@ -687,6 +687,7 @@ class Presenter:
         #
 
     def update_template_buffer(self):
+        # logger.info('update template buffer\n')
         self.template_buffer = np.roll(self.template_buffer, -len(self.ts_list), 0)
         current_chunck = np.copy(self.eeg)
 
@@ -700,6 +701,7 @@ class Presenter:
         high_pass_data_out, self.initial_condition_list_hp = Utils.apply_filter(self.b_hp, self.a_hp, high_pass_data_in,
                                                                                 self.initial_condition_list_hp)
 
+        # print('\nhigh pass data out size: ', high_pass_data_out.shape)
         self.template_buffer[-len(self.ts_list):, :] = np.transpose(high_pass_data_out)
 
     def read_template_buffer(self):
@@ -807,7 +809,7 @@ class Presenter:
     def MRCP_plot(self, about_to_plot_MRCP):
         # pdb.set_trace()
         size = len(about_to_plot_MRCP)
-        print("\nMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\nMRCP size: ", size)
+        # print("\nMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\nMRCP size: ", size)
         # print("processed_MRCP: {}".format(self.processed_trial_MRCP))
         # input()
         # x = list(range(0,size))
@@ -829,14 +831,14 @@ class Presenter:
     def plot_display_temp(self):
         # plot selcted MRCP
         self.ui.graphicsView.clear()
-        print("display temp list", self.display_temp_list)
+        # print("display temp list", self.display_temp_list)
         for i in self.display_temp_list:
             self.MRCP_plot(self.total_trials_MRCP[int(i) - 1])
 
     def get_input_temp(self):
         self.selected_temp = self.ui.lineEdit_temp_selector.text()
         self.list_selected_temp = self.selected_temp.split()
-        print("list_selected_temp", self.list_selected_temp)
+        # print("list_selected_temp", self.list_selected_temp)
         if len(self.list_selected_temp) == 1:
             self.input_temp_list = [int(x) for x in self.list_selected_temp]
             # self.ui.label_content_Disp_temp.setText("{}".format(self.input_temp_list[0]))
@@ -848,4 +850,4 @@ class Presenter:
                 self.input_temp_list = list(range(start_index, stop_index))
             else:
                 self.input_temp_list = [int(x) for x in self.list_selected_temp]
-        print("input temp list", self.input_temp_list)
+        # print("input temp list", self.input_temp_list)
