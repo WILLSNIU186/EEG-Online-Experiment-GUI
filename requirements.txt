@@ -49,7 +49,7 @@ jupyterlab-pygments==0.1.1
 jupyterlab-server==1.2.0
 kiwisolver==1.1.0
 libmagic==1.0
-lxml==4.5.2
+lxml==4.6.3
 MarkupSafe==1.1.1
 matplotlib==3.4.1
 metakernel==0.24.4
