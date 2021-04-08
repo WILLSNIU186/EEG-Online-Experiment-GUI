@@ -2,16 +2,8 @@
 from __future__ import print_function, division, unicode_literals
 
 """
- EEG Scope
- Iñaki Iturrate, Kyuhwa Lee
- 2017
-
- V1.0
- TODO
-	- Should move to VisPY: http://vispy.org/plot.html#module-vispy.plot but still under development
-	- The scope should be a class itself
-	- Scope of EXG signals
-	- Events should stored in a class.
+Jiansheng Niu
+2021
 
 """
 
@@ -38,7 +30,16 @@ from ..entity.edata.utils import Utils
 
 
 class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter):
+    """
+    MainView class controls the GUI frontend interaction
+    """
     def __init__(self, amp_name, amp_serial, state=mp.Value('i', 1), queue=None):
+        """
+        Initialize experimenter window GUI and subject view window GUI
+
+        :amp_name: amplifier name passed from LSL
+        :amp_serial: amplifier serial passed from LSL
+        """
         super(MainView, self).__init__()
         self.router = router.Router()
         self.ui = main_layout16.Ui_MainWindow()
@@ -56,13 +57,11 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.state = state
         self.init_all()
 
-    #
-    # 	Main init function
-    #
-    def init_all(self):
 
-        # pg.setConfigOption('background', 'w')
-        # pg.setConfigOption('foreground', 'k')
+    def init_all(self):
+        """
+        Initialize specialized functions inside GUI
+        """
 
         self.init_config_file()
         self.init_loop()
@@ -72,12 +71,12 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.init_scope_GUI()
         self.init_timer()  # timer for scope refreshing
         self.init_Runtimer()  # timer for record, train and test
-        # pdb.set_trace()
 
-    #
-    #	Initializes config file
-    #
+
     def init_config_file(self):
+        """
+        Initialize config file
+        """
         self.scope_settings = RawConfigParser(allow_no_value=True, inline_comment_prefixes=('#', ';'))
         if (len(sys.argv) == 1):
             self.show_channel_names = 0
@@ -99,7 +98,9 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.scope_settings.read('.scope_settings.ini')
 
     def init_loop(self):
-
+        """
+        Initialize loop related variables like StreamReceiver and self.eeg
+        """
         self.updating = False
         logger.info("init_loop runs")
         self.sr = StreamReceiver(window_size=1, buffer_size=10,
@@ -131,10 +132,11 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.ts_list = []
         self.ts_list_tri = []
 
-    #
-    # 	Initialize control panel parameter
-    #
+
     def init_event_functions(self):
+        """
+        Initialize event listeners for widgets in GUI
+        """
         # Control buttons
         self.ui.pushButton_Main_switch.clicked.connect(self.onClicked_button_Main_switch)
         self.ui.pushButton_start_SV.clicked.connect(self.onClicked_button_start_SV)
@@ -182,6 +184,9 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.ui.pushButton_temp_remove.clicked.connect(self.onClicked_button_temp_remove)
 
     def init_panel_GUI(self):
+        """
+        Initialize experimenter GUI
+        """
         # Tabs
         self.ui.tab_experimental_protocol.setEnabled(False)
         self.ui.tab_subjec_information.setEnabled(False)
@@ -293,6 +298,11 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.show()
 
     def init_panel_GUI_stop_recording(self):
+        """
+        Initialize experimenter GUI when stop recording button pressed. This is used to
+        prepare for next run.
+
+        """
         # Tabs
         self.ui.tab_experimental_protocol.setEnabled(False)
         self.ui.tab_subjec_information.setEnabled(False)
@@ -403,6 +413,9 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.show()
 
     def init_SV_GUI(self):
+        """
+        Initialize subject view GUI
+        """
         self.SVStatus = 0
         self.starttime = 0
         self.SV_time = 0
@@ -417,11 +430,11 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.cycle_time = self.relax_time
         self.is_experiment_on = False
 
-    #
-    #	Initialize scope parameters
-    #
-    def init_scope_GUI(self):
 
+    def init_scope_GUI(self):
+        """
+        Initialize oscilloscope GUI
+        """
         self.bool_parser = {True: '1', False: '0'}
 
         # PyQTGraph plot initialization
@@ -593,47 +606,11 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         # Force repaint even when we shouldn't repaint.
         self.force_repaint = 1
 
-    # For some strange reason when the width is > 1 px the scope runs slow.
-    # self.pen_plot = []
-    # for x in range(0, self.config['eeg_channels']):
-    # 	self.pen_plot.append(pg.mkPen(self.colors[x%16,:], width=3))
 
-    #
-    # 	Initializes the BCI loop parameters
-    #
-    def init_loop_cnbiloop(self):
-
-        # self.fin = open(self.scope_settings.get("internal", "path_pipe"), 'r')
-        self.fin = open(r'/tmp/cl.pipe.ndf.10')
-
-        # 12 unsigned ints (4 bytes)
-        data = struct.unpack("<12I", self.fin.read(4 * 12))
-
-        self.config = {'id': data[0], 'sf': data[1], 'labels': data[2],
-                       'samples': data[3], 'eeg_channels': data[4], 'exg_channels': data[5],
-                       'tri_channels': data[6], 'eeg_type': data[8], 'exg_type': data[9],
-                       'tri_type': data[10], 'lbl_type': data[11], 'tim_size': 1,
-                       'idx_size': 1}
-
-        self.tri = np.zeros(self.config['samples'])
-        self.eeg = np.zeros(
-            (self.config['samples'], self.config['eeg_channels']),
-            dtype=np.float)
-        self.exg = np.zeros(
-            (self.config['samples'], self.config['exg_channels']),
-            dtype=np.float)
-
-        # TID initialization
-        # self.bci = BCI.BciInterface()
-
-    #
-    # 	Initializes the BCI loop parameters
-    #
-
-    #
-    # 	Initializes the QT timer, which will call the update function every 20 ms
-    #
     def init_timer(self):
+        """
+        Initialize main timer used for refreshing oscilloscope window. This refreshes every 20ms.
+        """
         self.os_time_list1 = []
         QtCore.QCoreApplication.processEvents()
         QtCore.QCoreApplication.flush()
@@ -643,50 +620,17 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.timer.start(20)
 
     def init_Runtimer(self):
+        """
+        Initialize task related timer which controls the timing for visual cues
+        """
         self.time_show = 0
         self.os_time_list = []
-        # self.Runtimer = QtCore.QTimer(self)
-        # self.Runtimer.setTimerType(QtCore.Qt.PreciseTimer)
-        # self.Runtimer.timeout.connect(self.Time)
+
         self.Runtimer = task.LoopingCall(self.Time)
 
-    # QtCore.QTimer.singleShot( 20, self.update_loop )
 
-    #
-    # Handle TOBI iD events
-    #
-    def handle_tobiid_input(self):
-
-        data = None
-        try:
-            data = self.bci.iDsock_bus.recv(512)
-            self.bci.idStreamer_bus.Append(data)
-        except:
-            self.nS = False
-            self.dec = 0
-            pass
-
-        # deserialize ID message
-        if data:
-            if self.bci.idStreamer_bus.Has("<tobiid", "/>"):
-                msg = self.bci.idStreamer_bus.Extract("<tobiid", "/>")
-                self.bci.id_serializer_bus.Deserialize(msg)
-                self.bci.idStreamer_bus.Clear()
-                tmpmsg = int(self.bci.id_msg_bus.GetEvent())
-                if (self.show_TID_events) and (not self.stop_plot):
-                    self.addEventPlot("TID", tmpmsg)
-
-            elif self.bci.idStreamer_bus.Has("<tcstatus", "/>"):
-                MsgNum = self.bci.idStreamer_bus.Count("<tcstatus")
-                for i in range(1, MsgNum - 1):
-                    # Extract most of these messages and trash them
-                    msg_useless = self.bci.idStreamer_bus.Extract("<tcstatus",
-                                                                  "/>")
-
-    #
-    #	Shows / hide help in the scope window
-    #
     def trigger_help(self):
+        """Shows / hide help in the scope window"""
         if self.show_help:
             self.help.setPos(0, self.scale)
             self.main_plot_handler.addItem(self.help)
@@ -694,10 +638,14 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         else:
             self.main_plot_handler.removeItem(self.help)
 
-    # ----------------------------------------------------------------------------------------------------
-    # 			EVENT HANDLERS
-    # ----------------------------------------------------------------------------------------------------
+
     def eventFilter(self, source, event):
+        """
+        Select single channel to scale by right clicking
+        :param source: channel table content
+        :param event: right mouse button press
+        :return: ID of the selected channel
+        """
         if (event.type() == QtCore.QEvent.MouseButtonPress and
                 event.buttons() == QtCore.Qt.RightButton and
                 source is self.ui.table_channels.viewport()):

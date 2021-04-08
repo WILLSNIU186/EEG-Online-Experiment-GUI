@@ -1,4 +1,4 @@
-from ..interactor import interactor, interactor_mrcp_template
+from ..interactor import interactor
 
 
 class Router:

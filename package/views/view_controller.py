@@ -18,9 +18,14 @@ NUM_X_CHANNELS = 16  # TODO: parameterize
 
 
 class ViewController:
+    """
+    ViewController contains the event listeners for each widget.
+    """
 
-    # Main control buttons
     def onClicked_button_Main_switch(self, pressed):
+        """
+        Event listener for main switch down the experimenter GUI
+        """
         if pressed:
             self.ui.statusBar.showMessage("System is On")
             self.ui.tab_experimental_protocol.setEnabled(True)
@@ -37,6 +42,7 @@ class ViewController:
             self.ui.tab_experiment_type.setEnabled(False)
 
     def onClicked_button_scope_switch(self, pressed):
+
         if pressed:
             self.ui.statusBar.showMessage("show oscilloscope")
             self.win.show()
@@ -51,6 +57,9 @@ class ViewController:
         pass
 
     def onClicked_button_rec(self, pressed):
+        """
+        Start the recording when recording button been clicked
+        """
         if pressed:
             print(1)
             self.ui.statusBar.showMessage("Recording started")
@@ -101,8 +110,8 @@ class ViewController:
             self.Runtimer.stop()
 
             self.router.stop_recording()
-            Utils.write_data_to_csv(self.os_time_list, "os_time_list.csv")
-            Utils.write_data_to_csv(self.os_time_list1, "os_time_list1.csv")
+            # Utils.write_data_to_csv(self.os_time_list, "os_time_list.csv")
+            # Utils.write_data_to_csv(self.os_time_list1, "os_time_list1.csv")
             Utils.write_dict_to_csv(self.create_channel_dict(), "channels.csv")
             Utils.write_dict_to_csv(self.bad_epoch_dict, "bad_epochs.csv")
             self.event_file_path = Utils.write_data_to_csv(self.event_timestamp_list, 'event.csv')
@@ -130,24 +139,29 @@ class ViewController:
     # def onClicked_button_stop_SV(self):
     #     self.stop_SV()
     def create_channel_dict(self):
+        """
+        Read current channel names from LSL and return a dictionary.
+        :return: channel name dictionary
+        """
         keys = list(range(len(self.channel_labels.tolist())))
         channel_dict = dict(zip(keys, self.channel_labels.tolist()))
         return channel_dict
 
     def onClicked_button_start_SV(self):
+        """
+        Event listener for task button
+        """
         self.ui.statusBar.showMessage("Tasks started")
         self.SV_time = 0
         self.is_experiment_on = True
         self.window.show()
 
-    # def closeEvent(self):
 
-
-
-
-    # Subject Information button
     def onClicked_button_save_subject_information(self):
-
+        """
+        Event listener for 'save' button on subject information tab. The subject information typed in GUI
+        will be saved to subject.txt
+        """
         self.first_name = self.ui.lineEdit_first_name.text()
         self.last_name = self.ui.lineEdit_last_name.text()
         self.gender = self.ui.lineEdit_gender.text()
@@ -180,12 +194,16 @@ class ViewController:
         self.ui.statusBar.showMessage(
             "Subject information is saved to {}".format("{}\subject.txt".format(Variables.get_base_folder_path())))
 
-    # Experimental protocol buttons
     def onClicked_toolButton_choose_sound_task(self):
+        """
+        Event listener for three dot button next to choose sound for task in Experiment Protocal tab
+        """
         self.openFileNameDialog_sound()
 
-    # Experimental protocol
     def onClicked_button_define_task_add(self):
+        """
+        Event listener for Add button in Task manager in Experimental Protocal tab
+        """
         # Add task name and description in table
         exp_task_name = self.ui.lineEdit_define_task.text()
         task_descriptor = self.ui.lineEdit_subject_view_description.text()
@@ -199,11 +217,17 @@ class ViewController:
             self.ui.tableWidget_tasks.setItem(row_position, 3, QTableWidgetItem(self.task_sound_path))
 
     def onClicked_toolButton_choose_image_task(self):
+        """
+        Event listener for three dot button next to choose image for task in Experiment Protocal tab
+        """
         self.openFileNameDialog_image()
 
-        # self.task_image_path_list.append(self.task_image_path)
 
     def onClicked_button_define_task_done(self):
+        """
+        Event listener for Done button in Task manager in Experimental protocol tab.
+        By clicking Done button, no more new tasks could be added.
+        """
         self.task_table, _ = self.get_task_name_table_content()
         self.new_task_table = np.copy(self.task_table)  # initialize new_task_table
         self.ui.groupBox_sequence_manager.setEnabled(True)
@@ -213,6 +237,10 @@ class ViewController:
         # print("task image paths list:\n",self.task_image_path_list)
 
     def onClicked_button_create_sequence(self):
+        """
+        Event listener for create sequence button in Experimental Protocol tab.
+        The listed tasks will be iterated 'group number' times in the Task table
+        """
         group_number = self.ui.lineEdit_group_number.text()
         for i in range(int(group_number) - 1):
             self.new_task_table = np.r_[self.new_task_table, self.task_table]
@@ -224,6 +252,10 @@ class ViewController:
             self.ui.tableWidget_tasks.setItem(i, 3, QTableWidgetItem(self.new_task_table[i][3]))
 
     def onClicked_button_randomize(self):
+        """
+        Event listener for Randomize button in Experimental protocol
+        Randomize the order of tasks in Task table
+        """
         np.random.shuffle(self.new_task_table)
         self.ui.tableWidget_tasks.setRowCount(self.new_task_table.shape[0])
         for i in range(self.new_task_table.shape[0]):
@@ -233,9 +265,17 @@ class ViewController:
             self.ui.tableWidget_tasks.setItem(i, 3, QTableWidgetItem(self.new_task_table[i][3]))
 
     def onClicked_toolButton_load_protocol(self):
+        """
+        Event listener for load exp. protocol button
+        Open folder to choose existing experimental protocol files
+        """
         self.openFileNameDialog_protocol()
 
     def onClicked_experimental_protocol_finish(self):
+        """
+        Event listener for Finish button in experimental protocol tab.
+        Disable all inputs in this tab and save Task table into variable to be used for generating tasks.
+        """
         self.ui.tab_experimental_protocol.setEnabled(False)
         self.new_task_list = self.new_task_table[:,0].tolist()
         self.unique_task_list = np.unique(self.new_task_list)
@@ -263,19 +303,28 @@ class ViewController:
         self.bad_epoch_dict = {k: [] for k in self.unique_task_list}
 
     def onClicked_button_save_protocol(self):
+        """
+        Event listener for Save current protocol button in Experimental protocol tab.
+        Save task table to a csv file.
+        """
         _, self.protocol = self.get_task_name_table_content()
         self.saveFileNameDialog_protocol()
         # Utils.save_protocol_to_csv(protocol, "exp. protocol.csv")
         self.ui.statusBar.showMessage("protocol saved to {}".format(Variables.get_protocol_path()))
 
-    # Event Management buttons
-
     def onClicked_button_save_event_number(self):
+        """
+        Event listener for save button in Event and File Management tab.
+        Save task name and event number to Run1/event.csv
+        """
         event_dict = self.get_event_number_table_content()
         Utils.write_event_number_to_csv(event_dict)
 
-    # Oscilloscope buttons
     def onActivated_checkbox_bandpass(self):
+        """
+        Event listener for check box in front of Bandpass filter in Oscilloscope tab.
+        Check to bandpass filter displayed signal.
+        """
         self.apply_bandpass = False
         self.ui.pushButton_bp.setEnabled(self.ui.checkBox_bandpass.isChecked())
         self.ui.doubleSpinBox_hp.setEnabled(self.ui.checkBox_bandpass.isChecked())
@@ -283,32 +332,50 @@ class ViewController:
         self.update_title_scope()
 
     def onActivated_checkbox_notch(self):
+        """
+        Event listener for check box in front of notch filter in Oscilloscope tab.
+        Check to notch filter displayed signal.
+        """
         self.apply_notch = False
         self.ui.pushButton_apply_notch.setEnabled(self.ui.checkBox_notch.isChecked())
         self.ui.doubleSpinBox_lc_notch.setEnabled(self.ui.checkBox_notch.isChecked())
         self.ui.doubleSpinBox_hc_notch.setEnabled(self.ui.checkBox_notch.isChecked())
 
-    def onActivated_checkbox_lowpass(self):
-        self.apply_lowpass = False
-        self.ui.pushButton_apply_lowpass.setEnabled(self.ui.checkBox_low_pass.isChecked())
-        self.ui.doubleSpinBox_lc_lowpass.setEnabled(self.ui.checkBox_low_pass.isChecked())
-
-    def onActivated_checkbox_highpass(self):
-        self.apply_highpass = False
-        self.ui.pushButton_apply_highpass.setEnabled(self.ui.checkBox_highpass.isChecked())
-        self.ui.doubleSpinBox_lc_highpass.setEnabled(self.ui.checkBox_highpass.isChecked())
+    # def onActivated_checkbox_lowpass(self):
+    #     self.apply_lowpass = False
+    #     self.ui.pushButton_apply_lowpass.setEnabled(self.ui.checkBox_low_pass.isChecked())
+    #     self.ui.doubleSpinBox_lc_lowpass.setEnabled(self.ui.checkBox_low_pass.isChecked())
+    #
+    # def onActivated_checkbox_highpass(self):
+    #     self.apply_highpass = False
+    #     self.ui.pushButton_apply_highpass.setEnabled(self.ui.checkBox_highpass.isChecked())
+    #     self.ui.doubleSpinBox_lc_highpass.setEnabled(self.ui.checkBox_highpass.isChecked())
 
     def onActivated_checkbox_car(self):
+        """
+        Event listener for check box in front of CAR filter in Oscilloscope tab.
+        Apply Common Average Reference filter to displayed data if checked.
+        """
         self.apply_car = self.ui.checkBox_car.isChecked()
         self.update_title_scope()
 
     def onValueChanged_spinbox_time(self):
+        """
+        Event listener for spinbox of time in Scale Manager of Oscilloscope tab
+        """
         self.update_plot_seconds(self.ui.spinBox_time.value())
 
     def onActivated_combobox_scale(self):
+        """
+        Event listener for scale of data in Scale Manager of Oscilloscope tab
+        """
         self.update_plot_scale(self.scales_range[self.ui.comboBox_scale.currentIndex()])
 
     def onClicked_button_bp(self):
+        """
+        Event listener for Apply BP button in Filter Manager in Oscilloscope tab
+        Apply BPF to displaying data
+        """
         if self.ui.checkBox_change_filter.isChecked():
             if (self.ui.doubleSpinBox_lp.value() > self.ui.doubleSpinBox_hp.value()):
                 self.apply_bandpass = True
@@ -329,6 +396,10 @@ class ViewController:
             self.update_title_scope()
 
     def onClicked_button_notch(self):
+        """
+        Event listener for Apply Notch in Filter Manager in Oscilloscope tab
+        Apply notch filter to displaying data
+        """
         if self.ui.checkBox_change_filter.isChecked():
             if (self.ui.doubleSpinBox_hc_notch.value() > self.ui.doubleSpinBox_lc_notch.value()):
                 self.apply_notch = True
@@ -355,6 +426,11 @@ class ViewController:
             print("ch index: {}, {}".format(self.selected_channel_row_index, self.selected_channel_column_index))
 
     def onClicked_button_update_channel_name(self):
+        """
+        Update channel name by double clicking channel name in channel manager and click update channel name
+        to update them in Oscilloscope
+        """
+
         # self.channel_labels[self.selected_channel_column_index * 16 + self.selected_channel_row_index] = \
         #     self.ui.table_channels.item(self.selected_channel_row_index, self.selected_channel_column_index).text()
         idx = 0
@@ -368,7 +444,9 @@ class ViewController:
         print("channel labels: {}".format(self.channel_labels))
 
     def onSelectionChanged_table(self):
-
+        """
+        Update highlighted channels in Channel Manager when different channels are selected
+        """
         # Remove current plot
         for x in range(0, len(self.channels_to_show_idx)):
             self.main_plot_handler.removeItem(self.curve_eeg[x])
@@ -415,6 +493,12 @@ class ViewController:
         #
 
     def keyPressEvent(self, event):
+        """
+        Event listeners for different key button pressed
+        Example: When there is a channel name been typed in channel names box in Sub channel manager in
+                 Oscilloscope, and change scale is checked, pressing up and down button will increase
+                 and decrease that channels' scale respectively
+        """
         key = event.key()
         # if (key == QtCore.Qt.Key_Escape):
         #     self.closeEvent(None)
@@ -448,44 +532,72 @@ class ViewController:
         if ((key >= QtCore.Qt.Key_0) and (key <= QtCore.Qt.Key_9)):
             if (self.show_Key_events) and (not self.stop_plot):
                 self.addEventPlot("KEY", 990 + key - QtCore.Qt.Key_0)
-                # self.bci.id_msg_bus.SetEvent(990 + key - QtCore.Qt.Key_0)
-                # self.bci.iDsock_bus.sendall(self.bci.id_serializer_bus.Serialize());
-                # 666
 
-    # Online Experiment
-    # EEG
-    # MRCP
 
     def onClicked_button_temp_view(self):
-        self.get_input_temp()
-        self.display_temp_list = self.input_temp_list
-        self.ui.label_content_Disp_temp.setText("{}".format(self.display_temp_list))
-        self.plot_display_temp()
+        """
+        Event listener for View button in Online Experiment tab.
+        View selected trials
+        """
+        try:
+            self.get_input_temp()
+            self.display_temp_list = self.input_temp_list
+            self.ui.label_content_Disp_temp.setText("{}".format(self.display_temp_list))
+            self.plot_display_temp()
+        except Exception as e:
+            logger.exception('Exception. Dropping into a shell.')
+            print(str(e))
+        finally:
+            pass
 
     def onClicked_button_temp_remove(self):
-        self.get_input_temp()
-        for element in self.input_temp_list:
-            del self.total_trials_MRCP[element - 1]
-        # self.display_temp_list = [x for x in self.total_MRCP_inds if x not in self.input_temp_list]
-        self.display_temp_list = list(range(1, len(self.total_trials_MRCP) + 1))
-        self.ui.label_content_Disp_temp.setText("{}".format(self.display_temp_list))
-        self.ui.label_content_available_temp.setText("{}".format(self.display_temp_list))
-        self.plot_display_temp()
-        # pdb.set_trace()
+        """
+        Event listener for Remove button in Onlin Experiment tab.
+        Remove selected trials
+        """
+        try:
+            self.get_input_temp()
+            for element in self.input_temp_list:
+                del self.total_trials_MRCP[element - 1]
+            # self.display_temp_list = [x for x in self.total_MRCP_inds if x not in self.input_temp_list]
+            self.display_temp_list = list(range(1, len(self.total_trials_MRCP) + 1))
+            self.ui.label_content_Disp_temp.setText("{}".format(self.display_temp_list))
+            self.ui.label_content_available_temp.setText("{}".format(self.display_temp_list))
+            self.plot_display_temp()
+        except Exception as e:
+            logger.exception('Exception. Dropping into a shell.')
+            print(str(e))
+        finally:
+            pass
 
     def onClicked_button_temp_clear(self):
+        """
+        Event listener for Clear button in Online Experiment tab
+        Clear MRCP plot
+        """
         self.ui.graphicsView.clear()
 
     def onClicked_button_temp_mean(self):
-        # calculate mean MRCP
-        # NOT TESTED
-        # dummy = np.asarray(self.total_trials_MRCP)
-        # self.mean_MRCP = np.mean(dummy[self.display_temp_list], 0)
-        self.mean_MRCP = np.mean(self.total_trials_MRCP, 0)
-        self.ui.graphicsView.clear()
-        self.MRCP_plot(self.mean_MRCP)
+        """
+        Event listener for Mean button in Online Experiment tab
+        Calculate mean of all templates
+        """
+        try:
+            self.mean_MRCP = np.mean(self.total_trials_MRCP, 0)
+            self.ui.graphicsView.clear()
+            self.MRCP_plot(self.mean_MRCP)
+        except Exception as e:
+            logger.exception('Exception. Dropping into a shell.')
+            print(str(e))
+        finally:
+            pass
 
     def onClicked_button_bad_epoch(self):
+        """
+        Event listener for bad epoch button in Online Experimente tab
+        Record bad epochs during the experiment, the bad epoch number will be saved to Run1/bad_epochs.csv
+        :return:
+        """
         current_task = self.new_task_list[self.task_counter]
         row_number = self.unique_task_list.tolist().index(current_task)
         epoch_number = self.find_epoch_number()

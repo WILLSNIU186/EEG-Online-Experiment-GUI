@@ -11,9 +11,15 @@ from ..edata.variables import Variables
 
 
 class HardwareAdditionalMethods:
+    """
+    HardwareAdditionalMethods controls heavy recording function in a separate thread
+    """
     def record(self):
-        # set data file name
-
+        """
+        Continue recording data until the record stop button is pressed, the recorded data
+        are firstly saved in a buffer which will be saved to a csv file when recording finishes.
+        TODO: Save data to file during recording
+        """
         timestamp = time.strftime('%Y%m%d-%H%M%S', time.localtime())
         # start recording
         logger.info('\n>> Recording started (PID %d).' % os.getpid())
@@ -64,9 +70,9 @@ class HardwareAdditionalMethods:
 
 
     def write_recorded_data_to_csv(self, data):
-        # eeg_file = "%s/raw_eeg.csv" % (Variables.get_sub_folder_path())
-        # pdb.set_trace()
-        # eeg_file = Variables.get_raw_eeg_file_path()
+        """
+        Write buffer to Run1/raw_eeg.csv
+        """
         eeg_file = self.eeg_file_path
         logger.info(eeg_file)
         raw_data_with_time_stamps = np.c_[data['timestamps'], data['signals']]
@@ -76,6 +82,9 @@ class HardwareAdditionalMethods:
         logger.info('Saved to %s\n' % eeg_file)
 
     def write_timestamps_to_csv(self):
+        """
+        Write timestamps to Run1/event.csv
+        """
         eeg_timestamp_file = Variables.get_raw_eeg_timestamp_file_path()
         logger.info(eeg_timestamp_file)
         # pdb.set_trace()

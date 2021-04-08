@@ -2,6 +2,10 @@
 import numpy as np
 import pdb
 class Variables:
+    """
+    Variables class contains class methods to set and get variables needed in presenter
+    and view
+    """
     __current_environment = ""
     __run_time_counter = 0
     __file_path = ""

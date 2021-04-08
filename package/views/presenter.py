@@ -22,10 +22,13 @@ NUM_X_CHANNELS = 16  # TODO: parameterize
 
 
 class Presenter:
-    # Main control
+    """
+    Presenter manages the real-time data and present them to GUI like oscilloscope.
+    This class is a part of MainView class, it is separated from MainView for functionality encapsulation.
+    """
+
     def Update_SV_image(self):
-        # print("SV time {}".format(self.SV_time))
-        # print("\nevent list\n", self.event_timestamp_list)
+        """ Update subject view GUI visual cues inlcuding Idle, focus, prepare, two, one, task"""
         if self.SV_time % self.cycle_time == 0:
             # print("idle")
             # logger.info('\nidle server clock: {}'.format(self.router.get_server_clock()))
@@ -132,14 +135,7 @@ class Presenter:
         self.SV_time += 1
 
     def update_SV_task(self):
-        # # Update SV UI according to task list
-        # if self.task_counter < self.new_task_table.shape[0]:
-        #     self.SV_window.label_task_content.setText(self.new_task_table[self.task_counter][1])
-        #     self.SV_window.label_instruction_image.setPixmap(QtGui.QPixmap(self.new_task_table[self.task_counter][2]))
-        #     self.play_task_sound(self.new_task_table[self.task_counter][3])
-        # else:
-        #     self.stop_SV()
-
+        """ Update task instruction image, task description and task sound on subject view GUI"""
         # Update SV UI according to task list
         if self.task_counter < self.new_task_table.shape[0]:
             self.SV_window.label_task_content.setText(self.new_task_table[self.task_counter][1])
@@ -150,6 +146,7 @@ class Presenter:
             self.stop_SV()
 
     def stop_SV(self):
+        """ Stop subject view window updating when tasks finished"""
         self.is_experiment_on = False
         # self.window.hide()
         self.ui.statusBar.showMessage("Tasks finished")
@@ -160,13 +157,13 @@ class Presenter:
                 "{} - {}".format(self.temp_counter_list[0], self.temp_counter_list[-1]))
             self.ui.label_content_current_temp.setText(" ")
         except:
-            logger.info('MRCP template went wrong')
-
-        # self.event_file_path = Utils.write_data_to_csv(self.event_timestamp_list, 'event.csv')
-        # print(self.event_file_path)
-        # self.save_event_file_to_csv()
+            logger.info('MRCP template display went wrong, but this does not affect data saving, please be patient ...')
 
     def Time(self):
+        """
+        Call update subject view window image if task button clicked and display timer on experimenter
+        GUI.
+        """
         os_time = time.time()
         self.os_time_list.append(os_time)
         if self.is_experiment_on:
@@ -176,22 +173,11 @@ class Presenter:
         self.time_show += 1
         self.ui.lcdNumber_timer.display(self.time_show)
 
-    # def Reset(self):
-    #
-    #     self.Runtimer.stop()
-    #     Variables.set_run_time_counter(0)
-    #     time = Variables.get_run_time_counter()
-    #     self.ui.lcdNumber_timer.display(time)
-
-    #
-    #	Called by repaint()
-    #
-
-    # Subject Information
-
-    # Experimental Protocol
-
     def get_task_name_table_content(self):
+        """
+        Get task name, task description, image path and sound path from task name table in experimenter GUI
+        :return: lists of table content
+        """
         self.task_list = []
         self.task_descriptor_list = []
         self.task_image_path_list = []
@@ -216,9 +202,15 @@ class Presenter:
         return task_table, task_table_list
 
     def show_task_instruction_image(self):
+        """
+        Show task instruction image in subject view window
+        """
         self.ui.label_task_instruction_image.setPixmap(QtGui.QPixmap(self.task_image_path))
 
     def openFileNameDialog_image(self):
+        """
+        Open file folder to choose task instruction image.
+        """
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
         fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()",
@@ -232,6 +224,9 @@ class Presenter:
         self.show_task_instruction_image()
 
     def openFileNameDialog_sound(self):
+        """
+        Open file folder to choose sound file for task instruction.
+        """
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
         fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()",
@@ -246,6 +241,9 @@ class Presenter:
             self.task_sound_path = " "
 
     def openFileNameDialog_protocol(self):
+        """
+        Open foldre to choose saved experimental protocal.
+        """
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
         fileName, _ = QFileDialog.getOpenFileName(self, "QFileDialog.getOpenFileName()",
@@ -258,6 +256,9 @@ class Presenter:
             self.protocol_path = " "
 
     def load_protocol(self):
+        """
+        Load existing experimental protocal.
+        """
         loaded_task_table = Utils.read_protocol_csv(self.protocol_path)
         self.ui.tableWidget_tasks.setRowCount(loaded_task_table.shape[0])
         for i in range(loaded_task_table.shape[0]):
@@ -275,6 +276,9 @@ class Presenter:
         self.ui.groupBox_task_manager.setEnabled(True)
 
     def saveFileNameDialog_protocol(self):
+        """
+        Save current tasks listed in the task table to an experimental protocal file.
+        """
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
         fileName, _ = QFileDialog.getSaveFileName(self, "QFileDialog.getSaveFileName()",
@@ -285,6 +289,10 @@ class Presenter:
             Utils.save_protocol_to_csv(self.protocol, fileName)
 
     def choose_base_folder(self):
+        """
+        Choose directory to save recording files.
+        :returns: directory path
+        """
         dir_name = QFileDialog.getExistingDirectory(self, "",
                                                     r"D:\OneDrive - University of Waterloo\Jiansheng\MRCP_folder\MRCP_online_interface\records",
                                                     QFileDialog.ShowDirsOnly)
@@ -293,6 +301,10 @@ class Presenter:
         return dir_name
 
     def play_task_sound(self, sound_path):
+        """
+        play sound for task instruction
+        :param sound_path: .wav sound file directory path
+        """
         try:
             # logger.info("Played, sound path: {}".format(sound_path))
             playsound(sound_path)
@@ -302,15 +314,25 @@ class Presenter:
         # QtMultimedia.QSound.play(sound_path)
 
     def init_task_name_table(self):
+        """
+        Initialize task table heade.
+        """
         self.ui.tableWidget_tasks.setColumnCount(4)
         self.ui.tableWidget_tasks.setHorizontalHeaderLabels(
             ["Task name", "Task description", "Task image", "Task sound"])
 
     def init_table_file_path(self):
+        """
+        Initialize file path table in Event and File Management tab
+        """
         self.ui.tableWidget_file_path.setColumnCount(2)
         self.ui.tableWidget_file_path.setHorizontalHeaderLabels(["File name", "File path"])
 
+
     def update_table_file_path(self):
+        """
+        Update content in File Path table.
+        """
         self.ui.tableWidget_file_path.setRowCount(5)
         self.ui.tableWidget_file_path.setItem(0, 0, QTableWidgetItem("subject.txt"))
         self.ui.tableWidget_file_path.setItem(0, 1, QTableWidgetItem(self.subject_file_path))
@@ -323,9 +345,11 @@ class Presenter:
         self.ui.tableWidget_file_path.setItem(4, 0, QTableWidgetItem("raw_mrcp.csv"))
         self.ui.tableWidget_file_path.setItem(4, 1, QTableWidgetItem(self.raw_mrcp_file_path))
 
-    # Event Management
 
     def get_event_number_table_content(self):
+        """
+        Get task name and event number from event number table.
+        """
         self.event_number_list = []
         self.event_name_list = []
         for i in range(self.ui.tableWidget_task_event_number.rowCount()):
@@ -335,12 +359,19 @@ class Presenter:
         return self.event_table_dictionary
         # print("TTTTTTTTTTTTTTTTTTTTTTTTTTTT\n", self.event_table_dictionary)
 
+
     def init_task_event_number_table(self):
+        """
+        Initialize the header of event number table.
+        """
         self.ui.tableWidget_task_event_number.setColumnCount(2)
         self.ui.tableWidget_task_event_number.setHorizontalHeaderLabels(["Task name", "Event number"])
 
-    # Oscilloscope
+
     def paintEvent(self, e):
+        """
+        Paint the oscilloscope
+        """
         # Distinguish between paint events from timer and event QT widget resizing, clicking etc (sender is None)
         # We should only paint when the timer triggered the event.
         # Just in case, there's a flag to force a repaint even when we shouldn't repaint
@@ -358,23 +389,21 @@ class Presenter:
             self.paintInterface(qp)
             qp.end()
 
-        # Online Experiment
-
-        # def get_c_table_content(self):
-        #     self.event_number_list = []
-        #     self.event_name_list = []
-        #     for i in range(self.ui.tableWidget_task_event_number.rowCount()):
-        #         self.event_name_list.append(self.ui.tableWidget_task_event_number.item(i, 0).text())
-        #         self.event_number_list.append(int(self.ui.tableWidget_task_event_number.item(i, 1).text()))
-        #     self.event_table_dictionary = dict(zip(self.event_name_list, self.event_number_list))
-        #     return self.event_table_dictionary
-        #     # print("TTTTTTTTTTTTTTTTTTTTTTTTTTTT\n", self.event_table_dictionary)
 
     def find_epoch_number(self):
+        """
+        Get the current epoch number in its own class to show it in task monitor in Online Experiment tab
+        :return the index of this epoch in its own class
+
+        """
         current_task = self.new_task_list[self.task_counter]
         return np.where(np.asarray(self.new_task_list) == current_task)[0].tolist().index(self.task_counter)
 
+
     def set_epoch_number(self):
+        """
+        Display current task epoch number in its own task in task monitor in Online Experiment tab
+        """
         current_task = self.new_task_list[self.task_counter]
         row_number = self.unique_task_list.tolist().index(current_task)
         epoch_number = self.find_epoch_number()
@@ -382,38 +411,27 @@ class Presenter:
         self.ui.tableWidget_class_epoch_counter.viewport().update()
         self.ui.tableWidget_class_epoch_counter.selectRow(row_number)
 
+
     def init_class_epoch_counter_table(self):
+        """
+        Initialize table header for Task Monitor table
+        """
         self.ui.tableWidget_class_epoch_counter.setColumnCount(2)
         self.ui.tableWidget_class_epoch_counter.setHorizontalHeaderLabels(["Task name", "current no."])
 
+
     def init_class_bad_epoch_table(self):
+        """
+        Initialize table header for bad epochs recording table in task monitor
+        """
         self.ui.tableWidget_bad_epoch.setColumnCount(2)
         self.ui.tableWidget_bad_epoch.setHorizontalHeaderLabels(["Task name", "bad epochs"])
 
-        #
-        #	Update stuff on the interface. Only graphical updates should be added here
-        #
 
     def paintInterface(self, qp):
-        # only works for 16 channel single channel rescale
-
-        # print("I RUNNNNNNNNNNN")
-        # print("single scale ", self.single_channel_scale)
-        # print("scale ", self.scale)
-
-        # for x in range(0, len(self.channels_to_show_idx)):
-        #     if self.channels_to_show_idx[x] == self.channel_to_scale_row_index:
-        #         print("single scale: ", self.single_channel_scale)
-        #         print(type(self.data_plot))
-        #         self.data_plot[:, self.channels_to_show_idx[x]] = self.data_plot[:, self.channels_to_show_idx[x]] * 1.1
-        #         print(self.data_plot[:, self.channels_to_show_idx[x]])
-        #
-        #     self.curve_eeg[x].setData(x=self.x_ticks,
-        #                               y=self.data_plot[:, self.channels_to_show_idx[x]] - x * self.scale)
-
-        # Update EEG channels
-        # print("paintInterface")
-        # print("curve eeg : ", self.curve_eeg)
+        """
+        Update stuff on the interface. Only graphical updates should be added here
+        """
         for x in range(0, len(self.channels_to_show_idx)):
             self.curve_eeg[x].setData(x=self.x_ticks,
                                       y=self.data_plot[:, self.channels_to_show_idx[x]] - x * self.scale)
@@ -430,11 +448,12 @@ class Presenter:
             self.events_text[xh].setPos(self.x_ticks[self.events_detected[x]],
                                         self.scale)
 
-    #
-    #	Do necessary stuff when scale has changed
-    #
-    def update_plot_scale(self, new_scale):
 
+    def update_plot_scale(self, new_scale):
+        """
+        Update channel scales when changed
+        :param: new_scale: new scale of data (mv)
+        """
         if (new_scale < 1):
             new_scale = 1
         # commented out by dbdq.
@@ -472,12 +491,12 @@ class Presenter:
             self.force_repaint = 1
             self.repaint()
 
-    #
-    #	Do necessary stuff when seconds to show have changed
-    #
-    def update_plot_seconds(self, new_seconds):
 
-        # Do nothing unless...
+    def update_plot_seconds(self, new_seconds):
+        """
+        Update the time length displayed in oscilloscope
+        :param new_seconds: time length to display (s)
+        """
         if (new_seconds != self.seconds_to_show) and (new_seconds > 0) and (
                 new_seconds < 100):
             self.ui.spinBox_time.setValue(new_seconds)
@@ -515,7 +534,11 @@ class Presenter:
         # 	Add an event to the scope
         #
 
+
     def addEventPlot(self, event_name, event_id):
+        """
+        Add marker during recording. Note: marker not supported in current version
+        """
         if (event_name == "TID"):
             color = pg.mkColor(0, 0, 255)
         elif (event_name == "KEY"):
@@ -539,11 +562,12 @@ class Presenter:
         self.events_text.append(text)
         self.main_plot_handler.addItem(self.events_text[-1])
 
-        #
-        #	Updates the title shown in the scope
-        #
+
 
     def update_title_scope(self):
+        """
+        Updates the title shown in the scope
+        """
         if (hasattr(self, 'main_plot_handler')):
             self.main_plot_handler.setTitle(
                 title='TLK: ' + self.bool_parser[self.show_TID_events] +
@@ -555,7 +579,13 @@ class Presenter:
                     self.ui.doubleSpinBox_lp.value()) + '] Hz')
             # ', BP: ' + self.bool_parser[self.apply_bandpass] + (' [' + str(self.doubleSpinBox_hp.value()) + '-' + str(self.doubleSpinBox_lp.value()) + '] Hz' if self.apply_bandpass else ''))
 
+
     def update_loop(self):
+        """
+        Update three parts by real time data: template_buffer, filter displayed signal, ringbuffer.
+        This function connects with main timer defined in MainView and is called every 20ms.
+        """
+
         os_time = time.time()
         self.os_time_list1.append(os_time)
         #  Sharing variable to stop at the GUI level
@@ -564,15 +594,7 @@ class Presenter:
             sys.exit()
 
         try:
-            # assert self.updating==False, 'thread destroyed?'
-            # self.updating= True
-
-            # self.handle_tobiid_input()	# Read TiDs.
-
             self.read_eeg()  # Read new chunk
-            # print("shape of self eeg: ", self.eeg.shape)
-
-            # print('self.te_list shape', len(self.ts_list))
             if len(self.ts_list) > 0:
                 self.update_template_buffer()
                 self.filter_signal()  # Filter acquired data
@@ -582,18 +604,14 @@ class Presenter:
         except Exception as e:
             logger.exception('Exception. Dropping into a shell.')
             print(str(e))
-            # pdb.set_trace()
         finally:
-            # self.updating= False
-            # using singleShot instead
-            # QtCore.QTimer.singleShot( 20, self.update_loop )
             pass
 
-    def read_eeg(self):
 
-        # if self.updating==True: print( '##### ERROR: thread destroyed ? ######' )
-        # self.updating= True
-        # print("TTTTTTTTTTTTTTTTTTTTT\nread eeg run \n")
+    def read_eeg(self):
+        """
+        Get real time data from LSL
+        """
         try:
             # data, self.ts_list= self.sr.inlets[0].pull_chunk(max_samples=self.config['sf']) # [frames][channels]
             data, self.ts_list = self.sr.acquire("scope using", blocking=False)
@@ -641,7 +659,12 @@ class Presenter:
             logger.exception()
             # pdb.set_trace()
 
+
     def filter_signal(self):
+        """
+        Apply BPF and notch filters to displayed signal
+        """
+
         self.channels_to_filter = list(range(len(self.channel_labels)))
 
         if self.ui.checkBox_change_filter.isChecked():
@@ -682,12 +705,12 @@ class Presenter:
             self.eeg = np.dot(self.matrix_car, np.transpose(self.eeg))
             self.eeg = np.transpose(self.eeg)
 
-        #
-        #	Update ringbuffers and events for plotting
-        #
 
     def update_template_buffer(self):
-        # logger.info('update template buffer\n')
+        """
+        Update buffer for drawing online MRCP template. Low pass filter followed by high pass filter are
+        applied to the buffer.
+        """
         self.template_buffer = np.roll(self.template_buffer, -len(self.ts_list), 0)
         current_chunck = np.copy(self.eeg)
 
@@ -704,39 +727,44 @@ class Presenter:
         # print('\nhigh pass data out size: ', high_pass_data_out.shape)
         self.template_buffer[-len(self.ts_list):, :] = np.transpose(high_pass_data_out)
 
+
     def read_template_buffer(self):
+        """
+        Get bandpassed real time template buffer
+        """
         pre_data_in = np.copy(self.template_buffer[- 5 * int(self.sr.sample_rate):, :])
         pre_data_in = np.copy(pre_data_in)
         print('pre data in shape: ', pre_data_in.shape)
         return pre_data_in
 
+
     def read_sub_channel_names(self):
+        """
+        Read channel names typed in Sub Channel Manager in Oscilloscope tab and apply filter or scaler later
+        """
         str_sub_channel = self.ui.lineEdit_subchannel_names.text()
         sub_channel_names = str_sub_channel.split()
         return sub_channel_names
 
+
     def update_ringbuffers(self):
+        """
+        Update selected channels scale
+        """
         # update single channel scale
         # print("single channel scale: ", self.single_channel_scale)
         channel_to_scale = self.channel_to_scale_column_index * 16 + self.channel_to_scale_row_index
         if self.ui.checkBox_change_scale.isChecked():
+            self.ui.statusBar.showMessage("Use UP and Down keys in keyboard to control scale")
             self.channels_to_scale = []
             self.sub_channel_names = self.read_sub_channel_names()
             for sub_channel_name in self.sub_channel_names:
                 channel_to_scale = self.channel_labels.tolist().index(sub_channel_name)
                 self.channels_to_scale.append(channel_to_scale)
             self.eeg[:, self.channels_to_scale] = self.eeg[:, self.channels_to_scale] * self.single_channel_scale
-            # pdb.set_trace()
-            # print("sub chs: {}".format(self.channels_to_scale))
-
-        # if self.ui.checkBox_single_channel_scale.isChecked() \
-        #         and self.channel_to_scale_row_index != -1 \
-        #         and self.channel_to_scale_column_index != -1 \
-        #         and channel_to_scale in self.channels_to_show_idx:
-        #     self.eeg[:, channel_to_scale] = self.eeg[:, channel_to_scale] * self.single_channel_scale
 
         # We have to remove those indexes that reached time = 0
-        # leeq
+
         self.data_plot = np.roll(self.data_plot, -len(self.ts_list), 0)
         self.data_plot[-len(self.ts_list):, :] = self.eeg
 
@@ -768,19 +796,20 @@ class Presenter:
                     logger.info('Trigger %d received' % tri)
                 self.last_tri = tri
 
-        # =============================================================================
-        #         subprocess.Popen(["cl_rpc", "closexdf"], close_fds=True)
-        #         self.ui.pushButton_rec.setEnabled(True)
-        #         self.ui.pushButton_stoprec.setEnabled(False)
-        #         self.ui.statusBar.showMessage("Not recording")
-        # =============================================================================
+        # Online Experiment
 
-    # Online Experiment
 
     def set_MRCP_window_size(self, MRCP_window_size):
+        """
+        Set the time length of MRCP template displayed in Online Experiment tab
+        """
         self.MRCP_window_size = MRCP_window_size
 
+
     def update_MRCP_plot(self):
+        """
+        Update the signal in MRCP template window
+        """
         try:
             self.set_MRCP_window_size(5)
             self.raw_trial_MRCP = self.read_template_buffer()
@@ -806,36 +835,37 @@ class Presenter:
         finally:
             pass
 
+
     def MRCP_plot(self, about_to_plot_MRCP):
-        # pdb.set_trace()
+        """
+        Plot MRCP template
+        :param about_to_plot_MRCP: template buffer extracted from real-time data stream
+        :return:
+        """
         size = len(about_to_plot_MRCP)
-        # print("\nMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\nMRCP size: ", size)
-        # print("processed_MRCP: {}".format(self.processed_trial_MRCP))
-        # input()
-        # x = list(range(0,size))
         x = [x / self.sr.sample_rate - 2 for x in list(range(0, size))]
-        # x = list(range(size))
-        # x = np.linspace(-2, 4, self.sr.sample_rate * 6)
-        # pdb.set_trace()
         y = np.transpose(about_to_plot_MRCP)
-        # plt.plot(x,y)
-        # plt.show()
         R = randrange(255)
         G = randrange(255)
         B = randrange(255)
-        # self.current_line_color = (R,G,B)
         self.ui.graphicsView.plot(x, y, pen=pg.mkPen(color=(R, G, B), width=1))
-        # pdb.set_trace()
-        # self.ui.graphicsView.plot(x,y,pen=QPen(QColor(R, G, B)))
+
+
 
     def plot_display_temp(self):
-        # plot selcted MRCP
+        """
+        Plot certain MRCP templates selected by the text box below the MRCP plot window.
+        """
         self.ui.graphicsView.clear()
         # print("display temp list", self.display_temp_list)
         for i in self.display_temp_list:
             self.MRCP_plot(self.total_trials_MRCP[int(i) - 1])
 
+
     def get_input_temp(self):
+        """
+        Choose tpyed templates from the text box below the MRCP plot window.
+        """
         self.selected_temp = self.ui.lineEdit_temp_selector.text()
         self.list_selected_temp = self.selected_temp.split()
         # print("list_selected_temp", self.list_selected_temp)
@@ -850,4 +880,3 @@ class Presenter:
                 self.input_temp_list = list(range(start_index, stop_index))
             else:
                 self.input_temp_list = [int(x) for x in self.list_selected_temp]
-        # print("input temp list", self.input_temp_list)

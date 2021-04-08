@@ -6,6 +6,10 @@ from package.entity.edata import variables
 
 
 class StreamSelectorView():
+    """
+    StreamSelectorView controls the stream selecting window appearing at the
+    very beginning, user needs to specify stream number of EEG signals.
+    """
     def __init__(self):
         self.stream_selector_window = QMainWindow()
         self.selector_window = stream_slector_layout1.Ui_MainWindow()
@@ -19,9 +23,16 @@ class StreamSelectorView():
         # self.stream_selector_window.show()
 
     def init_GUI(self):
+        """
+        Initialize stream selector GUI
+        """
         self.selector_window.pushButton_confirm.clicked.connect(self.onClicked_pushButton_confirm)
 
     def onClicked_pushButton_confirm(self):
+        """
+        Event listener for confirm button in stream selector GUI.
+        LSL chooses the typed in stream and pass it to main GUI.
+        """
         self.confirm_clicked = False
         index = int(self.selector_window.lineEdit_stream_selected.text())
         amp_name, amp_serial = pu.search_lsl(amp_list=self.amp_list, streamInfos=self.streamInfos, index=index)
