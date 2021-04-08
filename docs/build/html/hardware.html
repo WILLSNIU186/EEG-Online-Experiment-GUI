@@ -1,0 +1,309 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>hardware module &mdash; EEG Online Experiment GUI 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'0.0.1',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="interactor module" href="interactor.html" />
+    <link rel="prev" title="constants module" href="constants.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> EEG Online Experiment GUI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">uw_eboinics_experimental_interface</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_view.html">main_view module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="presenter.html">presenter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stream_selector_view.html">stream_selector_view module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="view_controller.html">view_controller module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="constants.html">constants module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">hardware module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interactor.html">interactor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="router.html">router module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variables.html">variables module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logger.html">logger module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EEG Online Experiment GUI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">uw_eboinics_experimental_interface</a> &raquo;</li>
+        
+      <li>hardware module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/hardware.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-package.entity.hardware.hardware">
+<span id="hardware-module"></span><h1>hardware module<a class="headerlink" href="#module-package.entity.hardware.hardware" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="package.entity.hardware.hardware.Hardware">
+<em class="property">class </em><code class="descclassname">package.entity.hardware.hardware.</code><code class="descname">Hardware</code><a class="headerlink" href="#package.entity.hardware.hardware.Hardware" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">package.entity.hardware._hardware.HardwareAdditionalMethods</span></code></p>
+<p>Hardware class controls recording data in a different thread</p>
+<dl class="method">
+<dt id="package.entity.hardware.hardware.Hardware.cancel_recording_data">
+<code class="descname">cancel_recording_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.cancel_recording_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interrupt recording and delete current buffer</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.entity.hardware.hardware.Hardware.connect_with_hardware">
+<code class="descname">connect_with_hardware</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.connect_with_hardware" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="package.entity.hardware.hardware.Hardware.get_LSL_clock">
+<code class="descname">get_LSL_clock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.get_LSL_clock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get timestamps of LSL
+:return: current LSL timestamps</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.entity.hardware.hardware.Hardware.get_current_window">
+<code class="descname">get_current_window</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.get_current_window" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get one window data
+:return: window data</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.entity.hardware.hardware.Hardware.get_lsl_offset">
+<code class="descname">get_lsl_offset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.get_lsl_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get offset calculated by LSL, which is the delay of transmission
+:return: LSL offset</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.entity.hardware.hardware.Hardware.get_server_clock">
+<code class="descname">get_server_clock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.get_server_clock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get timestamps from instrument
+:return: timestamps of instrument</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.entity.hardware.hardware.Hardware.is_recording_running">
+<code class="descname">is_recording_running</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.is_recording_running" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if record start or stop button pressed</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.entity.hardware.hardware.Hardware.set_eeg_file_path">
+<code class="descname">set_eeg_file_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.set_eeg_file_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set recording directory by reading path from Variable class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.entity.hardware.hardware.Hardware.start_recording_data">
+<code class="descname">start_recording_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.start_recording_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start recording data, set the flag to Ture and create a new thread</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.entity.hardware.hardware.Hardware.stop_recording_data">
+<code class="descname">stop_recording_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.stop_recording_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop recording by setting the flag to False</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="interactor.html" class="btn btn-neutral float-right" title="interactor module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="constants.html" class="btn btn-neutral float-left" title="constants module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Jiansheng Niu.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

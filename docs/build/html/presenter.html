@@ -1,0 +1,498 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>presenter module &mdash; EEG Online Experiment GUI 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'0.0.1',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="stream_selector_view module" href="stream_selector_view.html" />
+    <link rel="prev" title="main_view module" href="main_view.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> EEG Online Experiment GUI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">uw_eboinics_experimental_interface</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_view.html">main_view module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">presenter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stream_selector_view.html">stream_selector_view module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="view_controller.html">view_controller module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="constants.html">constants module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware.html">hardware module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interactor.html">interactor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="router.html">router module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variables.html">variables module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logger.html">logger module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EEG Online Experiment GUI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">uw_eboinics_experimental_interface</a> &raquo;</li>
+        
+      <li>presenter module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/presenter.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-package.views.presenter">
+<span id="presenter-module"></span><h1>presenter module<a class="headerlink" href="#module-package.views.presenter" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="package.views.presenter.Presenter">
+<em class="property">class </em><code class="descclassname">package.views.presenter.</code><code class="descname">Presenter</code><a class="headerlink" href="#package.views.presenter.Presenter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Presenter manages the real-time data and present them to GUI like oscilloscope.
+This class is a part of MainView class, it is separated from MainView for functionality encapsulation.</p>
+<dl class="method">
+<dt id="package.views.presenter.Presenter.MRCP_plot">
+<code class="descname">MRCP_plot</code><span class="sig-paren">(</span><em>about_to_plot_MRCP</em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.MRCP_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot MRCP template
+:param about_to_plot_MRCP: template buffer extracted from real-time data stream
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.Time">
+<code class="descname">Time</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.Time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call update subject view window image if task button clicked and display timer on experimenter
+GUI.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.Update_SV_image">
+<code class="descname">Update_SV_image</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.Update_SV_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update subject view GUI visual cues inlcuding Idle, focus, prepare, two, one, task</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.addEventPlot">
+<code class="descname">addEventPlot</code><span class="sig-paren">(</span><em>event_name</em>, <em>event_id</em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.addEventPlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add marker during recording. Note: marker not supported in current version</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.choose_base_folder">
+<code class="descname">choose_base_folder</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.choose_base_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Choose directory to save recording files.
+:returns: directory path</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.filter_signal">
+<code class="descname">filter_signal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.filter_signal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply BPF and notch filters to displayed signal</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.find_epoch_number">
+<code class="descname">find_epoch_number</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.find_epoch_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current epoch number in its own class to show it in task monitor in Online Experiment tab
+:return the index of this epoch in its own class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.get_event_number_table_content">
+<code class="descname">get_event_number_table_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.get_event_number_table_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get task name and event number from event number table.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.get_input_temp">
+<code class="descname">get_input_temp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.get_input_temp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Choose tpyed templates from the text box below the MRCP plot window.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.get_task_name_table_content">
+<code class="descname">get_task_name_table_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.get_task_name_table_content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get task name, task description, image path and sound path from task name table in experimenter GUI
+:return: lists of table content</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.init_class_bad_epoch_table">
+<code class="descname">init_class_bad_epoch_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.init_class_bad_epoch_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize table header for bad epochs recording table in task monitor</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.init_class_epoch_counter_table">
+<code class="descname">init_class_epoch_counter_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.init_class_epoch_counter_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize table header for Task Monitor table</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.init_table_file_path">
+<code class="descname">init_table_file_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.init_table_file_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize file path table in Event and File Management tab</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.init_task_event_number_table">
+<code class="descname">init_task_event_number_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.init_task_event_number_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the header of event number table.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.init_task_name_table">
+<code class="descname">init_task_name_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.init_task_name_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize task table heade.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.load_protocol">
+<code class="descname">load_protocol</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.load_protocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load existing experimental protocal.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.openFileNameDialog_image">
+<code class="descname">openFileNameDialog_image</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.openFileNameDialog_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open file folder to choose task instruction image.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.openFileNameDialog_protocol">
+<code class="descname">openFileNameDialog_protocol</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.openFileNameDialog_protocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open foldre to choose saved experimental protocal.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.openFileNameDialog_sound">
+<code class="descname">openFileNameDialog_sound</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.openFileNameDialog_sound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open file folder to choose sound file for task instruction.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.paintEvent">
+<code class="descname">paintEvent</code><span class="sig-paren">(</span><em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.paintEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Paint the oscilloscope</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.paintInterface">
+<code class="descname">paintInterface</code><span class="sig-paren">(</span><em>qp</em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.paintInterface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update stuff on the interface. Only graphical updates should be added here</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.play_task_sound">
+<code class="descname">play_task_sound</code><span class="sig-paren">(</span><em>sound_path</em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.play_task_sound" title="Permalink to this definition">¶</a></dt>
+<dd><p>play sound for task instruction
+:param sound_path: .wav sound file directory path</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.plot_display_temp">
+<code class="descname">plot_display_temp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.plot_display_temp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot certain MRCP templates selected by the text box below the MRCP plot window.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.read_eeg">
+<code class="descname">read_eeg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.read_eeg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get real time data from LSL</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.read_sub_channel_names">
+<code class="descname">read_sub_channel_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.read_sub_channel_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read channel names typed in Sub Channel Manager in Oscilloscope tab and apply filter or scaler later</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.read_template_buffer">
+<code class="descname">read_template_buffer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.read_template_buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get bandpassed real time template buffer</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.saveFileNameDialog_protocol">
+<code class="descname">saveFileNameDialog_protocol</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.saveFileNameDialog_protocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save current tasks listed in the task table to an experimental protocal file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.set_MRCP_window_size">
+<code class="descname">set_MRCP_window_size</code><span class="sig-paren">(</span><em>MRCP_window_size</em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.set_MRCP_window_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the time length of MRCP template displayed in Online Experiment tab</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.set_epoch_number">
+<code class="descname">set_epoch_number</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.set_epoch_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display current task epoch number in its own task in task monitor in Online Experiment tab</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.show_task_instruction_image">
+<code class="descname">show_task_instruction_image</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.show_task_instruction_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show task instruction image in subject view window</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.stop_SV">
+<code class="descname">stop_SV</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.stop_SV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop subject view window updating when tasks finished</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.update_MRCP_plot">
+<code class="descname">update_MRCP_plot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_MRCP_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the signal in MRCP template window</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.update_SV_task">
+<code class="descname">update_SV_task</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_SV_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update task instruction image, task description and task sound on subject view GUI</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.update_loop">
+<code class="descname">update_loop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update three parts by real time data: template_buffer, filter displayed signal, ringbuffer.
+This function connects with main timer defined in MainView and is called every 20ms.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.update_plot_scale">
+<code class="descname">update_plot_scale</code><span class="sig-paren">(</span><em>new_scale</em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_plot_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update channel scales when changed
+:param: new_scale: new scale of data (mv)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.update_plot_seconds">
+<code class="descname">update_plot_seconds</code><span class="sig-paren">(</span><em>new_seconds</em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_plot_seconds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the time length displayed in oscilloscope
+:param new_seconds: time length to display (s)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.update_ringbuffers">
+<code class="descname">update_ringbuffers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_ringbuffers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update selected channels scale</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.update_table_file_path">
+<code class="descname">update_table_file_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_table_file_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update content in File Path table.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.update_template_buffer">
+<code class="descname">update_template_buffer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_template_buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update buffer for drawing online MRCP template. Low pass filter followed by high pass filter are
+applied to the buffer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="package.views.presenter.Presenter.update_title_scope">
+<code class="descname">update_title_scope</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_title_scope" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the title shown in the scope</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="stream_selector_view.html" class="btn btn-neutral float-right" title="stream_selector_view module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="main_view.html" class="btn btn-neutral float-left" title="main_view module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Jiansheng Niu.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
