@@ -19,7 +19,7 @@ pickleshare==0.7.5
 prompt-toolkit==3.0.3
 psutil==5.6.7
 -e git+https://github.com/WILLSNIU186/uw_ebionics_mrcp_online_interface_python@52738c0db9f47ecb06ddececa55eb4cc1ec79521#egg=pycnbi&subdirectory=neurodecode-master
-pygments==2.5.2
+pygments==2.7.4
 pylsl==1.13.1
 pyparsing==2.4.6
 PyQt5==5.14.1
