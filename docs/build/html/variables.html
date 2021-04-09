@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   
@@ -28,20 +28,11 @@
   <![endif]-->
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'0.0.1',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -100,7 +91,7 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">uw_eboinics_experimental_interface</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="Documentation.html">Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="main_view.html">main_view module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="presenter.html">presenter module</a></li>
@@ -115,6 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="logger.html">logger module</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorials</a></li>
 </ul>
 
             
@@ -163,7 +155,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="modules.html">uw_eboinics_experimental_interface</a> &raquo;</li>
+          <li><a href="Documentation.html">Documentation</a> &raquo;</li>
         
       <li>variables module</li>
     
@@ -184,187 +176,211 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-package.entity.edata.variables">
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="module-package.entity.edata.variables">
 <span id="variables-module"></span><h1>variables module<a class="headerlink" href="#module-package.entity.edata.variables" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+<dl class="py class">
 <dt id="package.entity.edata.variables.Variables">
-<em class="property">class </em><code class="descclassname">package.entity.edata.variables.</code><code class="descname">Variables</code><a class="headerlink" href="#package.entity.edata.variables.Variables" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">package.entity.edata.variables.</span></code><code class="sig-name descname"><span class="pre">Variables</span></code><a class="headerlink" href="#package.entity.edata.variables.Variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Variables class contains class methods to set and get variables needed in presenter
 and view</p>
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.add_one_run_time_counter">
-<em class="property">classmethod </em><code class="descname">add_one_run_time_counter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.add_one_run_time_counter" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">add_one_run_time_counter</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.add_one_run_time_counter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.add_run_counter">
-<em class="property">classmethod </em><code class="descname">add_run_counter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.add_run_counter" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">add_run_counter</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.add_run_counter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.get_amp_name">
-<em class="property">classmethod </em><code class="descname">get_amp_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_amp_name" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_amp_name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_amp_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.get_amp_serial">
-<em class="property">classmethod </em><code class="descname">get_amp_serial</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_amp_serial" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_amp_serial</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_amp_serial" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.get_base_folder_path">
-<em class="property">classmethod </em><code class="descname">get_base_folder_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_base_folder_path" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_base_folder_path</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_base_folder_path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.get_current_environment">
-<em class="property">classmethod </em><code class="descname">get_current_environment</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_current_environment" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_current_environment</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_current_environment" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.get_file_path">
-<em class="property">classmethod </em><code class="descname">get_file_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_file_path" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_file_path</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_file_path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.get_high_pass_data_in">
-<em class="property">classmethod </em><code class="descname">get_high_pass_data_in</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_high_pass_data_in" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_high_pass_data_in</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_high_pass_data_in" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.get_high_pass_data_out">
-<em class="property">classmethod </em><code class="descname">get_high_pass_data_out</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_high_pass_data_out" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_high_pass_data_out</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_high_pass_data_out" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.get_low_pass_data_in">
-<em class="property">classmethod </em><code class="descname">get_low_pass_data_in</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_low_pass_data_in" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_low_pass_data_in</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_low_pass_data_in" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.get_low_pass_data_out">
-<em class="property">classmethod </em><code class="descname">get_low_pass_data_out</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_low_pass_data_out" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_low_pass_data_out</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_low_pass_data_out" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.get_protocol_path">
-<em class="property">classmethod </em><code class="descname">get_protocol_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_protocol_path" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_protocol_path</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_protocol_path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.get_raw_eeg_file_path">
-<em class="property">classmethod </em><code class="descname">get_raw_eeg_file_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_raw_eeg_file_path" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_raw_eeg_file_path</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_raw_eeg_file_path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.get_raw_eeg_timestamp_file_path">
-<em class="property">classmethod </em><code class="descname">get_raw_eeg_timestamp_file_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_raw_eeg_timestamp_file_path" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_raw_eeg_timestamp_file_path</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_raw_eeg_timestamp_file_path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.get_run_counter">
-<em class="property">classmethod </em><code class="descname">get_run_counter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_run_counter" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_run_counter</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_run_counter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.get_run_time_counter">
-<em class="property">classmethod </em><code class="descname">get_run_time_counter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_run_time_counter" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_run_time_counter</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_run_time_counter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.get_sample_rate">
-<em class="property">classmethod </em><code class="descname">get_sample_rate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_sample_rate" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_sample_rate</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_sample_rate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.get_sub_folder_path">
-<em class="property">classmethod </em><code class="descname">get_sub_folder_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_sub_folder_path" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_sub_folder_path</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.get_sub_folder_path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.init_Variables_for_next_run">
-<em class="property">classmethod </em><code class="descname">init_Variables_for_next_run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.init_Variables_for_next_run" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">init_Variables_for_next_run</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.init_Variables_for_next_run" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.set_amp_name">
-<em class="property">classmethod </em><code class="descname">set_amp_name</code><span class="sig-paren">(</span><em>amp_name</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_amp_name" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">set_amp_name</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amp_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_amp_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.set_amp_serial">
-<em class="property">classmethod </em><code class="descname">set_amp_serial</code><span class="sig-paren">(</span><em>amp_serial</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_amp_serial" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">set_amp_serial</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amp_serial</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_amp_serial" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.set_base_folder_path">
-<em class="property">classmethod </em><code class="descname">set_base_folder_path</code><span class="sig-paren">(</span><em>base_folder_path</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_base_folder_path" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">set_base_folder_path</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_folder_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_base_folder_path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.set_current_environment">
-<em class="property">classmethod </em><code class="descname">set_current_environment</code><span class="sig-paren">(</span><em>new_environment</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_current_environment" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">set_current_environment</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_environment</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_current_environment" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.set_file_path">
-<em class="property">classmethod </em><code class="descname">set_file_path</code><span class="sig-paren">(</span><em>file_path</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_file_path" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">set_file_path</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_file_path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.set_high_pass_data_in">
-<em class="property">classmethod </em><code class="descname">set_high_pass_data_in</code><span class="sig-paren">(</span><em>high_pass_data_in</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_high_pass_data_in" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">set_high_pass_data_in</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">high_pass_data_in</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_high_pass_data_in" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.set_high_pass_data_out">
-<em class="property">classmethod </em><code class="descname">set_high_pass_data_out</code><span class="sig-paren">(</span><em>high_pass_data_out</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_high_pass_data_out" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">set_high_pass_data_out</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">high_pass_data_out</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_high_pass_data_out" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.set_low_pass_data_in">
-<em class="property">classmethod </em><code class="descname">set_low_pass_data_in</code><span class="sig-paren">(</span><em>low_pass_data_in</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_low_pass_data_in" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">set_low_pass_data_in</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">low_pass_data_in</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_low_pass_data_in" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.set_low_pass_data_out">
-<em class="property">classmethod </em><code class="descname">set_low_pass_data_out</code><span class="sig-paren">(</span><em>low_pass_data_out</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_low_pass_data_out" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">set_low_pass_data_out</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">low_pass_data_out</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_low_pass_data_out" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.set_protocol_path">
-<em class="property">classmethod </em><code class="descname">set_protocol_path</code><span class="sig-paren">(</span><em>protocol_path</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_protocol_path" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">set_protocol_path</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocol_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_protocol_path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.set_raw_eeg_file_path">
-<em class="property">classmethod </em><code class="descname">set_raw_eeg_file_path</code><span class="sig-paren">(</span><em>file_path</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_raw_eeg_file_path" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">set_raw_eeg_file_path</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_raw_eeg_file_path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.set_raw_eeg_timestamp_file_path">
-<em class="property">classmethod </em><code class="descname">set_raw_eeg_timestamp_file_path</code><span class="sig-paren">(</span><em>file_path</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_raw_eeg_timestamp_file_path" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">set_raw_eeg_timestamp_file_path</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_raw_eeg_timestamp_file_path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.set_run_counter">
-<em class="property">classmethod </em><code class="descname">set_run_counter</code><span class="sig-paren">(</span><em>run_counter</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_run_counter" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">set_run_counter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">run_counter</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_run_counter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.set_run_time_counter">
-<em class="property">classmethod </em><code class="descname">set_run_time_counter</code><span class="sig-paren">(</span><em>new_run_time_counter</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_run_time_counter" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">set_run_time_counter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_run_time_counter</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_run_time_counter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.set_sample_rate">
-<em class="property">classmethod </em><code class="descname">set_sample_rate</code><span class="sig-paren">(</span><em>sample_rate</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_sample_rate" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">set_sample_rate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_sample_rate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="py method">
 <dt id="package.entity.edata.variables.Variables.set_sub_folder_path">
-<em class="property">classmethod </em><code class="descname">set_sub_folder_path</code><span class="sig-paren">(</span><em>sub_folder_path</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_sub_folder_path" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">set_sub_folder_path</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub_folder_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.variables.Variables.set_sub_folder_path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

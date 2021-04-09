@@ -1,4 +1,4 @@
-uw_eboinics_experimental_interface
+Documentation
 ==================================
 
 .. toctree::

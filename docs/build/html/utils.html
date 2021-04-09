@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   
@@ -28,20 +28,11 @@
   <![endif]-->
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'0.0.1',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -100,7 +91,7 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">uw_eboinics_experimental_interface</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="Documentation.html">Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="main_view.html">main_view module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="presenter.html">presenter module</a></li>
@@ -115,6 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="logger.html">logger module</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorials</a></li>
 </ul>
 
             
@@ -163,7 +155,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="modules.html">uw_eboinics_experimental_interface</a> &raquo;</li>
+          <li><a href="Documentation.html">Documentation</a> &raquo;</li>
         
       <li>utils module</li>
     
@@ -184,137 +176,164 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-package.entity.edata.utils">
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="module-package.entity.edata.utils">
 <span id="utils-module"></span><h1>utils module<a class="headerlink" href="#module-package.entity.edata.utils" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+<dl class="py class">
 <dt id="package.entity.edata.utils.Utils">
-<em class="property">class </em><code class="descclassname">package.entity.edata.utils.</code><code class="descname">Utils</code><a class="headerlink" href="#package.entity.edata.utils.Utils" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">package.entity.edata.utils.</span></code><code class="sig-name descname"><span class="pre">Utils</span></code><a class="headerlink" href="#package.entity.edata.utils.Utils" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class used to perform common multipurpose scientific calculations.</p>
-<dl class="staticmethod">
+<dl class="py method">
 <dt id="package.entity.edata.utils.Utils.apply_filter">
-<em class="property">static </em><code class="descname">apply_filter</code><span class="sig-paren">(</span><em>b</em>, <em>a</em>, <em>data_in</em>, <em>initial_condition_list</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.apply_filter" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">apply_filter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_condition_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.apply_filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>data_in: chan * sample</p>
 </dd></dl>
 
-<dl class="staticmethod">
+<dl class="py method">
 <dt id="package.entity.edata.utils.Utils.butter_bandpass_scope">
-<em class="property">static </em><code class="descname">butter_bandpass_scope</code><span class="sig-paren">(</span><em>highcut</em>, <em>lowcut</em>, <em>fs</em>, <em>num_ch</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.butter_bandpass_scope" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">butter_bandpass_scope</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">highcut</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowcut</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_ch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.butter_bandpass_scope" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="staticmethod">
+<dl class="py method">
 <dt id="package.entity.edata.utils.Utils.butter_highpass">
-<em class="property">static </em><code class="descname">butter_highpass</code><span class="sig-paren">(</span><em>cutoff=0.05</em>, <em>fs=1200</em>, <em>order=2</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.butter_highpass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">butter_highpass</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.butter_highpass" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="staticmethod">
+<dl class="py method">
 <dt id="package.entity.edata.utils.Utils.butter_highpass_scope">
-<em class="property">static </em><code class="descname">butter_highpass_scope</code><span class="sig-paren">(</span><em>highcut</em>, <em>fs</em>, <em>num_ch</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.butter_highpass_scope" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">butter_highpass_scope</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">highcut</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_ch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.butter_highpass_scope" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="staticmethod">
+<dl class="py method">
 <dt id="package.entity.edata.utils.Utils.butter_lowpass">
-<em class="property">static </em><code class="descname">butter_lowpass</code><span class="sig-paren">(</span><em>cutoff=3</em>, <em>fs=1200</em>, <em>order=2</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.butter_lowpass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">butter_lowpass</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.butter_lowpass" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="staticmethod">
+<dl class="py method">
 <dt id="package.entity.edata.utils.Utils.butter_lowpass_scope">
-<em class="property">static </em><code class="descname">butter_lowpass_scope</code><span class="sig-paren">(</span><em>lowcut</em>, <em>fs</em>, <em>num_ch</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.butter_lowpass_scope" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">butter_lowpass_scope</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lowcut</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_ch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.butter_lowpass_scope" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="staticmethod">
+<dl class="py method">
 <dt id="package.entity.edata.utils.Utils.butter_notch">
-<em class="property">static </em><code class="descname">butter_notch</code><span class="sig-paren">(</span><em>low_cut</em>, <em>high_cut</em>, <em>fs</em>, <em>order=2</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.butter_notch" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">butter_notch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">low_cut</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high_cut</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.butter_notch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="staticmethod">
+<dl class="py method">
 <dt id="package.entity.edata.utils.Utils.butter_notch_scope">
-<em class="property">static </em><code class="descname">butter_notch_scope</code><span class="sig-paren">(</span><em>highcut</em>, <em>lowcut</em>, <em>fs</em>, <em>num_ch</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.butter_notch_scope" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">butter_notch_scope</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">highcut</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lowcut</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_ch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.butter_notch_scope" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="staticmethod">
+<dl class="py method">
 <dt id="package.entity.edata.utils.Utils.construct_initial_condition_list">
-<em class="property">static </em><code class="descname">construct_initial_condition_list</code><span class="sig-paren">(</span><em>b</em>, <em>a</em>, <em>n_chan</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.construct_initial_condition_list" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">construct_initial_condition_list</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_chan</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.construct_initial_condition_list" title="Permalink to this definition">¶</a></dt>
 <dd><p>data_in: chan * sample</p>
 </dd></dl>
 
-<dl class="staticmethod">
+<dl class="py method">
 <dt id="package.entity.edata.utils.Utils.fft">
-<em class="property">static </em><code class="descname">fft</code><span class="sig-paren">(</span><em>data</em>, <em>resolution</em>, <em>start_freq</em>, <em>end_freq</em>, <em>sample_rate</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.fft" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">fft</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_freq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.fft" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns fft data between the frequency ranges specified in the input.
 Args:</p>
 <blockquote>
-<div>data (numpy.ndarray): array of samples.
+<div><p>data (numpy.ndarray): array of samples.
 resolution (float): increment in x-axis for frequencies
 start_freq (float): lower cutoff frequency (Hz).
 end_freq (float): Higher cutoff frequency (Hz).
-sample_rate (float): sampling rate (Hz).</div></blockquote>
-<dl class="docutils">
-<dt>Returns:</dt>
-<dd>(numpy.ndarray): numpy array of frequency magnitudes</dd>
+sample_rate (float): sampling rate (Hz).</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>(numpy.ndarray): numpy array of frequency magnitudes</p>
+</dd>
 </dl>
 </dd></dl>
 
-<dl class="staticmethod">
+<dl class="py method">
 <dt id="package.entity.edata.utils.Utils.lap">
-<em class="property">static </em><code class="descname">lap</code><span class="sig-paren">(</span><em>data_pre_lap</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.lap" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">lap</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_pre_lap</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.lap" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="staticmethod">
+<dl class="py method">
 <dt id="package.entity.edata.utils.Utils.power">
-<em class="property">static </em><code class="descname">power</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.power" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">power</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.power" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns Power of data.
 Args:</p>
 <blockquote>
-<div>data (numpy.ndarray): array of samples.</div></blockquote>
-<dl class="docutils">
-<dt>Returns:</dt>
-<dd>(float): Power value</dd>
+<div><p>data (numpy.ndarray): array of samples.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>(float): Power value</p>
+</dd>
 </dl>
 </dd></dl>
 
-<dl class="staticmethod">
+<dl class="py method">
 <dt id="package.entity.edata.utils.Utils.preprocess">
-<em class="property">static </em><code class="descname">preprocess</code><span class="sig-paren">(</span><em>dataIn</em>, <em>ch_list</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.preprocess" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">preprocess</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataIn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ch_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.preprocess" title="Permalink to this definition">¶</a></dt>
 <dd><p>dataIn: sample * chan</p>
 </dd></dl>
 
-<dl class="staticmethod">
+<dl class="py method">
 <dt id="package.entity.edata.utils.Utils.read_protocol_csv">
-<em class="property">static </em><code class="descname">read_protocol_csv</code><span class="sig-paren">(</span><em>file_name</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.read_protocol_csv" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">read_protocol_csv</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.read_protocol_csv" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="staticmethod">
+<dl class="py method">
 <dt id="package.entity.edata.utils.Utils.rms">
-<em class="property">static </em><code class="descname">rms</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.rms" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">rms</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.rms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns RMS value of data.
 Args:</p>
 <blockquote>
-<div>data (numpy.ndarray): array of samples.</div></blockquote>
-<dl class="docutils">
-<dt>Returns:</dt>
-<dd>(float): RMS value</dd>
+<div><p>data (numpy.ndarray): array of samples.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>(float): RMS value</p>
+</dd>
 </dl>
 </dd></dl>
 
-<dl class="staticmethod">
+<dl class="py method">
 <dt id="package.entity.edata.utils.Utils.save_protocol_to_csv">
-<em class="property">static </em><code class="descname">save_protocol_to_csv</code><span class="sig-paren">(</span><em>data</em>, <em>file</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.save_protocol_to_csv" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">save_protocol_to_csv</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.save_protocol_to_csv" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="staticmethod">
+<dl class="py method">
 <dt id="package.entity.edata.utils.Utils.write_data_to_csv">
-<em class="property">static </em><code class="descname">write_data_to_csv</code><span class="sig-paren">(</span><em>data</em>, <em>file_name</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.write_data_to_csv" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">write_data_to_csv</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.write_data_to_csv" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="staticmethod">
+<dl class="py method">
 <dt id="package.entity.edata.utils.Utils.write_dict_to_csv">
-<em class="property">static </em><code class="descname">write_dict_to_csv</code><span class="sig-paren">(</span><em>dict</em>, <em>file_name</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.write_dict_to_csv" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">write_dict_to_csv</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.write_dict_to_csv" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="staticmethod">
+<dl class="py method">
 <dt id="package.entity.edata.utils.Utils.write_event_number_to_csv">
-<em class="property">static </em><code class="descname">write_event_number_to_csv</code><span class="sig-paren">(</span><em>dict</em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.write_event_number_to_csv" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">write_event_number_to_csv</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.edata.utils.Utils.write_event_number_to_csv" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

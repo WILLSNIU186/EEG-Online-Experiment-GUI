@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   
@@ -28,20 +28,11 @@
   <![endif]-->
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'0.0.1',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -100,7 +91,7 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">uw_eboinics_experimental_interface</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="Documentation.html">Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="main_view.html">main_view module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">presenter module</a></li>
@@ -115,6 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="logger.html">logger module</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorials</a></li>
 </ul>
 
             
@@ -163,7 +155,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="modules.html">uw_eboinics_experimental_interface</a> &raquo;</li>
+          <li><a href="Documentation.html">Documentation</a> &raquo;</li>
         
       <li>presenter module</li>
     
@@ -184,262 +176,286 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-package.views.presenter">
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="module-package.views.presenter">
 <span id="presenter-module"></span><h1>presenter module<a class="headerlink" href="#module-package.views.presenter" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+<dl class="py class">
 <dt id="package.views.presenter.Presenter">
-<em class="property">class </em><code class="descclassname">package.views.presenter.</code><code class="descname">Presenter</code><a class="headerlink" href="#package.views.presenter.Presenter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">package.views.presenter.</span></code><code class="sig-name descname"><span class="pre">Presenter</span></code><a class="headerlink" href="#package.views.presenter.Presenter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Presenter manages the real-time data and present them to GUI like oscilloscope.
 This class is a part of MainView class, it is separated from MainView for functionality encapsulation.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.MRCP_plot">
-<code class="descname">MRCP_plot</code><span class="sig-paren">(</span><em>about_to_plot_MRCP</em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.MRCP_plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">MRCP_plot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">about_to_plot_MRCP</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.MRCP_plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot MRCP template
 :param about_to_plot_MRCP: template buffer extracted from real-time data stream
 :return:</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.Time">
-<code class="descname">Time</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.Time" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">Time</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.Time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call update subject view window image if task button clicked and display timer on experimenter
 GUI.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.Update_SV_image">
-<code class="descname">Update_SV_image</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.Update_SV_image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">Update_SV_image</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.Update_SV_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update subject view GUI visual cues inlcuding Idle, focus, prepare, two, one, task</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.addEventPlot">
-<code class="descname">addEventPlot</code><span class="sig-paren">(</span><em>event_name</em>, <em>event_id</em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.addEventPlot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">addEventPlot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.addEventPlot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add marker during recording. Note: marker not supported in current version</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.choose_base_folder">
-<code class="descname">choose_base_folder</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.choose_base_folder" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">choose_base_folder</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.choose_base_folder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Choose directory to save recording files.
 :returns: directory path</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.filter_signal">
-<code class="descname">filter_signal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.filter_signal" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">filter_signal</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.filter_signal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply BPF and notch filters to displayed signal</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.find_epoch_number">
-<code class="descname">find_epoch_number</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.find_epoch_number" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">find_epoch_number</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.find_epoch_number" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the current epoch number in its own class to show it in task monitor in Online Experiment tab
 :return the index of this epoch in its own class</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.get_event_number_table_content">
-<code class="descname">get_event_number_table_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.get_event_number_table_content" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_event_number_table_content</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.get_event_number_table_content" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get task name and event number from event number table.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.get_input_temp">
-<code class="descname">get_input_temp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.get_input_temp" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_input_temp</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.get_input_temp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Choose tpyed templates from the text box below the MRCP plot window.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.get_task_name_table_content">
-<code class="descname">get_task_name_table_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.get_task_name_table_content" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_task_name_table_content</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.get_task_name_table_content" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get task name, task description, image path and sound path from task name table in experimenter GUI
 :return: lists of table content</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.init_class_bad_epoch_table">
-<code class="descname">init_class_bad_epoch_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.init_class_bad_epoch_table" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">init_class_bad_epoch_table</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.init_class_bad_epoch_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize table header for bad epochs recording table in task monitor</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.init_class_epoch_counter_table">
-<code class="descname">init_class_epoch_counter_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.init_class_epoch_counter_table" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">init_class_epoch_counter_table</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.init_class_epoch_counter_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize table header for Task Monitor table</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.init_table_file_path">
-<code class="descname">init_table_file_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.init_table_file_path" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">init_table_file_path</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.init_table_file_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize file path table in Event and File Management tab</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.init_task_event_number_table">
-<code class="descname">init_task_event_number_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.init_task_event_number_table" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">init_task_event_number_table</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.init_task_event_number_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize the header of event number table.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.init_task_name_table">
-<code class="descname">init_task_name_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.init_task_name_table" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">init_task_name_table</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.init_task_name_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize task table heade.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.load_protocol">
-<code class="descname">load_protocol</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.load_protocol" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">load_protocol</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.load_protocol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load existing experimental protocal.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.openFileNameDialog_image">
-<code class="descname">openFileNameDialog_image</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.openFileNameDialog_image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">openFileNameDialog_image</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.openFileNameDialog_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Open file folder to choose task instruction image.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.openFileNameDialog_protocol">
-<code class="descname">openFileNameDialog_protocol</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.openFileNameDialog_protocol" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">openFileNameDialog_protocol</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.openFileNameDialog_protocol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Open foldre to choose saved experimental protocal.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.openFileNameDialog_sound">
-<code class="descname">openFileNameDialog_sound</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.openFileNameDialog_sound" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">openFileNameDialog_sound</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.openFileNameDialog_sound" title="Permalink to this definition">¶</a></dt>
 <dd><p>Open file folder to choose sound file for task instruction.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.paintEvent">
-<code class="descname">paintEvent</code><span class="sig-paren">(</span><em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.paintEvent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">paintEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.paintEvent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Paint the oscilloscope</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.paintInterface">
-<code class="descname">paintInterface</code><span class="sig-paren">(</span><em>qp</em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.paintInterface" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">paintInterface</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.paintInterface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update stuff on the interface. Only graphical updates should be added here</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.play_task_sound">
-<code class="descname">play_task_sound</code><span class="sig-paren">(</span><em>sound_path</em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.play_task_sound" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">play_task_sound</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sound_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.play_task_sound" title="Permalink to this definition">¶</a></dt>
 <dd><p>play sound for task instruction
 :param sound_path: .wav sound file directory path</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.plot_display_temp">
-<code class="descname">plot_display_temp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.plot_display_temp" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">plot_display_temp</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.plot_display_temp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot certain MRCP templates selected by the text box below the MRCP plot window.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.read_eeg">
-<code class="descname">read_eeg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.read_eeg" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">read_eeg</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.read_eeg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get real time data from LSL</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.read_sub_channel_names">
-<code class="descname">read_sub_channel_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.read_sub_channel_names" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">read_sub_channel_names</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.read_sub_channel_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read channel names typed in Sub Channel Manager in Oscilloscope tab and apply filter or scaler later</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.read_template_buffer">
-<code class="descname">read_template_buffer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.read_template_buffer" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">read_template_buffer</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.read_template_buffer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get bandpassed real time template buffer</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.saveFileNameDialog_protocol">
-<code class="descname">saveFileNameDialog_protocol</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.saveFileNameDialog_protocol" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">saveFileNameDialog_protocol</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.saveFileNameDialog_protocol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save current tasks listed in the task table to an experimental protocal file.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.set_MRCP_window_size">
-<code class="descname">set_MRCP_window_size</code><span class="sig-paren">(</span><em>MRCP_window_size</em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.set_MRCP_window_size" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">set_MRCP_window_size</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">MRCP_window_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.set_MRCP_window_size" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the time length of MRCP template displayed in Online Experiment tab</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.set_epoch_number">
-<code class="descname">set_epoch_number</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.set_epoch_number" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">set_epoch_number</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.set_epoch_number" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display current task epoch number in its own task in task monitor in Online Experiment tab</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.show_task_instruction_image">
-<code class="descname">show_task_instruction_image</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.show_task_instruction_image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">show_task_instruction_image</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.show_task_instruction_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show task instruction image in subject view window</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.stop_SV">
-<code class="descname">stop_SV</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.stop_SV" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">stop_SV</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.stop_SV" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stop subject view window updating when tasks finished</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.update_MRCP_plot">
-<code class="descname">update_MRCP_plot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_MRCP_plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">update_MRCP_plot</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_MRCP_plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the signal in MRCP template window</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.update_SV_task">
-<code class="descname">update_SV_task</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_SV_task" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">update_SV_task</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_SV_task" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update task instruction image, task description and task sound on subject view GUI</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.update_loop">
-<code class="descname">update_loop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_loop" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">update_loop</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_loop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update three parts by real time data: template_buffer, filter displayed signal, ringbuffer.
 This function connects with main timer defined in MainView and is called every 20ms.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.update_plot_scale">
-<code class="descname">update_plot_scale</code><span class="sig-paren">(</span><em>new_scale</em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_plot_scale" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">update_plot_scale</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_scale</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_plot_scale" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update channel scales when changed
 :param: new_scale: new scale of data (mv)</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.update_plot_seconds">
-<code class="descname">update_plot_seconds</code><span class="sig-paren">(</span><em>new_seconds</em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_plot_seconds" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">update_plot_seconds</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_seconds</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_plot_seconds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the time length displayed in oscilloscope
 :param new_seconds: time length to display (s)</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.update_ringbuffers">
-<code class="descname">update_ringbuffers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_ringbuffers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">update_ringbuffers</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_ringbuffers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update selected channels scale</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.update_table_file_path">
-<code class="descname">update_table_file_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_table_file_path" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">update_table_file_path</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_table_file_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update content in File Path table.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.update_template_buffer">
-<code class="descname">update_template_buffer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_template_buffer" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">update_template_buffer</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_template_buffer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update buffer for drawing online MRCP template. Low pass filter followed by high pass filter are
 applied to the buffer.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.presenter.Presenter.update_title_scope">
-<code class="descname">update_title_scope</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_title_scope" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">update_title_scope</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.presenter.Presenter.update_title_scope" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates the title shown in the scope</p>
 </dd></dl>
 

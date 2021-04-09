@@ -7,10 +7,11 @@ Welcome to UW exp GUI's documentation!
 ======================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
-   modules
+   Documentation
+   Tutorial
 
 Indices and tables
 ==================

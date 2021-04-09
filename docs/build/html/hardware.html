@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   
@@ -28,20 +28,11 @@
   <![endif]-->
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'0.0.1',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -100,7 +91,7 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">uw_eboinics_experimental_interface</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="Documentation.html">Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="main_view.html">main_view module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="presenter.html">presenter module</a></li>
@@ -115,6 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="logger.html">logger module</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorials</a></li>
 </ul>
 
             
@@ -163,7 +155,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="modules.html">uw_eboinics_experimental_interface</a> &raquo;</li>
+          <li><a href="Documentation.html">Documentation</a> &raquo;</li>
         
       <li>hardware module</li>
     
@@ -184,73 +176,97 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-package.entity.hardware.hardware">
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="module-package.entity.hardware.hardware">
 <span id="hardware-module"></span><h1>hardware module<a class="headerlink" href="#module-package.entity.hardware.hardware" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+<dl class="py class">
 <dt id="package.entity.hardware.hardware.Hardware">
-<em class="property">class </em><code class="descclassname">package.entity.hardware.hardware.</code><code class="descname">Hardware</code><a class="headerlink" href="#package.entity.hardware.hardware.Hardware" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">package.entity.hardware._hardware.HardwareAdditionalMethods</span></code></p>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">package.entity.hardware.hardware.</span></code><code class="sig-name descname"><span class="pre">Hardware</span></code><a class="headerlink" href="#package.entity.hardware.hardware.Hardware" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">package.entity.hardware._hardware.HardwareAdditionalMethods</span></code></p>
 <p>Hardware class controls recording data in a different thread</p>
-<dl class="method">
+<dl class="py method">
 <dt id="package.entity.hardware.hardware.Hardware.cancel_recording_data">
-<code class="descname">cancel_recording_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.cancel_recording_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">cancel_recording_data</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.cancel_recording_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interrupt recording and delete current buffer</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.entity.hardware.hardware.Hardware.connect_with_hardware">
-<code class="descname">connect_with_hardware</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.connect_with_hardware" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">connect_with_hardware</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.connect_with_hardware" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.entity.hardware.hardware.Hardware.get_LSL_clock">
-<code class="descname">get_LSL_clock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.get_LSL_clock" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_LSL_clock</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.get_LSL_clock" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get timestamps of LSL
 :return: current LSL timestamps</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.entity.hardware.hardware.Hardware.get_current_window">
-<code class="descname">get_current_window</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.get_current_window" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_current_window</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.get_current_window" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get one window data
 :return: window data</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.entity.hardware.hardware.Hardware.get_lsl_offset">
-<code class="descname">get_lsl_offset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.get_lsl_offset" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_lsl_offset</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.get_lsl_offset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get offset calculated by LSL, which is the delay of transmission
 :return: LSL offset</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.entity.hardware.hardware.Hardware.get_server_clock">
-<code class="descname">get_server_clock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.get_server_clock" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_server_clock</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.get_server_clock" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get timestamps from instrument
 :return: timestamps of instrument</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.entity.hardware.hardware.Hardware.is_recording_running">
-<code class="descname">is_recording_running</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.is_recording_running" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">is_recording_running</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.is_recording_running" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if record start or stop button pressed</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.entity.hardware.hardware.Hardware.set_eeg_file_path">
-<code class="descname">set_eeg_file_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.set_eeg_file_path" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">set_eeg_file_path</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.set_eeg_file_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set recording directory by reading path from Variable class</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.entity.hardware.hardware.Hardware.start_recording_data">
-<code class="descname">start_recording_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.start_recording_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">start_recording_data</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.start_recording_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start recording data, set the flag to Ture and create a new thread</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.entity.hardware.hardware.Hardware.stop_recording_data">
-<code class="descname">stop_recording_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.stop_recording_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">stop_recording_data</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.entity.hardware.hardware.Hardware.stop_recording_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stop recording by setting the flag to False</p>
 </dd></dl>
 

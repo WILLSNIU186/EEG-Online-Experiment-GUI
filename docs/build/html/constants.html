@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   
@@ -28,20 +28,11 @@
   <![endif]-->
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'0.0.1',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -100,7 +91,7 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">uw_eboinics_experimental_interface</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="Documentation.html">Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="main_view.html">main_view module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="presenter.html">presenter module</a></li>
@@ -115,6 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="logger.html">logger module</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorials</a></li>
 </ul>
 
             
@@ -163,7 +155,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="modules.html">uw_eboinics_experimental_interface</a> &raquo;</li>
+          <li><a href="Documentation.html">Documentation</a> &raquo;</li>
         
       <li>constants module</li>
     
@@ -184,40 +176,64 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-package.entity.edata.constants">
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="module-package.entity.edata.constants">
 <span id="constants-module"></span><h1>constants module<a class="headerlink" href="#module-package.entity.edata.constants" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+<dl class="py class">
 <dt id="package.entity.edata.constants.CONSTANTS">
-<em class="property">class </em><code class="descclassname">package.entity.edata.constants.</code><code class="descname">CONSTANTS</code><a class="headerlink" href="#package.entity.edata.constants.CONSTANTS" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="attribute">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">package.entity.edata.constants.</span></code><code class="sig-name descname"><span class="pre">CONSTANTS</span></code><a class="headerlink" href="#package.entity.edata.constants.CONSTANTS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
 <dt id="package.entity.edata.constants.CONSTANTS.ENV_DEVELOPMENT">
-<code class="descname">ENV_DEVELOPMENT</code><em class="property"> = 'env_development'</em><a class="headerlink" href="#package.entity.edata.constants.CONSTANTS.ENV_DEVELOPMENT" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">ENV_DEVELOPMENT</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'env_development'</span></em><a class="headerlink" href="#package.entity.edata.constants.CONSTANTS.ENV_DEVELOPMENT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="package.entity.edata.constants.CONSTANTS.ENV_PRODUCTION">
-<code class="descname">ENV_PRODUCTION</code><em class="property"> = 'env_production'</em><a class="headerlink" href="#package.entity.edata.constants.CONSTANTS.ENV_PRODUCTION" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">ENV_PRODUCTION</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'env_production'</span></em><a class="headerlink" href="#package.entity.edata.constants.CONSTANTS.ENV_PRODUCTION" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="package.entity.edata.constants.CONSTANTS.FILTER_MAX_FREQUENCY">
-<code class="descname">FILTER_MAX_FREQUENCY</code><em class="property"> = 500.0</em><a class="headerlink" href="#package.entity.edata.constants.CONSTANTS.FILTER_MAX_FREQUENCY" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">FILTER_MAX_FREQUENCY</span></code><em class="property"> <span class="pre">=</span> <span class="pre">500.0</span></em><a class="headerlink" href="#package.entity.edata.constants.CONSTANTS.FILTER_MAX_FREQUENCY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="package.entity.edata.constants.CONSTANTS.FILTER_MIN_FREQUENCY">
-<code class="descname">FILTER_MIN_FREQUENCY</code><em class="property"> = 10.0</em><a class="headerlink" href="#package.entity.edata.constants.CONSTANTS.FILTER_MIN_FREQUENCY" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">FILTER_MIN_FREQUENCY</span></code><em class="property"> <span class="pre">=</span> <span class="pre">10.0</span></em><a class="headerlink" href="#package.entity.edata.constants.CONSTANTS.FILTER_MIN_FREQUENCY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="package.entity.edata.constants.CONSTANTS.FILTER_ORDER">
-<code class="descname">FILTER_ORDER</code><em class="property"> = 10.0</em><a class="headerlink" href="#package.entity.edata.constants.CONSTANTS.FILTER_ORDER" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">FILTER_ORDER</span></code><em class="property"> <span class="pre">=</span> <span class="pre">10.0</span></em><a class="headerlink" href="#package.entity.edata.constants.CONSTANTS.FILTER_ORDER" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="package.entity.edata.constants.CONSTANTS.SAMPLING_RATE">
-<code class="descname">SAMPLING_RATE</code><em class="property"> = 1048.0</em><a class="headerlink" href="#package.entity.edata.constants.CONSTANTS.SAMPLING_RATE" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">SAMPLING_RATE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">1048.0</span></em><a class="headerlink" href="#package.entity.edata.constants.CONSTANTS.SAMPLING_RATE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

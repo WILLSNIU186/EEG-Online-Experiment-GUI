@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   
@@ -28,20 +28,11 @@
   <![endif]-->
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'0.0.1',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -100,7 +91,7 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">uw_eboinics_experimental_interface</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="Documentation.html">Documentation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">main_view module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="presenter.html">presenter module</a></li>
@@ -115,6 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="logger.html">logger module</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorials</a></li>
 </ul>
 
             
@@ -163,7 +155,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="modules.html">uw_eboinics_experimental_interface</a> &raquo;</li>
+          <li><a href="Documentation.html">Documentation</a> &raquo;</li>
         
       <li>main_view module</li>
     
@@ -184,86 +176,110 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-package.views.main_view">
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="module-package.views.main_view">
 <span id="main-view-module"></span><h1>main_view module<a class="headerlink" href="#module-package.views.main_view" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+<dl class="py class">
 <dt id="package.views.main_view.MainView">
-<em class="property">class </em><code class="descclassname">package.views.main_view.</code><code class="descname">MainView</code><span class="sig-paren">(</span><em>amp_name</em>, <em>amp_serial</em>, <em>state=&lt;Synchronized wrapper for c_long(1)&gt;</em>, <em>queue=None</em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtWidgets.QMainWindow</span></code>, <a class="reference internal" href="view_controller.html#package.views.view_controller.ViewController" title="package.views.view_controller.ViewController"><code class="xref py py-class docutils literal"><span class="pre">package.views.view_controller.ViewController</span></code></a>, <a class="reference internal" href="presenter.html#package.views.presenter.Presenter" title="package.views.presenter.Presenter"><code class="xref py py-class docutils literal"><span class="pre">package.views.presenter.Presenter</span></code></a></p>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">package.views.main_view.</span></code><code class="sig-name descname"><span class="pre">MainView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">amp_name</span></em>, <em class="sig-param"><span class="pre">amp_serial</span></em>, <em class="sig-param"><span class="pre">state=&lt;Synchronized</span> <span class="pre">wrapper</span> <span class="pre">for</span> <span class="pre">c_long(1)&gt;</span></em>, <em class="sig-param"><span class="pre">queue=None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QMainWindow</span></code>, <a class="reference internal" href="view_controller.html#package.views.view_controller.ViewController" title="package.views.view_controller.ViewController"><code class="xref py py-class docutils literal notranslate"><span class="pre">package.views.view_controller.ViewController</span></code></a>, <a class="reference internal" href="presenter.html#package.views.presenter.Presenter" title="package.views.presenter.Presenter"><code class="xref py py-class docutils literal notranslate"><span class="pre">package.views.presenter.Presenter</span></code></a></p>
 <p>MainView class controls the GUI frontend interaction</p>
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.main_view.MainView.eventFilter">
-<code class="descname">eventFilter</code><span class="sig-paren">(</span><em>source</em>, <em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.eventFilter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">eventFilter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.eventFilter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Select single channel to scale by right clicking
 :param source: channel table content
 :param event: right mouse button press
 :return: ID of the selected channel</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.main_view.MainView.init_Runtimer">
-<code class="descname">init_Runtimer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_Runtimer" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">init_Runtimer</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_Runtimer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize task related timer which controls the timing for visual cues</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.main_view.MainView.init_SV_GUI">
-<code class="descname">init_SV_GUI</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_SV_GUI" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">init_SV_GUI</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_SV_GUI" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize subject view GUI</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.main_view.MainView.init_all">
-<code class="descname">init_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_all" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">init_all</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize specialized functions inside GUI</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.main_view.MainView.init_config_file">
-<code class="descname">init_config_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_config_file" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">init_config_file</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_config_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize config file</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.main_view.MainView.init_event_functions">
-<code class="descname">init_event_functions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_event_functions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">init_event_functions</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_event_functions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize event listeners for widgets in GUI</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.main_view.MainView.init_loop">
-<code class="descname">init_loop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_loop" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">init_loop</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_loop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize loop related variables like StreamReceiver and self.eeg</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.main_view.MainView.init_panel_GUI">
-<code class="descname">init_panel_GUI</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_panel_GUI" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">init_panel_GUI</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_panel_GUI" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize experimenter GUI</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.main_view.MainView.init_panel_GUI_stop_recording">
-<code class="descname">init_panel_GUI_stop_recording</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_panel_GUI_stop_recording" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">init_panel_GUI_stop_recording</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_panel_GUI_stop_recording" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize experimenter GUI when stop recording button pressed. This is used to
 prepare for next run.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.main_view.MainView.init_scope_GUI">
-<code class="descname">init_scope_GUI</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_scope_GUI" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">init_scope_GUI</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_scope_GUI" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize oscilloscope GUI</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.main_view.MainView.init_timer">
-<code class="descname">init_timer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_timer" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">init_timer</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_timer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize main timer used for refreshing oscilloscope window. This refreshes every 20ms.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="package.views.main_view.MainView.trigger_help">
-<code class="descname">trigger_help</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.trigger_help" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">trigger_help</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.trigger_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shows / hide help in the scope window</p>
 </dd></dl>
 
