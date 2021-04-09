@@ -22,8 +22,8 @@ This GUI provides experimenters a ready-togo platform with following functions:
 # Getting Started
 
 Following steps shows how to use and develop this GUI on your local environment. Detailed 
-instructions could be found in [tutorials](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/modules.html). 
-The full documentation can be found in [documentation](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/modules.html)
+instructions could be found in [tutorials](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/index.html). 
+The full documentation can be found in [documentation](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/index.html)
  for development purpose.
 
 
