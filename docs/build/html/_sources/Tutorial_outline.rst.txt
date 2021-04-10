@@ -10,6 +10,7 @@ design their own version of GUI.
     #. Open GUI
     #. Subject information input
     #. Experimental protocol design
+    #. Event number
     #. Oscilloscope
     #. Online monitor
     #. Start the experiment
