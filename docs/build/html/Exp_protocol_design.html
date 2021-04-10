@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Experimental Protocol Design &mdash; EEG Online Experiment GUI 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Event number" href="Event_number.html" />
+    <link rel="prev" title="Subject information Input" href="Sub_info.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> EEG Online Experiment GUI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html">Documentation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Tutorial.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Tutorial_outline.html">Outline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Installation_and_setup.html">Installation and setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Connect_with_device.html">Connect with devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Open_GUI.html">Open GUI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Sub_info.html">Subject information Input</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Experimental Protocol Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Event_number.html">Event number</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Scope.html">Oscilloscope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Online_monitor.html">Online Monitor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Start_exp.html">Start experiment</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EEG Online Experiment GUI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="Tutorial.html">Tutorials</a> &raquo;</li>
+        
+      <li>Experimental Protocol Design</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/Exp_protocol_design.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="experimental-protocol-design">
+<h1>Experimental Protocol Design<a class="headerlink" href="#experimental-protocol-design" title="Permalink to this headline">¶</a></h1>
+<ul>
+<li><dl>
+<dt>Open Experimental protocol tab</dt><dd><a class="reference internal image-reference" href="_images/EXPGUI1.png"><img alt="EXPGUI1" src="_images/EXPGUI1.png" style="width: 800px;" /></a>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Add task.</dt><dd><ol class="arabic simple">
+<li><p>Enter task name, this is normally the abbreviated version of task
+description which will be saved to event.csv.</p></li>
+<li><p>Enter task description, this is the task instruction shown for subject,
+make it easy to understand.</p></li>
+<li><p>Choose image and sound files for this task. Image will show on top
+of Subject view window as another instruction method. Sound will
+play at the beginning of the task to remind participant.</p></li>
+</ol>
+<a class="reference internal image-reference" href="_images/add_task.png"><img alt="add_task" src="_images/add_task.png" style="width: 800px;" /></a>
+</dd>
+</dl>
+</li>
+<li><p>After adding all new tasks, click Done button. All new tasks are listed
+in the table. Now you can iterate and randomize the order of these tasks
+by entering group number and clicking Randomize button.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/iterate_randomize_tasks.png"><img alt="iterate_randomize_tasks" src="_images/iterate_randomize_tasks.png" style="width: 800px;" /></a>
+</div></blockquote>
+</li>
+<li><p>Now all tasks have been added to the table, you could specify time for
+each cue. Randomize checkbox here is used to randomly choose Idle time
+between 1 and 6 seconds.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/randomize_cue_time.png"><img alt="randomize_cue_time" src="_images/randomize_cue_time.png" style="width: 400px;" /></a>
+</div></blockquote>
+</li>
+<li><p>Save and load protocol. Current created protocol can be saved to a folder
+for future use. The number of each session could be set by entering a number
+less than total task number in the entry box.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/save_load_protocol.png"><img alt="save_load_protocol" src="_images/save_load_protocol.png" style="width: 400px;" /></a>
+</div></blockquote>
+</li>
+<li><p>Click Finish to end protocol design.</p></li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="Event_number.html" class="btn btn-neutral float-right" title="Event number" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Sub_info.html" class="btn btn-neutral float-left" title="Subject information Input" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Jiansheng Niu.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

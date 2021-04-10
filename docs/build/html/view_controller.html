@@ -1,0 +1,488 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>view_controller module &mdash; EEG Online Experiment GUI 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="constants module" href="constants.html" />
+    <link rel="prev" title="stream_selector_view module" href="stream_selector_view.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> EEG Online Experiment GUI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="Documentation.html">Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_view.html">main_view module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="presenter.html">presenter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stream_selector_view.html">stream_selector_view module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">view_controller module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="constants.html">constants module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware.html">hardware module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interactor.html">interactor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="router.html">router module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variables.html">variables module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logger.html">logger module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorials</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EEG Online Experiment GUI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="Documentation.html">Documentation</a> &raquo;</li>
+        
+      <li>view_controller module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/view_controller.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="module-package.views.view_controller">
+<span id="view-controller-module"></span><h1>view_controller module<a class="headerlink" href="#module-package.views.view_controller" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="package.views.view_controller.ViewController">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">package.views.view_controller.</span></code><code class="sig-name descname"><span class="pre">ViewController</span></code><a class="headerlink" href="#package.views.view_controller.ViewController" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>ViewController contains the event listeners for each widget.</p>
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.create_channel_dict">
+<code class="sig-name descname"><span class="pre">create_channel_dict</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.create_channel_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read current channel names from LSL and return a dictionary.
+:return: channel name dictionary</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.keyPressEvent">
+<code class="sig-name descname"><span class="pre">keyPressEvent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.keyPressEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listeners for different key button pressed
+Example: When there is a channel name been typed in channel names box in Sub channel manager in</p>
+<blockquote>
+<div><p>Oscilloscope, and change scale is checked, pressing up and down button will increase
+and decrease that channels’ scale respectively</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onActivated_checkbox_bandpass">
+<code class="sig-name descname"><span class="pre">onActivated_checkbox_bandpass</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onActivated_checkbox_bandpass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for check box in front of Bandpass filter in Oscilloscope tab.
+Check to bandpass filter displayed signal.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onActivated_checkbox_car">
+<code class="sig-name descname"><span class="pre">onActivated_checkbox_car</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onActivated_checkbox_car" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for check box in front of CAR filter in Oscilloscope tab.
+Apply Common Average Reference filter to displayed data if checked.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onActivated_checkbox_notch">
+<code class="sig-name descname"><span class="pre">onActivated_checkbox_notch</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onActivated_checkbox_notch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for check box in front of notch filter in Oscilloscope tab.
+Check to notch filter displayed signal.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onActivated_combobox_scale">
+<code class="sig-name descname"><span class="pre">onActivated_combobox_scale</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onActivated_combobox_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for scale of data in Scale Manager of Oscilloscope tab</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_button_Main_switch">
+<code class="sig-name descname"><span class="pre">onClicked_button_Main_switch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pressed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_button_Main_switch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for main switch down the experimenter GUI</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_button_bad_epoch">
+<code class="sig-name descname"><span class="pre">onClicked_button_bad_epoch</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_button_bad_epoch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for bad epoch button in Online Experimente tab
+Record bad epochs during the experiment, the bad epoch number will be saved to Run1/bad_epochs.csv
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_button_bp">
+<code class="sig-name descname"><span class="pre">onClicked_button_bp</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_button_bp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for Apply BP button in Filter Manager in Oscilloscope tab
+Apply BPF to displaying data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_button_create_sequence">
+<code class="sig-name descname"><span class="pre">onClicked_button_create_sequence</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_button_create_sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for create sequence button in Experimental Protocol tab.
+The listed tasks will be iterated ‘group number’ times in the Task table</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_button_define_task_add">
+<code class="sig-name descname"><span class="pre">onClicked_button_define_task_add</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_button_define_task_add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for Add button in Task manager in Experimental Protocal tab</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_button_define_task_done">
+<code class="sig-name descname"><span class="pre">onClicked_button_define_task_done</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_button_define_task_done" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for Done button in Task manager in Experimental protocol tab.
+By clicking Done button, no more new tasks could be added.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_button_notch">
+<code class="sig-name descname"><span class="pre">onClicked_button_notch</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_button_notch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for Apply Notch in Filter Manager in Oscilloscope tab
+Apply notch filter to displaying data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_button_randomize">
+<code class="sig-name descname"><span class="pre">onClicked_button_randomize</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_button_randomize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for Randomize button in Experimental protocol
+Randomize the order of tasks in Task table</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_button_rec">
+<code class="sig-name descname"><span class="pre">onClicked_button_rec</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pressed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_button_rec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the recording when recording button been clicked</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_button_save_event_number">
+<code class="sig-name descname"><span class="pre">onClicked_button_save_event_number</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_button_save_event_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for save button in Event and File Management tab.
+Save task name and event number to Run1/event.csv</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_button_save_protocol">
+<code class="sig-name descname"><span class="pre">onClicked_button_save_protocol</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_button_save_protocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for Save current protocol button in Experimental protocol tab.
+Save task table to a csv file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_button_save_subject_information">
+<code class="sig-name descname"><span class="pre">onClicked_button_save_subject_information</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_button_save_subject_information" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for ‘save’ button on subject information tab. The subject information typed in GUI
+will be saved to subject.txt</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_button_scope_switch">
+<code class="sig-name descname"><span class="pre">onClicked_button_scope_switch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pressed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_button_scope_switch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_button_start_SV">
+<code class="sig-name descname"><span class="pre">onClicked_button_start_SV</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_button_start_SV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for task button</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_button_temp_clear">
+<code class="sig-name descname"><span class="pre">onClicked_button_temp_clear</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_button_temp_clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for Clear button in Online Experiment tab
+Clear MRCP plot</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_button_temp_mean">
+<code class="sig-name descname"><span class="pre">onClicked_button_temp_mean</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_button_temp_mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for Mean button in Online Experiment tab
+Calculate mean of all templates</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_button_temp_remove">
+<code class="sig-name descname"><span class="pre">onClicked_button_temp_remove</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_button_temp_remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for Remove button in Onlin Experiment tab.
+Remove selected trials</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_button_temp_view">
+<code class="sig-name descname"><span class="pre">onClicked_button_temp_view</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_button_temp_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for View button in Online Experiment tab.
+View selected trials</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_button_test">
+<code class="sig-name descname"><span class="pre">onClicked_button_test</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_button_test" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_button_train">
+<code class="sig-name descname"><span class="pre">onClicked_button_train</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_button_train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_button_update_channel_name">
+<code class="sig-name descname"><span class="pre">onClicked_button_update_channel_name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_button_update_channel_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update channel name by double clicking channel name in channel manager and click update channel name
+to update them in Oscilloscope</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_experimental_protocol_finish">
+<code class="sig-name descname"><span class="pre">onClicked_experimental_protocol_finish</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_experimental_protocol_finish" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for Finish button in experimental protocol tab.
+Disable all inputs in this tab and save Task table into variable to be used for generating tasks.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_toolButton_choose_image_task">
+<code class="sig-name descname"><span class="pre">onClicked_toolButton_choose_image_task</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_toolButton_choose_image_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for three dot button next to choose image for task in Experiment Protocal tab</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_toolButton_choose_sound_task">
+<code class="sig-name descname"><span class="pre">onClicked_toolButton_choose_sound_task</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_toolButton_choose_sound_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for three dot button next to choose sound for task in Experiment Protocal tab</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onClicked_toolButton_load_protocol">
+<code class="sig-name descname"><span class="pre">onClicked_toolButton_load_protocol</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onClicked_toolButton_load_protocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for load exp. protocol button
+Open folder to choose existing experimental protocol files</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onDoubleClicked_channel_table">
+<code class="sig-name descname"><span class="pre">onDoubleClicked_channel_table</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onDoubleClicked_channel_table" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onSelectionChanged_table">
+<code class="sig-name descname"><span class="pre">onSelectionChanged_table</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onSelectionChanged_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update highlighted channels in Channel Manager when different channels are selected</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.view_controller.ViewController.onValueChanged_spinbox_time">
+<code class="sig-name descname"><span class="pre">onValueChanged_spinbox_time</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.view_controller.ViewController.onValueChanged_spinbox_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Event listener for spinbox of time in Scale Manager of Oscilloscope tab</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="constants.html" class="btn btn-neutral float-right" title="constants module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="stream_selector_view.html" class="btn btn-neutral float-left" title="stream_selector_view module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Jiansheng Niu.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

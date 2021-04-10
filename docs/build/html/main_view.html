@@ -1,0 +1,338 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>main_view module &mdash; EEG Online Experiment GUI 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="presenter module" href="presenter.html" />
+    <link rel="prev" title="main module" href="main.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> EEG Online Experiment GUI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="Documentation.html">Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">main_view module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="presenter.html">presenter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stream_selector_view.html">stream_selector_view module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="view_controller.html">view_controller module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="constants.html">constants module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware.html">hardware module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interactor.html">interactor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="router.html">router module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variables.html">variables module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logger.html">logger module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorials</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EEG Online Experiment GUI</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="Documentation.html">Documentation</a> &raquo;</li>
+        
+      <li>main_view module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/main_view.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="module-package.views.main_view">
+<span id="main-view-module"></span><h1>main_view module<a class="headerlink" href="#module-package.views.main_view" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="package.views.main_view.MainView">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">package.views.main_view.</span></code><code class="sig-name descname"><span class="pre">MainView</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">amp_name</span></em>, <em class="sig-param"><span class="pre">amp_serial</span></em>, <em class="sig-param"><span class="pre">state=&lt;Synchronized</span> <span class="pre">wrapper</span> <span class="pre">for</span> <span class="pre">c_long(1)&gt;</span></em>, <em class="sig-param"><span class="pre">queue=None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QMainWindow</span></code>, <a class="reference internal" href="view_controller.html#package.views.view_controller.ViewController" title="package.views.view_controller.ViewController"><code class="xref py py-class docutils literal notranslate"><span class="pre">package.views.view_controller.ViewController</span></code></a>, <a class="reference internal" href="presenter.html#package.views.presenter.Presenter" title="package.views.presenter.Presenter"><code class="xref py py-class docutils literal notranslate"><span class="pre">package.views.presenter.Presenter</span></code></a></p>
+<p>MainView class controls the GUI frontend interaction</p>
+<dl class="py method">
+<dt id="package.views.main_view.MainView.eventFilter">
+<code class="sig-name descname"><span class="pre">eventFilter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.eventFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select single channel to scale by right clicking
+:param source: channel table content
+:param event: right mouse button press
+:return: ID of the selected channel</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.main_view.MainView.init_Runtimer">
+<code class="sig-name descname"><span class="pre">init_Runtimer</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_Runtimer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize task related timer which controls the timing for visual cues</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.main_view.MainView.init_SV_GUI">
+<code class="sig-name descname"><span class="pre">init_SV_GUI</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_SV_GUI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize subject view GUI</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.main_view.MainView.init_all">
+<code class="sig-name descname"><span class="pre">init_all</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize specialized functions inside GUI</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.main_view.MainView.init_config_file">
+<code class="sig-name descname"><span class="pre">init_config_file</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_config_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize config file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.main_view.MainView.init_event_functions">
+<code class="sig-name descname"><span class="pre">init_event_functions</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_event_functions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize event listeners for widgets in GUI</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.main_view.MainView.init_loop">
+<code class="sig-name descname"><span class="pre">init_loop</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize loop related variables like StreamReceiver and self.eeg</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.main_view.MainView.init_panel_GUI">
+<code class="sig-name descname"><span class="pre">init_panel_GUI</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_panel_GUI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize experimenter GUI</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.main_view.MainView.init_panel_GUI_stop_recording">
+<code class="sig-name descname"><span class="pre">init_panel_GUI_stop_recording</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_panel_GUI_stop_recording" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize experimenter GUI when stop recording button pressed. This is used to
+prepare for next run.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.main_view.MainView.init_scope_GUI">
+<code class="sig-name descname"><span class="pre">init_scope_GUI</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_scope_GUI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize oscilloscope GUI</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.main_view.MainView.init_timer">
+<code class="sig-name descname"><span class="pre">init_timer</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.init_timer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize main timer used for refreshing oscilloscope window. This refreshes every 20ms.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="package.views.main_view.MainView.trigger_help">
+<code class="sig-name descname"><span class="pre">trigger_help</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#package.views.main_view.MainView.trigger_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shows / hide help in the scope window</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="presenter.html" class="btn btn-neutral float-right" title="presenter module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="main.html" class="btn btn-neutral float-left" title="main module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Jiansheng Niu.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
