@@ -169,5 +169,4 @@ texinfo_documents = [
 ]
 
 
-image_converter_args=["-density", "300"]
 
