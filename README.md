@@ -19,26 +19,21 @@ This GUI provides experimenters a ready-togo platform with following functions:
     2. Task sound
 <br>
 
+![Alt text](docs/tutorial_images/Exp_record.png?raw=true)
+
+
 # Getting Started
 
-Following steps shows how to use and develop this GUI on your local environment. Detailed 
-instructions could be found in [tutorials](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Tutorial.html). 
-The full documentation can be found in [documentation](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/index.html)
- for development purpose.
+
+## [Installation](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Installation_and_setup.html)
 
 
- 
-## Installation
+## [Tutorial](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Tutorial.html)
 
-Please refer to [Installation and setup](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Tutorial_for_users.html)
 
 ## Steps
 1. Connect hardware with LSL driver or openvibe
 2. Run this app and select the wanted stream in the terminal
-   ```buildoutcfg
-    python main.py
-    ```
-
 3. GUI should show up and do your experiments!
 
 
