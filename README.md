@@ -31,18 +31,10 @@ This GUI provides experimenters a ready-togo platform with following functions:
 ## [Tutorial](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Tutorial.html)
 
 
-## Steps
-1. Connect hardware with LSL driver or openvibe
-2. Run this app and select the wanted stream in the terminal
-3. GUI should show up and do your experiments!
-
-
 ## Contact
 Jiansheng Niu: jiansheng.niu1@uwaterloo.ca
-<br>
-Dr. Ning Jiang: ning.jiang@uwaterloo.ca
 
-_Developed in University of Waterloo, Canada._
+_Developed in [Ebionics lab](https://uwaterloo.ca/engineering-bionics-lab/), University of Waterloo, Canada._
 ## Citation
 [1] https://github.com/dbdq/neurodecode.git
 
