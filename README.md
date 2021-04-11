@@ -1,3 +1,6 @@
+[![DOI](https://zenodo.org/badge/268858214.svg)](https://zenodo.org/badge/latestdoi/268858214)
+
+
 # EEG online experiment GUI
 
 ## Description
