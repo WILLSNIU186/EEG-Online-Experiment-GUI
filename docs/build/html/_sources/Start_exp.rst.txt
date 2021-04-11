@@ -15,3 +15,8 @@ After all of these settings, you could finally start doing experiment!
 .. video:: _static/exp_record_1tiral.mp4
    :width: 600
    :height: 500
+
+
+* When all tasks finish, click RECORD button to stop recording,
+  please wait a while for it to save data. When the terminal message
+  says it is saved into desired folder, close program.

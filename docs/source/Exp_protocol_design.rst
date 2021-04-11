@@ -2,6 +2,7 @@ Experimental Protocol Design
 --------------------------------
 
 * Open Experimental protocol tab
+
     .. image:: ../tutorial_images/EXPGUI1.png
       :width: 800
       :alt: EXPGUI1
