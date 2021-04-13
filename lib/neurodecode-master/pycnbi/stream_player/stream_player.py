@@ -11,7 +11,8 @@ tweak tool to set to 500us time resolution of the OS.
 Kyuhwa Lee, 2015
 
 """
-
+import pdb
+from sys import argv
 import time
 import pylsl
 import numpy as np
@@ -21,7 +22,7 @@ from pycnbi.triggers.trigger_def import trigger_def
 from pycnbi import logger
 from builtins import input
 
-def stream_player(server_name, fif_file, chunk_size, auto_restart=True, wait_start=True, repeat=np.float('inf'), high_resolution=False, trigger_file=None):
+def stream_player(fif_file, server_name='StreamPlayer', chunk_size=8, auto_restart=True, wait_start=True, repeat=float('inf'), high_resolution=False, trigger_file=None):
     """
     Input
     =====
@@ -66,13 +67,13 @@ def stream_player(server_name, fif_file, chunk_size, auto_restart=True, wait_sta
     channel_desc = desc.append_child("channels")
     for ch in raw.ch_names:
         channel_desc.append_child('channel').append_child_value('label', str(ch))\
-            .append_child_value('type','EEG').append_child_value('unit','microvolts')
+            .append_child_value('type','EMG').append_child_value('unit','microvolts')
     desc.append_child('amplifier').append_child('settings').append_child_value('is_slave', 'false')
     desc.append_child('acquisition').append_child_value('manufacturer', 'PyCNBI').append_child_value('serial_number', 'N/A')
     outlet = pylsl.StreamOutlet(sinfo, chunk_size=chunk_size)
 
-    if wait_start:
-        input('Press Enter to start streaming.')
+    # if wait_start:
+    #     input('Press Enter to start streaming.')
     logger.info('Streaming started')
 
     idx_chunk = 0
@@ -89,6 +90,7 @@ def stream_player(server_name, fif_file, chunk_size, auto_restart=True, wait_sta
         idx_current = idx_chunk * chunk_size
         chunk = raw._data[:, idx_current:idx_current + chunk_size]
         data = chunk.transpose().tolist()
+
         if idx_current >= raw._data.shape[1] - chunk_size:
             finished = True
         if high_resolution:
@@ -131,7 +133,8 @@ def stream_player(server_name, fif_file, chunk_size, auto_restart=True, wait_sta
 
 # sample code
 if __name__ == '__main__':
-    server_name = 'StreamPlayer'
-    chunk_size = 8  # chunk streaming frequency in Hz
-    fif_file = r'D:\data\CHUV\ECoG17\20171008\fif_corrected\ANKTOE_left_vs_right\Oct08-08.fif'
-    stream_player(server_name, fif_file, chunk_size)
+    # fif_file = r'D:\OneDrive - University of Waterloo\Jiansheng\MRCP_folder\MRCP_online_interface\processed_data\consecutive_data\Nami_raw.fif'
+    fif_file = r'C:\Users\WILLS\PycharmProjects\uw_eboinics_experimental_interface\sample_data\sub1_raw.fif'
+    print(fif_file)
+    # pdb.set_trace()
+    stream_player(argv[1])

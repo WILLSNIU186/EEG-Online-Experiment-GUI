@@ -145,11 +145,12 @@ class StreamReceiver:
                         break
                     elif 'StreamPlayer' in amp_name:
                         logger.info('Found StreamPlayer streaming server %s (type %s, amp_serial %s) @ %s.' % (amp_name, si.type(), amp_serial, si.hostname()))
-                        self._lsl_tr_channel = 0
+                        self._lsl_tr_channel = None
                         channels += si.channel_count()
                         ch_list = pu.lsl_channel_list(inlet)
                         amps.append(si)
                         server_found = True
+                        self.multiplier = 10**6
                         break
                     elif 'openvibeSignal' in amp_name:
                         logger.info('Found an Openvibe signal streaming server %s (type %s, amp_serial %s) @ %s.' % (amp_name, si.type(), amp_serial, si.hostname()))
@@ -206,8 +207,10 @@ class StreamReceiver:
                 logger.info_yellow('Trigger channel found at index %d. Moving to index 0.' % self._lsl_tr_channel)
             self._lsl_eeg_channels.pop(self._lsl_tr_channel)
         self._lsl_eeg_channels = np.array(self._lsl_eeg_channels)
+
         self.tr_channel = 0  # trigger channel is always set to 0.
         self.eeg_channels = np.arange(1, channels + 1)  # signal channels start from 1.
+
 
         # create new inlets to read from the stream
         inlets_master = []
