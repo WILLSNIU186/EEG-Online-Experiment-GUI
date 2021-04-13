@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Tutorial for developers &mdash; EEG Online Experiment GUI 1.0.1 documentation</title>
+  <title>Replay recorded file &mdash; EEG Online Experiment GUI 1.0.1 documentation</title>
   
 
   
@@ -39,8 +39,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Understand the code structure" href="Understand_the_code_structure.html" />
-    <link rel="prev" title="After experiment" href="After_exp.html" /> 
+    <link rel="next" title="Connect with devices" href="Connect_with_device.html" />
+    <link rel="prev" title="Installation and setup" href="Installation_and_setup.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -94,13 +94,21 @@
 <li class="toctree-l1"><a class="reference internal" href="Documentation.html">Documentation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="Tutorial.html">Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="Tutorial_outline.html">Outline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Tutorial_for_users.html">Tutorial for users</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Tutorial for developers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Understand_the_code_structure.html">Understand the code structure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Design_your_own_GUI.html">Design your own GUI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Add_your_own_device.html">Add your own device</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="Tutorial_for_users.html">Tutorial for users</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="Installation_and_setup.html">Installation and setup</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Replay recorded file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Connect_with_device.html">Connect with devices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Open_GUI.html">Open GUI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Sub_info.html">Subject information Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Exp_protocol_design.html">Experimental Protocol Design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Event_number.html">Event number</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Scope.html">Oscilloscope</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Online_monitor.html">Online Monitor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Start_exp.html">Start experiment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="After_exp.html">After experiment</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="Tutorial_for_developers.html">Tutorial for developers</a></li>
 </ul>
 </li>
 </ul>
@@ -153,13 +161,15 @@
         
           <li><a href="Tutorial.html">Tutorials</a> &raquo;</li>
         
-      <li>Tutorial for developers</li>
+          <li><a href="Tutorial_for_users.html">Tutorial for users</a> &raquo;</li>
+        
+      <li>Replay recorded file</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/Tutorial_for_developers.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/Replay.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -196,15 +206,23 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="tutorial-for-developers">
-<h1>Tutorial for developers<a class="headerlink" href="#tutorial-for-developers" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
+<div class="section" id="replay-recorded-file">
+<h1>Replay recorded file<a class="headerlink" href="#replay-recorded-file" title="Permalink to this headline">¶</a></h1>
+<p>Any .fif file with channel names should be able to replay in this GUI.</p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="Understand_the_code_structure.html">Understand the code structure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Design_your_own_GUI.html">Design your own GUI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Add_your_own_device.html">Add your own device</a></li>
+<li><p>Open GUI, click REPLAY button.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/Replay.png"><img alt="Replay" src="_images/Replay.png" style="width: 400px;" /></a>
+</div></blockquote>
+</li>
+<li><p>Choose your .fif file.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/find_fif.png"><img alt="find_fif" src="_images/find_fif.png" style="width: 400px;" /></a>
+</div></blockquote>
+</li>
+<li><p>Choose ‘Stream_player’ in the next window.</p></li>
+<li><p>Open Oscilloscope to visualize data.</p></li>
 </ul>
-</div>
 </div>
 
 
@@ -213,8 +231,8 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="Understand_the_code_structure.html" class="btn btn-neutral float-right" title="Understand the code structure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="After_exp.html" class="btn btn-neutral float-left" title="After experiment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Connect_with_device.html" class="btn btn-neutral float-right" title="Connect with devices" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Installation_and_setup.html" class="btn btn-neutral float-left" title="Installation and setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

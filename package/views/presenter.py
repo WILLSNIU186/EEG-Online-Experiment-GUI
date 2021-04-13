@@ -615,6 +615,7 @@ class Presenter:
         try:
             # data, self.ts_list= self.sr.inlets[0].pull_chunk(max_samples=self.config['sf']) # [frames][channels]
             data, self.ts_list = self.sr.acquire("scope using", blocking=False)
+
             # print("TTTTTTTTTTTTTTTTTTTTT\ndata = ", data)
             # TODO: check and change to these two lines
             # self.sr.acquire(blocking=False, decim=DECIM)
@@ -639,7 +640,7 @@ class Presenter:
                 self.tri = np.reshape(data[:, trg_ch], (-1, 1))  # samples x 1
             self.eeg = np.reshape(data[:, self.sr.eeg_channels],
                                   (-1, n))  # samples x channels
-
+            # print("TTTTTTTTTTTTTTTTTTTTT\ndata = ", self.eeg)
             if DEBUG_TRIGGER:
                 # show trigger value
                 try:

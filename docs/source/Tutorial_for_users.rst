@@ -5,6 +5,7 @@ Tutorial for users
    :maxdepth: 2
 
    Installation_and_setup
+   Replay
    Connect_with_device
    Open_GUI
    Sub_info
