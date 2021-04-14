@@ -70,6 +70,15 @@ Try [Replay recorded file](https://willsniu186.github.io/EEG-Online-Experiment-G
 
    3. [Add Your Own Device](https://willsniu186.github.io/EEG-Online-Experiment-GUI/build/html/Add_your_own_device.html)
 
+## Best Practice
+
+The processing speed of GUI depends on your computer specs, there might be some irregular timer issue if your CPU and RAM is out of date. The tested machine has 16GB RAM and Core i7 CPU, which was enough for my experiment. However, some practice twicks might help you reduce the effect:
+1. Reduce oscilloscope time span. 
+2. Reduce oscilloscope channels to plot.
+
+32 channels with 10 seconds time span on oscilloscope during recording worked fine for me.
+
+
 ## Contact
 Jiansheng Niu: jiansheng.niu1@uwaterloo.ca
 
