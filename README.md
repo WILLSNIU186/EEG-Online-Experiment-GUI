@@ -33,9 +33,9 @@ This GUI provides experimenters a ready-togo platform with following functions:
 
 ## [Tutorial](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Tutorial.html)
 
-###[Outline](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Tutorial_outline.html)
+### [Outline](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Tutorial_outline.html)
 
-###[For users](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Tutorial_for_users.html)
+### [For users](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Tutorial_for_users.html)
 
    1. [Installation and setup](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Installation_and_setup.html)
 
@@ -61,7 +61,7 @@ This GUI provides experimenters a ready-togo platform with following functions:
 
    12. [After Experiment](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/After_exp.html)
 
-###[For developers](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Tutorial_for_developers.html)
+### [For developers](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Tutorial_for_developers.html)
 
    1. [Understand Code Structure](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Understand_the_code_structure.html)
 
