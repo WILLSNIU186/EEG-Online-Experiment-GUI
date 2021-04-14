@@ -25,51 +25,51 @@ This GUI provides experimenters a ready-togo platform with following functions:
 ![Alt text](docs/tutorial_images/Exp_record.png?raw=true)
 
 ## New feature!
-Try [Replay recorded file](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Replay.html) with sample data even if you don't have devices around.
+Try [Replay recorded file](https://willsniu186.github.io/EEG-online-Experiment-GUI/build/html/Replay.html) with sample data even if you don't have devices around.
 
 ## Getting Started
 
 
-## [Installation](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Installation_and_setup.html)
+## [Installation](https://willsniu186.github.io/EEG-online-Experiment-GUI/build/html/Installation_and_setup.html)
 
 
-## [Tutorial](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Tutorial.html)
+## [Tutorial](https://willsniu186.github.io/EEG-online-Experiment-GUI/build/html/Tutorial.html)
 
-### [Outline](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Tutorial_outline.html)
+### [Outline](https://willsniu186.github.io/EEG-online-Experiment-GUI/build/html/Tutorial_outline.html)
 
-### [For users](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Tutorial_for_users.html)
+### [For users](https://willsniu186.github.io/EEG-online-Experiment-GUI/build/html/Tutorial_for_users.html)
 
-   1. [Installation and setup](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Installation_and_setup.html)
+   1. [Installation and setup](https://willsniu186.github.io/EEG-online-Experiment-GUI/build/html/Installation_and_setup.html)
 
-   2. [Replay recorded file](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Replay.html)
+   2. [Replay recorded file](https://willsniu186.github.io/EEG-online-Experiment-GUI/build/html/Replay.html)
 
-   3. [Installation and setup](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Installation_and_setup.html)
+   3. [Installation and setup](https://willsniu186.github.io/EEG-online-Experiment-GUI/build/html/Installation_and_setup.html)
 
-   4. [Connect with devices](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Connect_with_device.html)
+   4. [Connect with devices](https://willsniu186.github.io/EEG-online-Experiment-GUI/build/html/Connect_with_device.html)
 
-   5. [Open GUI](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Open_GUI.html)
+   5. [Open GUI](https://willsniu186.github.io/EEG-online-Experiment-GUI/build/html/Open_GUI.html)
 
-   6. [Subject Information Input](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Sub_info.html)
+   6. [Subject Information Input](https://willsniu186.github.io/EEG-online-Experiment-GUI/build/html/Sub_info.html)
 
-   7. [Experimental Protocol Design](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Exp_protocol_design.html)
+   7. [Experimental Protocol Design](https://willsniu186.github.io/EEG-online-Experiment-GUI/build/html/Exp_protocol_design.html)
 
-   8. [Event Number](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Event_number.html)
+   8. [Event Number](https://willsniu186.github.io/EEG-online-Experiment-GUI/build/html/Event_number.html)
 
-   9. [Oscilloscope](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Scope.html)
+   9. [Oscilloscope](https://willsniu186.github.io/EEG-online-Experiment-GUI/build/html/Scope.html)
 
-   10. [Online Monitor](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Online_monitor.html)
+   10. [Online Monitor](https://willsniu186.github.io/EEG-online-Experiment-GUI/build/html/Online_monitor.html)
 
-   11. [Start Experiment](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Start_exp.html)
+   11. [Start Experiment](https://willsniu186.github.io/EEG-online-Experiment-GUI/build/html/Start_exp.html)
 
-   12. [After Experiment](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/After_exp.html)
+   12. [After Experiment](https://willsniu186.github.io/EEG-online-Experiment-GUI/build/html/After_exp.html)
 
-### [For developers](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Tutorial_for_developers.html)
+### [For developers](https://willsniu186.github.io/EEG-online-Experiment-GUI/build/html/Tutorial_for_developers.html)
 
-   1. [Understand Code Structure](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Understand_the_code_structure.html)
+   1. [Understand Code Structure](https://willsniu186.github.io/EEG-online-Experiment-GUI/build/html/Understand_the_code_structure.html)
 
-   2. [Design Your Own GUI](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Design_your_own_GUI.html)
+   2. [Design Your Own GUI](https://willsniu186.github.io/EEG-online-Experiment-GUI/build/html/Design_your_own_GUI.html)
 
-   3. [Add Your Own Device](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Add_your_own_device.html)
+   3. [Add Your Own Device](https://willsniu186.github.io/EEG-online-Experiment-GUI/build/html/Add_your_own_device.html)
 
 ## Contact
 Jiansheng Niu: jiansheng.niu1@uwaterloo.ca

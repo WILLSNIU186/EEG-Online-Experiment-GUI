@@ -134,7 +134,5 @@ def stream_player(fif_file, server_name='StreamPlayer', chunk_size=8, auto_resta
 # sample code
 if __name__ == '__main__':
     # fif_file = r'D:\OneDrive - University of Waterloo\Jiansheng\MRCP_folder\MRCP_online_interface\processed_data\consecutive_data\Nami_raw.fif'
-    fif_file = r'C:\Users\WILLS\PycharmProjects\uw_eboinics_experimental_interface\sample_data\sub1_raw.fif'
-    print(fif_file)
     # pdb.set_trace()
     stream_player(argv[1])
