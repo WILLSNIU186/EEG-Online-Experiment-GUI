@@ -24,8 +24,10 @@ This GUI provides experimenters a ready-togo platform with following functions:
 
 ![Alt text](docs/tutorial_images/Exp_record.png?raw=true)
 
+## New feature!
+Try [Replay recorded file](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Replay.html) with sample data even if you don't have devices around.
 
-# Getting Started
+## Getting Started
 
 
 ## [Installation](https://willsniu186.github.io/uw_eboinics_experimental_interface/build/html/Installation_and_setup.html)
