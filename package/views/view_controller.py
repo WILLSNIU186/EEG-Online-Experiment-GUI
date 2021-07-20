@@ -3,8 +3,10 @@ import datetime
 import os
 import time
 from threading import Thread
+import subprocess
 
 import numpy as np
+from psychopy import visual, event, core
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QTableWidgetItem
 from pycnbi import logger
@@ -12,10 +14,10 @@ from twisted.internet import reactor
 
 from ..entity.edata.utils import Utils
 from ..entity.edata.variables import Variables
+# from package.views.ssvep_stimulus_presenter import run_ssvep_protocol
 
 DEBUG_TRIGGER = False  # TODO: parameterize
 NUM_X_CHANNELS = 16  # TODO: parameterize
-
 
 class ViewController:
     """
@@ -135,6 +137,13 @@ class ViewController:
             self.ui.tableWidget_tasks.setRowCount(0)
             self.ui.tableWidget_task_event_number.setRowCount(0)
             self.ui.graphicsView.clear()
+
+    def onClicked_button_start_ssvep(self):
+        
+        # Thread(target=self.play_task_sound, args=(self.new_task_table[self.task_counter][3],)).start()
+        self.run_ssvep_protocol()
+        # run_ssvep_protocol(win=win, stim_type='ssvep')
+
 
     # def onClicked_button_stop_SV(self):
     #     self.stop_SV()

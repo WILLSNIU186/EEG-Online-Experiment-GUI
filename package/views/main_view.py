@@ -23,7 +23,7 @@ from pycnbi import logger
 from twisted.internet import task
 from pycnbi.stream_receiver.stream_receiver import StreamReceiver
 from . import view_controller, presenter
-from .layouts import main_layout16, subject_layout2
+from .layouts import main_window_ssvep_GUI, subject_layout2
 from ..router import router
 from ..entity.edata.variables import Variables
 from ..entity.edata.utils import Utils
@@ -42,7 +42,7 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         """
         super(MainView, self).__init__()
         self.router = router.Router()
-        self.ui = main_layout16.Ui_MainWindow()
+        self.ui = main_window_ssvep_GUI.Ui_MainWindow()
         self.ui.setupUi(self)
 
         self.window = QMainWindow()
@@ -183,6 +183,9 @@ class MainView(QMainWindow, view_controller.ViewController, presenter.Presenter)
         self.ui.pushButton_temp_view.clicked.connect(self.onClicked_button_temp_view)
         self.ui.pushButton_temp_remove.clicked.connect(self.onClicked_button_temp_remove)
 
+        # SSVEP start button
+        self.ui.pushButton_Start_SSVEP.clicked.connect(self.onClicked_button_start_ssvep)
+        
     def init_panel_GUI(self):
         """
         Initialize experimenter GUI
