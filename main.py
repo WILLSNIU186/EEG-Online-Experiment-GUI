@@ -5,7 +5,7 @@ import pycnbi.utils.pycnbi_utils as pu
 from PyQt5 import QtWidgets
 
 from package.entity.edata import constants, variables
-from package.views import main_view
+from package.views import main_view, main_view_new
 from package.views.stream_selector_view import StreamSelectorView
 from package.views.record_replay_selector import RecordReplaySelector
 
@@ -32,5 +32,7 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     record_replay_view = RecordReplaySelector()
     stream_selector_view = StreamSelectorView()
-    ex = main_view.MainView(variables.Variables.get_amp_name(), variables.Variables.get_amp_serial())
+    # ex = main_view.MainView(variables.Variables.get_amp_name(), variables.Variables.get_amp_serial())
+    ex = main_view_new.MainView(variables.Variables.get_amp_name(), variables.Variables.get_amp_serial())
+
     sys.exit(app.exec_())
