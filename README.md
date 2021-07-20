@@ -82,6 +82,11 @@ The processing speed of GUI depends on your computer specs, there might be some 
 ## Contact
 Jiansheng Niu: jiansheng.niu1@uwaterloo.ca
 
+## Contributors
+Jiansheng Niu: jiansheng.niu1@uwaterloo.ca
+Aravind Ravi: aravind.ravi@uwaterloo.ca
+Hyowon Lee: hyowon.lee@uwaterloo.ca
+
 _Developed in [Ebionics lab](https://uwaterloo.ca/engineering-bionics-lab/), University of Waterloo, Canada._
 ## Citation
 [1] https://github.com/dbdq/neurodecode.git
