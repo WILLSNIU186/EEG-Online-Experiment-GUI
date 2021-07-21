@@ -1545,7 +1545,7 @@
             <item row="0" column="1">
              <widget class="QTabWidget" name="tabWidget_2">
               <property name="currentIndex">
-               <number>0</number>
+               <number>1</number>
               </property>
               <widget class="QWidget" name="tab_MRCP">
                <attribute name="title">
@@ -1707,6 +1707,19 @@
                <attribute name="title">
                 <string>SSVEP</string>
                </attribute>
+               <widget class="QPushButton" name="pushButton_ssvep_task">
+                <property name="geometry">
+                 <rect>
+                  <x>150</x>
+                  <y>130</y>
+                  <width>75</width>
+                  <height>23</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>SSVEP task</string>
+                </property>
+               </widget>
               </widget>
              </widget>
             </item>
