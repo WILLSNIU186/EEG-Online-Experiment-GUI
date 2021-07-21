@@ -23,7 +23,9 @@ from pycnbi import logger
 from twisted.internet import task
 from pycnbi.stream_receiver.stream_receiver import StreamReceiver
 # from . import view_controller, presenter
-from .layouts import main_layout17, subject_layout2
+# from .layouts import main_layout17, subject_layout2
+# eye_tracker.ui added
+from .layouts import main_layout18, subject_layout2, table_test1
 from ..router import router
 from ..entity.edata.variables import Variables
 from ..entity.edata.utils import Utils
@@ -44,11 +46,11 @@ from package.views.record_switch import RecordSwitch
 from package.views.task_switch import TaskSwitch
 from package.views.event_plot import EventPlot
 from package.views.ssvep_exp_protocol import SSVEPExpProtocol
-
+from package.views.eye_tracker import EyeTracker_ui
 
 class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtocol, EventNumber, FilePathManager,\
                ChannelScaleManager, ChannelSelector, ChannelFilter, BadEpochMonitor, MRCPExtractor, MainSwitch,\
-               ScopeSwitch, RecordSwitch, TaskSwitch, EventPlot, SSVEPExpProtocol):
+               ScopeSwitch, RecordSwitch, TaskSwitch, EventPlot, SSVEPExpProtocol, EyeTracker_ui):
     """
     MainView class controls the GUI frontend interaction
     """
@@ -61,12 +63,17 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         """
         super(MainView, self).__init__()
         self.router = router.Router()
-        self.ui = main_layout17.Ui_MainWindow()
+        # self.ui = main_layout17.Ui_MainWindow()
+        self.ui = main_layout18.Ui_MainWindow()
         self.ui.setupUi(self)
 
         self.window = QMainWindow()
         self.SV_window = subject_layout2.SubjectLayout()
         self.SV_window.setupUi(self.window)
+
+        self.window_eyetracker = QMainWindow()
+        self.eyetracker_window = table_test1.Ui_Dialog()
+        self.eyetracker_window.setupUi(self.window_eyetracker)
 
         # redirect_stdout_to_queue(logger, queue, 'INFO')
         logger.info('Viewer launched')
@@ -204,6 +211,10 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         self.ui.pushButton_temp_mean.clicked.connect(self.onClicked_button_temp_mean)
         self.ui.pushButton_temp_view.clicked.connect(self.onClicked_button_temp_view)
         self.ui.pushButton_temp_remove.clicked.connect(self.onClicked_button_temp_remove)
+
+        # Eyetracker tap
+        self.ui.pushButton_start_eyetracker_ui.clicked.connect(self.onClicked_button_eye_start)
+
 
     def init_panel_GUI(self):
         """
