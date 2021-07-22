@@ -1,6 +1,6 @@
 from pycnbi import logger
 import numpy as np
-from ..entity.edata.utils import Utils
+from package.entity.edata.utils import Utils
 from random import randrange
 import pyqtgraph as pg
 

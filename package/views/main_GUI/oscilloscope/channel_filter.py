@@ -1,6 +1,6 @@
 from scipy.signal import lfilter
 import numpy as np
-from ..entity.edata.utils import Utils
+from package.entity.edata.utils import Utils
 
 class ChannelFilter():
     def onActivated_checkbox_car(self):

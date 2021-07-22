@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QTableWidgetItem
-from ..entity.edata.variables import Variables
+from package.entity.edata.variables import Variables
 
 class FilePathManager():
     def init_table_file_path(self):

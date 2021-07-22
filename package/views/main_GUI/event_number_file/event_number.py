@@ -1,4 +1,4 @@
-from ..entity.edata.utils import Utils
+from package.entity.edata.utils import Utils
 
 
 class EventNumber():

@@ -11,40 +11,44 @@ DEBUG_TRIGGER = False  # TODO: parameterize
 NUM_X_CHANNELS = 16  # TODO: parameterize
 
 import sys
-import struct
 import numpy as np
 import pyqtgraph as pg
 import multiprocessing as mp
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QDialog
 from PyQt5 import QtCore
 from configparser import RawConfigParser
-from psychopy import visual
 from pycnbi import logger
 from twisted.internet import task
 from pycnbi.stream_receiver.stream_receiver import StreamReceiver
-# from . import view_controller, presenter
-from .layouts import main_layout, subject_layout, eye_tracker_layout
-from ..router import router
-from ..entity.edata.variables import Variables
-from ..entity.edata.utils import Utils
-from package.views.subject_info import SubjectInfo
-from package.views.task_manager import TaskManager
-from package.views.sequence_manager import SequenceManager
-from package.views.exp_protocol import ExpProtocol
-from package.views.event_number import EventNumber
-from package.views.file_path_manager import FilePathManager
-from package.views.channel_scale_manager import ChannelScaleManager
-from package.views.channel_selector import ChannelSelector
-from package.views.channel_filter import ChannelFilter
-from package.views.bad_epoch_monitor import BadEpochMonitor
-from package.views.MRCP_extractor import MRCPExtractor
-from package.views.main_switch import MainSwitch
-from package.views.scope_switch import ScopeSwitch
-from package.views.record_switch import RecordSwitch
-from package.views.task_switch import TaskSwitch
-from package.views.event_plot import EventPlot
-from package.views.ssvep_exp_protocol import SSVEPExpProtocol
+
 from package.views.eye_tracker import EyeTracker
+from package.views.layouts import main_layout, subject_layout, eye_tracker_layout
+from package.router.router import Router
+from package.entity.edata.variables import Variables
+from package.entity.edata.utils import Utils
+
+from package.views.main_GUI.control_switches.main_switch import MainSwitch
+from package.views.main_GUI.control_switches.record_switch import RecordSwitch
+from package.views.main_GUI.control_switches.scope_switch import ScopeSwitch
+from package.views.main_GUI.control_switches.task_switch import TaskSwitch
+
+from package.views.main_GUI.event_number_file.event_number import EventNumber
+from package.views.main_GUI.event_number_file.file_path_manager import FilePathManager
+
+from package.views.main_GUI.exp_protocol_design.exp_protocol import ExpProtocol
+from package.views.main_GUI.exp_protocol_design.sequence_manager import SequenceManager
+from package.views.main_GUI.exp_protocol_design.ssvep_exp_protocol import SSVEPExpProtocol
+from package.views.main_GUI.exp_protocol_design.task_manager import TaskManager
+
+from package.views.main_GUI.online_monitor.bad_epoch_monitor import BadEpochMonitor
+from package.views.main_GUI.online_monitor.MRCP_extractor import MRCPExtractor
+
+from package.views.main_GUI.oscilloscope.channel_filter import ChannelFilter
+from package.views.main_GUI.oscilloscope.channel_scale_manager import ChannelScaleManager
+from package.views.main_GUI.oscilloscope.channel_selector import ChannelSelector
+from package.views.main_GUI.oscilloscope.event_plot import EventPlot
+
+from package.views.main_GUI.subject_info.subject_info import SubjectInfo
 
 
 class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtocol, EventNumber, FilePathManager,\
@@ -61,7 +65,7 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         :amp_serial: amplifier serial passed from LSL
         """
         super(MainView, self).__init__()
-        self.router = router.Router()
+        self.router = Router()
         self.ui = main_layout.Ui_MainWindow()
         self.ui.setupUi(self)
 

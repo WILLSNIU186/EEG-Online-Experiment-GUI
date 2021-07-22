@@ -1,8 +1,8 @@
 
 from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem
 import numpy as np
-from ..entity.edata.utils import Utils
-from ..entity.edata.variables import Variables
+from package.entity.edata.utils import Utils
+from package.entity.edata.variables import Variables
 
 
 class ExpProtocol():
