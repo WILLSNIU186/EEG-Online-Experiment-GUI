@@ -1,11 +1,6 @@
-import struct
-import sys
-from pycnbi import logger
-from ..entity.hardware import hardware
-from ..router import router
-import pdb
-import numpy as np
-from scipy.signal import butter, lfilter, lfiltic, buttord
+
+from ..entity.hardware import hardware, hardware_eye_tracker
+
 
 DEBUG_TRIGGER = False  # TODO: parameterize
 NUM_X_CHANNELS = 16  # TODO: parameterize
@@ -15,6 +10,7 @@ class Interactor:
 
     def __init__(self):
         self.__hardware = hardware.Hardware()
+        self.__eye_tracker_hardware = hardware_eye_tracker.HardwareEyeTracker()
 
     def start_recording(self):
         self.__hardware.start_recording_data()
@@ -36,3 +32,9 @@ class Interactor:
 
     def set_raw_eeg_file_path(self):
         self.__hardware.set_eeg_file_path()
+
+    def start_eye_tracker_recording(self):
+        self.__eye_tracker_hardware.start_recording()
+
+    def stop_eye_tracker_recording(self):
+        self.__eye_tracker_hardware.stop_recording()

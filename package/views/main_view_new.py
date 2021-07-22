@@ -15,7 +15,7 @@ import struct
 import numpy as np
 import pyqtgraph as pg
 import multiprocessing as mp
-from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
+from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QDialog
 from PyQt5 import QtCore
 from configparser import RawConfigParser
 from psychopy import visual
@@ -23,7 +23,7 @@ from pycnbi import logger
 from twisted.internet import task
 from pycnbi.stream_receiver.stream_receiver import StreamReceiver
 # from . import view_controller, presenter
-from .layouts import main_layout, subject_layout
+from .layouts import main_layout, subject_layout, eye_tracker_layout
 from ..router import router
 from ..entity.edata.variables import Variables
 from ..entity.edata.utils import Utils
@@ -44,11 +44,12 @@ from package.views.record_switch import RecordSwitch
 from package.views.task_switch import TaskSwitch
 from package.views.event_plot import EventPlot
 from package.views.ssvep_exp_protocol import SSVEPExpProtocol
+from package.views.eye_tracker import EyeTracker
 
 
 class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtocol, EventNumber, FilePathManager,\
                ChannelScaleManager, ChannelSelector, ChannelFilter, BadEpochMonitor, MRCPExtractor, MainSwitch,\
-               ScopeSwitch, RecordSwitch, TaskSwitch, EventPlot, SSVEPExpProtocol):
+               ScopeSwitch, RecordSwitch, TaskSwitch, EventPlot, SSVEPExpProtocol, EyeTracker):
     """
     MainView class controls the GUI frontend interaction
     """
@@ -67,6 +68,11 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         self.window = QMainWindow()
         self.SV_window = subject_layout.Ui_SV()
         self.SV_window.setupUi(self.window)
+
+        self.eye_tracker_dialog = QDialog()
+        self.eye_tracker_window = eye_tracker_layout.Ui_Dialog()
+        self.eye_tracker_window.setupUi(self.eye_tracker_dialog)
+
 
         # redirect_stdout_to_queue(logger, queue, 'INFO')
         logger.info('Viewer launched')
@@ -90,6 +96,7 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         self.init_scope_GUI()
         self.init_timer()  # timer for scope refreshing
         self.init_Runtimer()  # timer for record, train and test
+        self.init_eye_tracker()
 
 
     def init_config_file(self):
@@ -198,6 +205,9 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
 
         # SSVEP
         self.ui.pushButton_ssvep_task.clicked.connect(self.onClicked_pushButton_ssvep_task)
+
+        # eye tracker
+        self.ui.pushButton_open_eye_tracker_ui.clicked.connect(self.onClicked_pushButton_open_eye_tracker_ui)
 
         # MRCP tab
         self.ui.pushButton_temp_clear.clicked.connect(self.onClicked_button_temp_clear)
@@ -650,6 +660,39 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
 
         self.Runtimer = task.LoopingCall(self.Time)
 
+    def init_eye_tracker(self):
+        self.eye_tracker_window.tableWidget.setRowCount(9)
+
+        self.eye_tracker_window.pushButton_1.clicked.connect(self.update_cal1)
+        self.eye_tracker_window.pushButton_2.clicked.connect(self.update_cal2)
+        self.eye_tracker_window.pushButton_3.clicked.connect(self.update_cal3)
+        self.eye_tracker_window.pushButton_4.clicked.connect(self.update_cal4)
+        self.eye_tracker_window.pushButton_5.clicked.connect(self.update_cal5)
+        self.eye_tracker_window.pushButton_6.clicked.connect(self.update_cal6)
+        self.eye_tracker_window.pushButton_7.clicked.connect(self.update_cal7)
+        self.eye_tracker_window.pushButton_8.clicked.connect(self.update_cal8)
+        self.eye_tracker_window.pushButton_9.clicked.connect(self.update_cal9)
+
+
+        self.eye_tracker_window.pushButton_12.clicked.connect(self.update_current_gaze_loc)
+        self.eye_tracker_window.pushButton_13.clicked.connect(self.recording_data)
+        self.eye_tracker_window.pushButton_14.clicked.connect(self.recording_stop)
+
+        self.rec_time = int(self.eye_tracker_window.LineEdit_rec.text())
+        # self.LineEdit_rec.clicked.conntect(self.update_rec_time(int(self.LineEdit_rec.text())))
+
+        self.gaze_x = 0
+        self.gaze_y = 0
+        self.table_row = 0
+        self.table_col = 0
+        # print(self.gaze_x, self.gaze_y)
+
+        self.UTC_time = 0
+
+        # List of values in 9 points
+        self.points = np.zeros((9,2))
+
+        self.gaze_loc = 0
 
     def trigger_help(self):
         """Shows / hide help in the scope window"""
