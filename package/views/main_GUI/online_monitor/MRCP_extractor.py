@@ -64,30 +64,6 @@ class MRCPExtractor():
         finally:
             pass
 
-
-
-    def update_template_buffer(self):
-        """
-        Update buffer for drawing online MRCP template. Low pass filter followed by high pass filter are
-        applied to the buffer.
-        """
-        self.template_buffer = np.roll(self.template_buffer, -len(self.ts_list), 0)
-        current_chunck = np.copy(self.eeg)
-
-        low_pass_data_in = np.transpose(current_chunck)
-
-        low_pass_data_out, self.initial_condition_list_lp = Utils.apply_filter(self.b_lp, self.a_lp, low_pass_data_in,
-                                                                               self.initial_condition_list_lp)
-
-        high_pass_data_in = low_pass_data_out
-
-        high_pass_data_out, self.initial_condition_list_hp = Utils.apply_filter(self.b_hp, self.a_hp, high_pass_data_in,
-                                                                                self.initial_condition_list_hp)
-
-        # print('\nhigh pass data out size: ', high_pass_data_out.shape)
-        self.template_buffer[-len(self.ts_list):, :] = np.transpose(high_pass_data_out)
-
-
     def read_template_buffer(self):
         """
         Get bandpassed real time template buffer

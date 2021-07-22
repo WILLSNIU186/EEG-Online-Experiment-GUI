@@ -50,10 +50,13 @@ from package.views.main_GUI.oscilloscope.event_plot import EventPlot
 
 from package.views.main_GUI.subject_info.subject_info import SubjectInfo
 
+from package.views.main_GUI.timer.run_timer import RunTimer
+from package.views.main_GUI.timer.GUI_timer import GUITimer
+
 
 class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtocol, EventNumber, FilePathManager,\
                ChannelScaleManager, ChannelSelector, ChannelFilter, BadEpochMonitor, MRCPExtractor, MainSwitch,\
-               ScopeSwitch, RecordSwitch, TaskSwitch, EventPlot, SSVEPExpProtocol, EyeTracker):
+               ScopeSwitch, RecordSwitch, TaskSwitch, EventPlot, SSVEPExpProtocol, EyeTracker, RunTimer, GUITimer):
     """
     MainView class controls the GUI frontend interaction
     """
