@@ -1545,7 +1545,7 @@
             <item row="0" column="1">
              <widget class="QTabWidget" name="tabWidget_2">
               <property name="currentIndex">
-               <number>0</number>
+               <number>2</number>
               </property>
               <widget class="QWidget" name="tab_MRCP">
                <attribute name="title">
@@ -1718,6 +1718,24 @@
                 </property>
                 <property name="text">
                  <string>SSVEP task</string>
+                </property>
+               </widget>
+              </widget>
+              <widget class="QWidget" name="tab">
+               <attribute name="title">
+                <string>eye tracker</string>
+               </attribute>
+               <widget class="QPushButton" name="pushButton_open_eye_tracker_ui">
+                <property name="geometry">
+                 <rect>
+                  <x>120</x>
+                  <y>100</y>
+                  <width>171</width>
+                  <height>21</height>
+                 </rect>
+                </property>
+                <property name="text">
+                 <string>open eye tracker ui</string>
                 </property>
                </widget>
               </widget>

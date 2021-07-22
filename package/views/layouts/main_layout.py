@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'mainwindow3.ui'
+# Form implementation generated from reading ui file 'mainwindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.14.1
 #
@@ -874,6 +874,12 @@ class Ui_MainWindow(object):
         self.pushButton_ssvep_task.setGeometry(QtCore.QRect(150, 130, 75, 23))
         self.pushButton_ssvep_task.setObjectName("pushButton_ssvep_task")
         self.tabWidget_2.addTab(self.tab_ssvep, "")
+        self.tab = QtWidgets.QWidget()
+        self.tab.setObjectName("tab")
+        self.pushButton_open_eye_tracker_ui = QtWidgets.QPushButton(self.tab)
+        self.pushButton_open_eye_tracker_ui.setGeometry(QtCore.QRect(120, 100, 171, 21))
+        self.pushButton_open_eye_tracker_ui.setObjectName("pushButton_open_eye_tracker_ui")
+        self.tabWidget_2.addTab(self.tab, "")
         self.gridLayout_19.addWidget(self.tabWidget_2, 0, 1, 1, 1)
         self.tabWidget_EXG.addTab(self.tab_EEG, "")
         self.tab_EMG = QtWidgets.QWidget()
@@ -900,7 +906,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(4)
         self.tabWidget_EXG.setCurrentIndex(0)
-        self.tabWidget_2.setCurrentIndex(0)
+        self.tabWidget_2.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -1192,6 +1198,8 @@ class Ui_MainWindow(object):
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_MRCP), _translate("MainWindow", "MRCP"))
         self.pushButton_ssvep_task.setText(_translate("MainWindow", "SSVEP task"))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_ssvep), _translate("MainWindow", "SSVEP"))
+        self.pushButton_open_eye_tracker_ui.setText(_translate("MainWindow", "open eye tracker ui"))
+        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab), _translate("MainWindow", "eye tracker"))
         self.tabWidget_EXG.setTabText(self.tabWidget_EXG.indexOf(self.tab_EEG), _translate("MainWindow", "EEG"))
         self.tabWidget_EXG.setTabText(self.tabWidget_EXG.indexOf(self.tab_EMG), _translate("MainWindow", "EMG"))
         self.tabWidget_EXG.setTabText(self.tabWidget_EXG.indexOf(self.tab_ECG), _translate("MainWindow", "ECG"))

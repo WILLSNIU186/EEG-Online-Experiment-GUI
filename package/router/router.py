@@ -26,3 +26,9 @@ class Router:
 
     def set_raw_eeg_file_path(self):
         self.__interactor.set_raw_eeg_file_path()
+
+    def start_eye_tracker_recording(self):
+        self.__interactor.start_eye_tracker_recording()
+
+    def stop_eye_tracker_recording(self):
+        self.__interactor.stop_eye_tracker_recording()
