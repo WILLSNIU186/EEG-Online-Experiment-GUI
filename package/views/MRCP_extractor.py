@@ -146,7 +146,8 @@ class MRCPExtractor():
         R = randrange(255)
         G = randrange(255)
         B = randrange(255)
-        self.ui.graphicsView.plot(x, y, pen=pg.mkPen(color=(R, G, B), width=1))
+        # self.ui.graphicsView = pg.PlotWidget(self.ui.tab_MRCP)
+        self.ui.widget_mrcp_extractor.plot(x, y, pen=pg.mkPen(color=(R, G, B), width=1))
 
 
 
@@ -154,7 +155,7 @@ class MRCPExtractor():
         """
         Plot certain MRCP templates selected by the text box below the MRCP plot window.
         """
-        self.ui.graphicsView.clear()
+        self.ui.widget_mrcp_extractor.clear()
         # print("display temp list", self.display_temp_list)
         for i in self.display_temp_list:
             self.MRCP_plot(self.total_trials_MRCP[int(i) - 1])

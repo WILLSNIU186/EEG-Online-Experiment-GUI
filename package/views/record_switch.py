@@ -87,7 +87,7 @@ class RecordSwitch():
             self.ui.groupBox_task_manager.setEnabled(True)
             self.ui.tableWidget_tasks.setRowCount(0)
             self.ui.tableWidget_task_event_number.setRowCount(0)
-            self.ui.graphicsView.clear()
+            self.ui.widget_mrcp_extractor.clear()
 
 
     def create_channel_dict(self):

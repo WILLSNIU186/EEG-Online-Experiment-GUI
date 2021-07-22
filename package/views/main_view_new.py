@@ -18,12 +18,12 @@ import multiprocessing as mp
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
 from PyQt5 import QtCore
 from configparser import RawConfigParser
-
+from psychopy import visual
 from pycnbi import logger
 from twisted.internet import task
 from pycnbi.stream_receiver.stream_receiver import StreamReceiver
-from . import view_controller, presenter
-from .layouts import main_layout16, subject_layout2
+# from . import view_controller, presenter
+from .layouts import main_layout, subject_layout
 from ..router import router
 from ..entity.edata.variables import Variables
 from ..entity.edata.utils import Utils
@@ -43,11 +43,12 @@ from package.views.scope_switch import ScopeSwitch
 from package.views.record_switch import RecordSwitch
 from package.views.task_switch import TaskSwitch
 from package.views.event_plot import EventPlot
+from package.views.ssvep_exp_protocol import SSVEPExpProtocol
 
 
 class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtocol, EventNumber, FilePathManager,\
                ChannelScaleManager, ChannelSelector, ChannelFilter, BadEpochMonitor, MRCPExtractor, MainSwitch,\
-               ScopeSwitch, RecordSwitch, TaskSwitch, EventPlot):
+               ScopeSwitch, RecordSwitch, TaskSwitch, EventPlot, SSVEPExpProtocol):
     """
     MainView class controls the GUI frontend interaction
     """
@@ -60,11 +61,11 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         """
         super(MainView, self).__init__()
         self.router = router.Router()
-        self.ui = main_layout16.Ui_MainWindow()
+        self.ui = main_layout.Ui_MainWindow()
         self.ui.setupUi(self)
 
         self.window = QMainWindow()
-        self.SV_window = subject_layout2.SubjectLayout()
+        self.SV_window = subject_layout.Ui_SV()
         self.SV_window.setupUi(self.window)
 
         # redirect_stdout_to_queue(logger, queue, 'INFO')
@@ -194,6 +195,9 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         self.ui.table_channels.doubleClicked.connect(self.onDoubleClicked_channel_table)
         self.ui.pushButton_update_channel_name.clicked.connect(self.onClicked_button_update_channel_name)
         self.ui.table_channels.viewport().installEventFilter(self)
+
+        # SSVEP
+        self.ui.pushButton_ssvep_task.clicked.connect(self.onClicked_pushButton_ssvep_task)
 
         # MRCP tab
         self.ui.pushButton_temp_clear.clicked.connect(self.onClicked_button_temp_clear)
@@ -448,7 +452,6 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         self.cycle_time = self.relax_time
         self.is_experiment_on = False
 
-
     def init_scope_GUI(self):
         """
         Initialize oscilloscope GUI
@@ -623,6 +626,7 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
 
         # Force repaint even when we shouldn't repaint.
         self.force_repaint = 1
+
 
 
     def init_timer(self):
