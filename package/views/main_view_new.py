@@ -23,7 +23,7 @@ from pycnbi import logger
 from twisted.internet import task
 from pycnbi.stream_receiver.stream_receiver import StreamReceiver
 # from . import view_controller, presenter
-from .layouts import main_layout17, subject_layout2
+from .layouts import main_layout, subject_layout
 from ..router import router
 from ..entity.edata.variables import Variables
 from ..entity.edata.utils import Utils
@@ -61,11 +61,11 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         """
         super(MainView, self).__init__()
         self.router = router.Router()
-        self.ui = main_layout17.Ui_MainWindow()
+        self.ui = main_layout.Ui_MainWindow()
         self.ui.setupUi(self)
 
         self.window = QMainWindow()
-        self.SV_window = subject_layout2.SubjectLayout()
+        self.SV_window = subject_layout.Ui_SV()
         self.SV_window.setupUi(self.window)
 
         # redirect_stdout_to_queue(logger, queue, 'INFO')
