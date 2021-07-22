@@ -4,8 +4,8 @@ from threading import Thread
 from pycnbi import logger
 from twisted.internet import reactor
 
-from ..entity.edata.utils import Utils
-from ..entity.edata.variables import Variables
+from package.entity.edata.utils import Utils
+from package.entity.edata.variables import Variables
 
 class RecordSwitch():
 

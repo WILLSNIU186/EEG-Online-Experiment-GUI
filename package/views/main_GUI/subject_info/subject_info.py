@@ -1,4 +1,4 @@
-from ..entity.edata.variables import Variables
+from package.entity.edata.variables import Variables
 import datetime
 import os
 from PyQt5.QtWidgets import QFileDialog

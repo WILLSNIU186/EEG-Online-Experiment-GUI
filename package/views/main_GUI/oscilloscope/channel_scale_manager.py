@@ -1,4 +1,6 @@
 import numpy as np
+from pycnbi import logger
+
 class ChannelScaleManager():
     def onActivated_combobox_scale(self):
         """
@@ -110,52 +112,3 @@ class ChannelScaleManager():
             if (not self.stop_plot):
                 self.force_repaint = 1
                 self.repaint()
-
-    def update_ringbuffers(self):
-        """
-        Update selected channels scale
-        """
-        # update single channel scale
-        # print("single channel scale: ", self.single_channel_scale)
-        channel_to_scale = self.channel_to_scale_column_index * 16 + self.channel_to_scale_row_index
-        if self.ui.checkBox_change_scale.isChecked():
-            self.ui.statusBar.showMessage("Use UP and Down keys in keyboard to control scale")
-            self.channels_to_scale = []
-            self.sub_channel_names = self.read_sub_channel_names()
-            for sub_channel_name in self.sub_channel_names:
-                channel_to_scale = self.channel_labels.tolist().index(sub_channel_name)
-                self.channels_to_scale.append(channel_to_scale)
-            self.eeg[:, self.channels_to_scale] = self.eeg[:, self.channels_to_scale] * self.single_channel_scale
-
-        # We have to remove those indexes that reached time = 0
-
-        self.data_plot = np.roll(self.data_plot, -len(self.ts_list), 0)
-        self.data_plot[-len(self.ts_list):, :] = self.eeg
-
-        delete_indices_e = []
-        delete_indices_c = []
-        for x in range(0, len(self.events_detected), 2):
-            xh = int(x / 2)
-            self.events_detected[x] -= len(self.ts_list)  # leeq
-            if (self.events_detected[x] < 0) and (not self.stop_plot):
-                delete_indices_e.append(x)
-                delete_indices_e.append(x + 1)
-                delete_indices_c.append(xh)
-                self.events_curves[xh].clear()
-                self.main_plot_handler.removeItem(self.events_text[xh])
-
-        self.events_detected = [i for j, i in enumerate(self.events_detected) if
-                                j not in delete_indices_e]
-        self.events_curves = [i for j, i in enumerate(self.events_curves) if
-                              j not in delete_indices_c]
-        self.events_text = [i for j, i in enumerate(self.events_text) if
-                            j not in delete_indices_c]
-
-        # Find LPT events and add them
-        if (self.show_LPT_events) and (not self.stop_plot):
-            for x in range(len(self.tri)):
-                tri = int(self.tri[x])
-                if tri != 0 and (tri > self.last_tri):
-                    self.addEventPlot("LPT", tri)
-                    logger.info('Trigger %d received' % tri)
-                self.last_tri = tri

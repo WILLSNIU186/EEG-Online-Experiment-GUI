@@ -1,6 +1,5 @@
-from scipy.signal import lfilter
-import numpy as np
-from ..entity.edata.utils import Utils
+
+from package.entity.edata.utils import Utils
 
 class ChannelFilter():
     def onActivated_checkbox_car(self):
@@ -93,52 +92,6 @@ class ChannelFilter():
                           self.apply_bandpass] + ' [' + str(
                     self.ui.doubleSpinBox_hp.value()) + '-' + str(
                     self.ui.doubleSpinBox_lp.value()) + '] Hz')
-
-
-    def filter_signal(self):
-        """
-        Apply BPF and notch filters to displayed signal
-        """
-
-        self.channels_to_filter = list(range(len(self.channel_labels)))
-
-        if self.ui.checkBox_change_filter.isChecked():
-            self.channels_to_refilter = []
-            self.sub_channel_names = self.read_sub_channel_names()
-            for sub_channel_name in self.sub_channel_names:
-                channel_to_refilter = self.channel_labels.tolist().index(sub_channel_name)
-                self.channels_to_refilter.append(channel_to_refilter)
-                self.channels_to_filter.remove(channel_to_refilter)
-
-            if (self.apply_bandpass):
-                for x in self.channels_to_refilter:
-                    self.eeg[:, x], self.zi_bandpass_scope_refilter[:, x] = lfilter(self.b_bandpass_scope_refilter,
-                                                                                    self.a_bandpass_scope_refilter,
-                                                                                    self.eeg[:, x], -1,
-                                                                                    self.zi_bandpass_scope_refilter[:,
-                                                                                    x])
-
-            if (self.apply_notch):
-                for x in self.channels_to_refilter:
-                    self.eeg[:, x], self.zi_notch_scope_refilter[:, x] = lfilter(self.b_notch_scope_refilter,
-                                                                                 self.a_notch_scope_refilter,
-                                                                                 self.eeg[:, x], -1,
-                                                                                 self.zi_notch_scope_refilter[:, x])
-
-        if (self.apply_bandpass):
-            for x in self.channels_to_filter:
-                self.eeg[:, x], self.zi_bandpass_scope[:, x] = lfilter(self.b_bandpass_scope, self.a_bandpass_scope,
-                                                                       self.eeg[:, x], -1, self.zi_bandpass_scope[:, x])
-
-        if (self.apply_notch):
-            for x in self.channels_to_filter:
-                self.eeg[:, x], self.zi_notch_scope[:, x] = lfilter(self.b_notch_scope, self.a_notch_scope,
-                                                                    self.eeg[:, x], -1, self.zi_notch_scope[:, x])
-
-        # We only apply CAR if selected AND there are at least 2 channels. Otherwise it makes no sense
-        if (self.apply_car) and (len(self.channels_to_show_idx) > 1):
-            self.eeg = np.dot(self.matrix_car, np.transpose(self.eeg))
-            self.eeg = np.transpose(self.eeg)
 
 
     def read_sub_channel_names(self):
