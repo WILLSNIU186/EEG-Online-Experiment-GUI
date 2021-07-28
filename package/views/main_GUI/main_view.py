@@ -9,7 +9,7 @@ Jiansheng Niu
 
 DEBUG_TRIGGER = False  # TODO: parameterize
 NUM_X_CHANNELS = 16  # TODO: parameterize
-
+import pdb
 import sys
 import numpy as np
 import pyqtgraph as pg
@@ -198,6 +198,8 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         # Oscilloscope
         self.ui.comboBox_scale.activated.connect(self.onActivated_combobox_scale)
         self.ui.spinBox_time.valueChanged.connect(self.onValueChanged_spinbox_time)
+        self.ui.spinBox_downsample_ratio.valueChanged.connect(self.onValueChanged_downsample_ratio)
+
         self.ui.checkBox_car.stateChanged.connect(self.onActivated_checkbox_car)
         self.ui.checkBox_bandpass.stateChanged.connect(self.onActivated_checkbox_bandpass)
         self.ui.checkBox_notch.stateChanged.connect(self.onActivated_checkbox_notch)
@@ -492,7 +494,7 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         # Scale in uV
         self.scale = 100
         # Time window to show in seconds
-        self.seconds_to_show = 10
+        self.seconds_to_show = self.ui.spinBox_time.value()
 
         # Y Tick labels. Use values from the config file.
         self.channel_labels = []
@@ -555,21 +557,32 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
             self.x_ticks[x] = (x * 1) / float(self.config['sf'])
 
         # We want a lightweight scope, so we downsample the plotting to 64 Hz
-        self.subsampling_value = self.config['sf'] / 64
+
+        self.subsampling_ratio = self.ui.spinBox_downsample_ratio.value()
+        self.subsampling_freq = int(self.config['sf'] / self.subsampling_ratio)
+        self.x_ticks_sub = np.zeros(self.subsampling_freq * self.seconds_to_show)
+        # pdb.set_trace()
+
+
+        for i, x in enumerate(np.arange(0, self.config['sf'] * self.seconds_to_show, self.subsampling_ratio)):
+            self.x_ticks_sub[i] = (x * 1) / float(self.config['sf'])
+
 
         # EEG data for plotting
         self.data_plot = np.zeros((self.config['sf'] * self.seconds_to_show,
                                    self.config['eeg_channels']))
 
+        self.data_plot_sub = np.zeros((self.subsampling_freq * self.seconds_to_show,self.config['eeg_channels'] ))
+
         print('self.data plot shape: ', self.data_plot.shape)
 
         self.curve_eeg = []
         for x in range(0, len(self.channels_to_show_idx)):
-            self.curve_eeg.append(self.main_plot_handler.plot(x=self.x_ticks,
-                                                              y=self.data_plot[:, self.channels_to_show_idx[x]],
+            self.curve_eeg.append(self.main_plot_handler.plot(x=self.x_ticks_sub,
+                                                              y=self.data_plot_sub[:, self.channels_to_show_idx[x]],
                                                               pen=pg.mkColor(
                                                                   self.colors[self.channels_to_show_idx[x] % 16, :])))
-        # self.curve_eeg[-1].setDownsampling(ds=self.subsampling_value, auto=False, method="mean")
+            # self.curve_eeg[-1].setDownsampling(ds=self.subsampling_value, auto=False, method="mean")
 
         # Events data
         self.events_detected = []

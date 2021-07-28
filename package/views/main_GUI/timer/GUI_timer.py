@@ -5,6 +5,7 @@ from package.entity.edata.utils import Utils
 from scipy.signal import lfilter
 import numpy as np
 DEBUG_TRIGGER = False
+import pdb
 
 
 class GUITimer():
@@ -24,6 +25,8 @@ class GUITimer():
 
         try:
             self.read_eeg()  # Read new chunk
+            # print('chunk ', self.eeg.shape)
+
             if len(self.ts_list) > 0:
                 self.update_template_buffer()
                 self.filter_signal()  # Filter acquired data
@@ -163,6 +166,7 @@ class GUITimer():
         """
         Update selected channels scale
         """
+        # logger.info('called')
         # update single channel scale
         # print("single channel scale: ", self.single_channel_scale)
         channel_to_scale = self.channel_to_scale_column_index * 16 + self.channel_to_scale_row_index
@@ -179,7 +183,10 @@ class GUITimer():
 
         self.data_plot = np.roll(self.data_plot, -len(self.ts_list), 0)
         self.data_plot[-len(self.ts_list):, :] = self.eeg
+        self.data_plot_sub = self.data_plot[0:len(self.data_plot):self.subsampling_ratio]
+        # pdb.set_trace()
 
+        # print('data_plot ', self.data_plot.shape)
         delete_indices_e = []
         delete_indices_c = []
         for x in range(0, len(self.events_detected), 2):

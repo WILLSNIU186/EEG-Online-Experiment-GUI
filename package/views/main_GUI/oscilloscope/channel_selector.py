@@ -1,5 +1,7 @@
 import numpy as np
 from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem
+import pdb
+from pycnbi import logger
 
 class ChannelSelector():
     NUM_X_CHANNELS = 16
@@ -33,6 +35,7 @@ class ChannelSelector():
         """
         Update highlighted channels in Channel Manager when different channels are selected
         """
+        # logger.info('called')
         # Remove current plot
         for x in range(0, len(self.channels_to_show_idx)):
             self.main_plot_handler.removeItem(self.curve_eeg[x])
@@ -54,12 +57,13 @@ class ChannelSelector():
         # Add new plots
         self.curve_eeg = []
         for x in range(0, len(self.channels_to_show_idx)):
-            self.curve_eeg.append(self.main_plot_handler.plot(x=self.x_ticks,
-                                                              y=self.data_plot[:, self.channels_to_show_idx[x]],
+            self.curve_eeg.append(self.main_plot_handler.plot(x=self.x_ticks_sub,
+                                                              y=self.data_plot_sub[:, self.channels_to_show_idx[x]],
                                                               pen=self.colors[
                                                                   self.channels_to_show_idx[x] % ChannelSelector.NUM_X_CHANNELS, :]))
-            self.curve_eeg[-1].setDownsampling(ds=self.subsampling_value,
-                                               auto=False, method="mean")
+        # for x in range(0, len(self.channels_to_show_idx)):
+        #     self.curve_eeg[x].setDownsampling(ds=self.subsampling_value, auto=False, method="mean")
+            # pdb.set_trace()
 
         # Update CAR so it's computed based only on the shown channels
         if (len(self.channels_to_show_idx) > 1):

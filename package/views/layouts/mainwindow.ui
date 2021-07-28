@@ -164,7 +164,7 @@
     <item row="0" column="0" colspan="7">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>4</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tab_subjec_information">
        <attribute name="title">
@@ -804,12 +804,19 @@
         <string>Oscilloscope</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_12">
-        <item row="0" column="0">
+        <item row="0" column="0" alignment="Qt::AlignTop">
          <widget class="QGroupBox" name="groupBox_scale_namager">
           <property name="title">
            <string>Scale Manager</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_16">
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_downsample_ratio">
+             <property name="text">
+              <string>Downsample ratio </string>
+             </property>
+            </widget>
+           </item>
            <item row="0" column="0">
             <widget class="QLabel" name="label_scope_scale">
              <property name="sizePolicy">
@@ -877,6 +884,16 @@
              </item>
             </widget>
            </item>
+           <item row="3" column="0">
+            <widget class="QSpinBox" name="spinBox_time">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="value">
+              <number>5</number>
+             </property>
+            </widget>
+           </item>
            <item row="2" column="0">
             <widget class="QLabel" name="label_scope_time">
              <property name="sizePolicy">
@@ -890,11 +907,8 @@
              </property>
             </widget>
            </item>
-           <item row="3" column="0">
-            <widget class="QSpinBox" name="spinBox_time">
-             <property name="minimum">
-              <number>1</number>
-             </property>
+           <item row="5" column="0">
+            <widget class="QSpinBox" name="spinBox_downsample_ratio">
              <property name="value">
               <number>5</number>
              </property>

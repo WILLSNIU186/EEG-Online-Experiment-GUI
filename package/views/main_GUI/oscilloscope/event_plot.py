@@ -79,6 +79,7 @@ class EventPlot():
         """
         Paint the oscilloscope
         """
+        # logger.info('called')
         # Distinguish between paint events from timer and event QT widget resizing, clicking etc (sender is None)
         # We should only paint when the timer triggered the event.
         # Just in case, there's a flag to force a repaint even when we shouldn't repaint
