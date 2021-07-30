@@ -41,7 +41,6 @@ class HardwareAdditionalMethods:
                 counter += 1
                 next_sec += 1
 
-
             if self.streamReceiver.get_buflen() > 60:
                 logger.info('writing to file ...')
                 buffers, times = self.streamReceiver.get_buffer()

@@ -3,7 +3,7 @@ import time
 from threading import Thread
 from pycnbi import logger
 from twisted.internet import reactor
-
+import csv
 from package.entity.edata.utils import Utils
 from package.entity.edata.variables import Variables
 
@@ -50,6 +50,11 @@ class RecordSwitch():
             self.t = Thread(target=reactor.run, args=(False,))
             self.t.start()
 
+            self.event_file_path = "{}/{}".format(Variables.get_sub_folder_path(), 'event.csv')
+            f = open(self.event_file_path, 'x')
+            f.close()
+            logger.info(self.event_file_path)
+
             timestamp = time.strftime('%Y%m%d-%H%M%S', time.localtime())
             print("\nlocal time stamp: ", timestamp)
         else:
@@ -59,6 +64,7 @@ class RecordSwitch():
             print("get raw eeg file path", Variables.get_raw_eeg_file_path())
             #
             # self.t.join()
+            # self.event_csv.close()
             reactor.stop()
             self.Runtimer.stop()
 
@@ -67,8 +73,8 @@ class RecordSwitch():
             Utils.write_data_to_csv(self.os_time_list1, "os_time_list1.csv")
             Utils.write_dict_to_csv(self.create_channel_dict(), "channels.csv")
             Utils.write_dict_to_csv(self.bad_epoch_dict, "bad_epochs.csv")
-            self.event_file_path = Utils.write_data_to_csv(self.event_timestamp_list, 'event.csv')
-            print(self.event_file_path)
+            # self.event_file_path = Utils.write_data_to_csv(self.event_timestamp_list, 'event.csv')
+            # print(self.event_file_path)
             # if self.total_trials_raw_MRCP != [] and self.total_trials_MRCP != []:
             #     no_trials = len(self.total_trials_raw_MRCP)
             #     no_channels = 9

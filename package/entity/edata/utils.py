@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from numpy import mean, sqrt, square
 from scipy.signal import butter, lfilter, lfilter_zi
-
+import csv
 from .variables import Variables
 
 
@@ -191,4 +191,10 @@ class Utils:
         task_table = df.values
 
         return task_table
+
+    @staticmethod
+    def write_data_during_recording(file, row):
+        with open(file, 'a', newline='') as f:
+            writer = csv.writer(f, delimiter=',')
+            writer.writerow(row)
 

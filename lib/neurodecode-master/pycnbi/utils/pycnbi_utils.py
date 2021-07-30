@@ -576,6 +576,50 @@ def list_lsl_streams(window, state=None, logger=logger, ignore_markers=False):
     window.stream_selector_window.show()
     return amp_list, streamInfos
 
+def list_lsl_streams_cmd(state=None, logger=logger, ignore_markers=False):
+    """
+    """
+    import time
+    #  GUI sharing variable to stop the process, 1 = start, 0 = stop
+    if not state:
+        state = mp.Value('i', 1)
+
+    # look for LSL servers
+    amp_list = []
+    amp_list_backup = []
+
+    while True:
+        #  Stop if recording state (mp shared variable) is set to 0 from GUI
+        if not state.value:
+            sys.exit()
+        streamInfos = pylsl.resolve_streams()
+        if len(streamInfos) > 0:
+            for index, si in enumerate(streamInfos):
+                # LSL XML parser has a bug which crashes so do not use for now
+                #desc = pylsl.StreamInlet(si).info().desc()
+                #amp_serial = desc.child('acquisition').child_value('serial_number').strip()
+                amp_serial = 'N/A' # serial number not supported yet
+                amp_name = si.name()
+                if 'Markers' in amp_name:
+                    amp_list_backup.append((index, amp_name, amp_serial))
+                else:
+                    amp_list.append((index, amp_name, amp_serial))
+            break
+        logger.info('No server available yet on the network...')
+        time.sleep(1)
+
+    if ignore_markers is False:
+        amp_list += amp_list_backup
+
+    logger.info('-- List of servers --')
+    for i, (index, amp_name, amp_serial) in enumerate(amp_list):
+        if amp_serial == '':
+            amp_ser = 'N/A'
+        else:
+            amp_ser = amp_serial
+        logger.info('%d: %s (Serial %s)' % (i, amp_name, amp_ser))
+
+    return amp_list, streamInfos
 
 
 def search_lsl(amp_list, streamInfos, index,state=None, logger=logger, ignore_markers=False):

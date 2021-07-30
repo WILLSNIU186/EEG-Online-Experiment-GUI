@@ -2,6 +2,7 @@ from threading import Thread
 from PyQt5 import QtGui
 from pycnbi import logger
 from random import randint
+from package.entity.edata.utils import Utils
 
 class TaskSwitch():
     def onClicked_button_start_SV(self):
@@ -22,6 +23,9 @@ class TaskSwitch():
             if self.task_counter < self.new_task_table.shape[0]:
                 self.event_timestamp_list.append(
                     [self.event_table_dictionary['Idle'], self.router.get_server_clock()])
+
+            event_row = [self.event_table_dictionary['Idle'], self.router.get_server_clock()]
+            Utils.write_data_during_recording(self.event_file_path, event_row)
 
             self.SV_window.label_current_trial.setText(str(self.task_counter + 1))
             self.SV_window.label_total_trial.setText(str(self.new_task_table.shape[0]))
@@ -54,8 +58,9 @@ class TaskSwitch():
             # logger.info('\nfocus server clock: %s' % self.router.get_server_clock())
             self.event_timestamp_list.append(
                 [self.event_table_dictionary['Focus'], self.router.get_server_clock()])
-            # Focus
-            # self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/focus.png" % os.getcwd()))
+
+            event_row = [self.event_table_dictionary['Focus'], self.router.get_server_clock()]
+            Utils.write_data_during_recording(self.event_file_path, event_row)
             self.SV_window.label.setStyleSheet("color: blue;")
             self.SV_window.label.setText("FOCUS")
         elif self.SV_time % self.cycle_time == self.focus_time:
@@ -63,17 +68,19 @@ class TaskSwitch():
             # logger.info('\nprepare server clock: %s' % self.router.get_server_clock())
             self.event_timestamp_list.append(
                 [self.event_table_dictionary['Prepare'], self.router.get_server_clock()])
-            # Prepare
-            # self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/prepare.png" % os.getcwd()))
+
+            event_row = [self.event_table_dictionary['Prepare'], self.router.get_server_clock()]
+            Utils.write_data_during_recording(self.event_file_path, event_row)
+
             self.SV_window.label.setStyleSheet("color: black;")
             self.SV_window.label.setText("PREPARE")
         elif self.SV_time % self.cycle_time == self.prepare_time:
             # print("two")
-            # Two
             # logger.info('\ntwo server clock: %s' % self.router.get_server_clock())
             self.event_timestamp_list.append(
                 [self.event_table_dictionary['Two'], self.router.get_server_clock()])
-            # self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/two.png" % os.getcwd()))
+            event_row = [self.event_table_dictionary['Two'], self.router.get_server_clock()]
+            Utils.write_data_during_recording(self.event_file_path, event_row)
             self.SV_window.label.setText("TWO")
         elif self.SV_time % self.cycle_time == self.two_time:
             # print("one")
@@ -81,7 +88,10 @@ class TaskSwitch():
             # logger.info('\none server clock: %s' % self.router.get_server_clock())
             self.event_timestamp_list.append(
                 [self.event_table_dictionary['One'], self.router.get_server_clock()])
-            # self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/one.png" % os.getcwd()))
+
+            event_row = [self.event_table_dictionary['One'], self.router.get_server_clock()]
+            Utils.write_data_during_recording(self.event_file_path, event_row)
+
             self.SV_window.label.setText("ONE")
         elif self.SV_time % self.cycle_time == self.one_time:
             # print("task")
@@ -93,6 +103,11 @@ class TaskSwitch():
             self.event_timestamp_list.append(
                 [self.event_table_dictionary[self.new_task_table[self.task_counter][0]],
                  self.router.get_server_clock()])
+
+            event_row = [self.event_table_dictionary[self.new_task_table[self.task_counter][0]],\
+                         self.router.get_server_clock()]
+            Utils.write_data_during_recording(self.event_file_path, event_row)
+
             # self.SV_window.LBimage.setPixmap(QtGui.QPixmap("%s/package/views/icon/task.png" % os.getcwd()))
             self.SV_window.label.setStyleSheet("color: red;")
             self.SV_window.label.setText("TASK")
@@ -145,3 +160,6 @@ class TaskSwitch():
             self.ui.label_content_current_temp.setText(" ")
         except:
             logger.info('MRCP template display went wrong, but this does not affect data saving, please be patient ...')
+
+
+            

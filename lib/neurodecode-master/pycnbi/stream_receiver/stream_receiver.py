@@ -310,6 +310,8 @@ class StreamReceiver:
                 # give up and return empty values to avoid deadlock
                 return np.empty((0, len(self.ch_list))), []
         data = np.array(chunk)
+        self.data_size = data.shape
+        # print('sr chunk', data.shape)
 
         # BioSemi has pull-up resistor instead of pull-down
         if self.amp_name == 'BioSemi' and self._lsl_tr_channel is not None:
