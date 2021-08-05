@@ -26,19 +26,22 @@ from package.views.layouts import main_layout, subject_layout, eye_tracker_layou
 from package.router.router import Router
 from package.entity.edata.variables import Variables
 from package.entity.edata.utils import Utils
+from package.entity.base.participant import Participant
+from package.entity.base.trial import Trial
+from package.entity.base.event import Event
+from package.entity.base.protocol import Protocol
+from package.entity.base.bad_epoch import BadEpoch
 
 from package.views.main_GUI.control_switches.main_switch import MainSwitch
 from package.views.main_GUI.control_switches.record_switch import RecordSwitch
 from package.views.main_GUI.control_switches.scope_switch import ScopeSwitch
 from package.views.main_GUI.control_switches.task_switch import TaskSwitch
 
-from package.views.main_GUI.event_number_file.event_number import EventNumber
-from package.views.main_GUI.event_number_file.file_path_manager import FilePathManager
-
 from package.views.main_GUI.exp_protocol_design.exp_protocol import ExpProtocol
 from package.views.main_GUI.exp_protocol_design.sequence_manager import SequenceManager
 from package.views.main_GUI.exp_protocol_design.ssvep_exp_protocol import SSVEPExpProtocol
 from package.views.main_GUI.exp_protocol_design.task_manager import TaskManager
+from package.views.main_GUI.exp_protocol_design.cue_manager import CueManager
 
 from package.views.main_GUI.online_monitor.bad_epoch_monitor import BadEpochMonitor
 from package.views.main_GUI.online_monitor.MRCP_extractor import MRCPExtractor
@@ -54,9 +57,10 @@ from package.views.main_GUI.timer.run_timer import RunTimer
 from package.views.main_GUI.timer.GUI_timer import GUITimer
 
 
-class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtocol, EventNumber, FilePathManager,\
+class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtocol,\
                ChannelScaleManager, ChannelSelector, ChannelFilter, BadEpochMonitor, MRCPExtractor, MainSwitch,\
-               ScopeSwitch, RecordSwitch, TaskSwitch, EventPlot, SSVEPExpProtocol, EyeTracker, RunTimer, GUITimer):
+               ScopeSwitch, RecordSwitch, TaskSwitch, EventPlot, SSVEPExpProtocol, EyeTracker, RunTimer, GUITimer,\
+               CueManager):
     """
     MainView class controls the GUI frontend interaction
     """
@@ -89,12 +93,23 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         self.state = state
         self.init_all()
 
+        self.participant = Participant()
+        self.cue_list = []
+        self.cue_image = None
+        self.cue_sound = None
+        self.trial_image = None
+        self.trial_sound = None
+        self.protocol = Protocol()
+        self.trial_counter = 0
+        self.cue_counter = 0
+        self.event_obj  = Event()
+        self.cue_change_flag = True
+        self.bad_epoch = BadEpoch()
 
     def init_all(self):
         """
         Initialize specialized functions inside GUI
         """
-
         self.init_config_file()
         self.init_loop()
         self.init_panel_GUI()
@@ -104,6 +119,7 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         self.init_timer()  # timer for scope refreshing
         self.init_Runtimer()  # timer for record, train and test
         self.init_eye_tracker()
+
 
 
     def init_config_file(self):
@@ -191,9 +207,10 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         self.ui.pushButton_experimental_protocol_finish.clicked.connect(self.onClicked_experimental_protocol_finish)
         self.ui.pushButton_save_protocol.clicked.connect(self.onClicked_button_save_protocol)
         self.ui.toolButton_load_protocol.clicked.connect(self.onClicked_toolButton_load_protocol)
-
-        # Event management tab
-        self.ui.pushButton_save_event_number.clicked.connect(self.onClicked_button_save_event_number)
+        self.ui.toolButton_choose_image_cue.clicked.connect(self.onClicked_toolButton_choose_image_cue)
+        self.ui.toolButton_choose_sound_cue.clicked.connect(self.onClicked_toolButton_choose_sound_cue)
+        self.ui.pushButton_define_cue_add.clicked.connect(self.onClicked_button_define_cue_add)
+        self.ui.pushButton_define_cue_done.clicked.connect(self.onClicked_button_define_cue_done)
 
         # Oscilloscope
         self.ui.comboBox_scale.activated.connect(self.onActivated_combobox_scale)
@@ -231,32 +248,32 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         # Tabs
         self.ui.tab_experimental_protocol.setEnabled(False)
         self.ui.tab_subjec_information.setEnabled(False)
-        self.ui.tab_event_and_file_management.setEnabled(False)
         # self.ui.tab_Oscilloscope.setEnabled(False)
         self.ui.tab_experiment_type.setEnabled(False)
 
         # Experimental protocol
-        self.task_list = []
-        self.new_task_list = []
-        self.task_descriptor_list = []
-        self.task_image_path = ""
-        self.task_image_path_list = []
-        self.task_sound_path = ""
-        self.task_sound_path_list = []
-        self.task_table = np.ndarray([])
-        self.new_task_table = np.ndarray([])
-        self.task_counter = 0
-        self.protocol_path = ""
+        # self.task_list = []
+        # self.new_task_list = []
+        # self.task_descriptor_list = []
+        # self.task_image_path = ""
+        # self.task_image_path_list = []
+        # self.task_sound_path = ""
+        # self.task_sound_path_list = []
+        # self.task_table = np.ndarray([])
+        # self.new_task_table = np.ndarray([])
+        # self.task_counter = 0
+        # self.protocol_path = ""
         # Button
         self.init_task_name_table()
+        self.init_cue_name_table()
         self.ui.groupBox_sequence_manager.setEnabled(False)
+        self.ui.pushButton_save_protocol.setEnabled(False)
 
         # Event management tab
         self.event_timestamp_list = []
-        self.init_task_event_number_table()
-        self.event_list = []
+        # self.init_task_event_number_table()
+        # self.event_list = []
         # Button
-        self.ui.pushButton_save_event_number.clicked.connect(self.onClicked_button_save_event_number)
         self.event_file_path = ""
         self.mrcp_template_file_path = ""
         self.raw_eeg_file_path = ""
@@ -347,32 +364,30 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         # Tabs
         self.ui.tab_experimental_protocol.setEnabled(False)
         self.ui.tab_subjec_information.setEnabled(False)
-        self.ui.tab_event_and_file_management.setEnabled(False)
         # self.ui.tab_Oscilloscope.setEnabled(False)
         self.ui.tab_experiment_type.setEnabled(False)
 
         # Experimental protocol
-        self.task_list = []
-        self.new_task_list = []
-        self.task_descriptor_list = []
-        self.task_image_path = ""
-        self.task_image_path_list = []
-        self.task_sound_path = ""
-        self.task_sound_path_list = []
-        self.task_table = np.ndarray([])
-        self.new_task_table = np.ndarray([])
-        self.task_counter = 0
-        self.protocol_path = ""
+        # self.task_list = []
+        # self.new_task_list = []
+        # self.task_descriptor_list = []
+        # self.task_image_path = ""
+        # self.task_image_path_list = []
+        # self.task_sound_path = ""
+        # self.task_sound_path_list = []
+        # self.task_table = np.ndarray([])
+        # self.new_task_table = np.ndarray([])
+        # self.task_counter = 0
+        # self.protocol_path = ""
         # Button
         self.init_task_name_table()
         self.ui.groupBox_sequence_manager.setEnabled(False)
 
         # Event management tab
         self.event_timestamp_list = []
-        self.init_task_event_number_table()
-        self.event_list = []
+        # self.init_task_event_number_table()
+        # self.event_list = []
         # Button
-        self.ui.pushButton_save_event_number.clicked.connect(self.onClicked_button_save_event_number)
         self.event_file_path = ""
         self.mrcp_template_file_path = ""
         self.raw_eeg_file_path = ""
@@ -461,14 +476,14 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         self.starttime = 0
         self.SV_time = 0
 
-        self.idle_time = int(self.ui.idleTimeLineEdit.text())
-        self.focus_time = self.idle_time + int(self.ui.focusTimeLineEdit.text())
-        self.prepare_time = self.focus_time + int(self.ui.prepareTimeLineEdit.text())
-        self.two_time = self.prepare_time + int(self.ui.twoTimeLineEdit.text())
-        self.one_time = self.two_time + int(self.ui.oneTimeLineEdit.text())
-        self.task_time = self.one_time + int(self.ui.taskTimeLineEdit.text())
-        self.relax_time = self.task_time + 2
-        self.cycle_time = self.relax_time
+        # self.idle_time = int(self.ui.idleTimeLineEdit.text())
+        # self.focus_time = self.idle_time + int(self.ui.focusTimeLineEdit.text())
+        # self.prepare_time = self.focus_time + int(self.ui.prepareTimeLineEdit.text())
+        # self.two_time = self.prepare_time + int(self.ui.twoTimeLineEdit.text())
+        # self.one_time = self.two_time + int(self.ui.oneTimeLineEdit.text())
+        # self.task_time = self.one_time + int(self.ui.taskTimeLineEdit.text())
+        # self.relax_time = self.task_time + 2
+        # self.cycle_time = self.relax_time
         self.is_experiment_on = False
 
     def init_scope_GUI(self):

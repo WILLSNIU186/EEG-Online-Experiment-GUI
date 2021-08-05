@@ -28,8 +28,8 @@ class RecordSwitch():
 
             eeg_file = "%s\\raw_eeg.csv" % (Variables.get_sub_folder_path())
             Variables.set_raw_eeg_file_path(eeg_file)
-            eeg_timestamp_file = "%s/raw_eeg_timestamp.csv" % (Variables.get_sub_folder_path())
-            Variables.set_raw_eeg_timestamp_file_path(eeg_timestamp_file)
+            # eeg_timestamp_file = "%s/raw_eeg_timestamp.csv" % (Variables.get_sub_folder_path())
+            # Variables.set_raw_eeg_timestamp_file_path(eeg_timestamp_file)
 
             self.router.set_raw_eeg_file_path()
             print(Variables.get_raw_eeg_file_path())
@@ -37,8 +37,8 @@ class RecordSwitch():
             self.ui.label_run_number.setText(str(Variables.get_run_counter()))
             print("\nsubfolder created Run {}".format(Variables.get_run_counter()))
 
-            self.init_table_file_path()
-            self.update_table_file_path()
+            # self.init_table_file_path()
+            # self.update_table_file_path()
 
             self.router.start_recording()
             # Variables.set_run_time_counter(0)
@@ -50,9 +50,13 @@ class RecordSwitch():
             self.t = Thread(target=reactor.run, args=(False,))
             self.t.start()
 
-            self.event_file_path = "{}/{}".format(Variables.get_sub_folder_path(), 'event.csv')
-            f = open(self.event_file_path, 'x')
-            f.close()
+            # self.event_file_path = "{}/{}".format(Variables.get_sub_folder_path(), 'event.csv')
+            # f = open(self.event_file_path, 'x')
+            # f.close()
+
+            self.event_obj.create_file()
+            self.bad_epoch.create_file()
+
             logger.info(self.event_file_path)
 
             timestamp = time.strftime('%Y%m%d-%H%M%S', time.localtime())
@@ -69,10 +73,10 @@ class RecordSwitch():
             self.Runtimer.stop()
 
             self.router.stop_recording()
-            Utils.write_data_to_csv(self.os_time_list, "os_time_list.csv")
-            Utils.write_data_to_csv(self.os_time_list1, "os_time_list1.csv")
+            # Utils.write_data_to_csv(self.os_time_list, "os_time_list.csv")
+            # Utils.write_data_to_csv(self.os_time_list1, "os_time_list1.csv")
             Utils.write_dict_to_csv(self.create_channel_dict(), "channels.csv")
-            Utils.write_dict_to_csv(self.bad_epoch_dict, "bad_epochs.csv")
+            # Utils.write_dict_to_csv(self.bad_epoch_dict, "bad_epochs.csv")
             # self.event_file_path = Utils.write_data_to_csv(self.event_timestamp_list, 'event.csv')
             # print(self.event_file_path)
             # if self.total_trials_raw_MRCP != [] and self.total_trials_MRCP != []:
@@ -82,12 +86,11 @@ class RecordSwitch():
             #     # self.raw_mrcp_file_path = Utils.write_data_to_csv(raw_MRCP, "raw_mrcp.csv")
             #     # self.mrcp_template_file_path = Utils.write_data_to_csv(self.total_trials_MRCP, "mrcp_template.csv")
 
-            self.update_table_file_path()
+            # self.update_table_file_path()
             Variables.init_Variables_for_next_run()
             self.init_panel_GUI_stop_recording()
             self.init_SV_GUI()
 
-            self.ui.tab_event_and_file_management.setEnabled(True)
             self.ui.tab_experimental_protocol.setEnabled(True)
             self.ui.tab_experiment_type.setEnabled(True)
             self.ui.groupBox_task_manager.setEnabled(True)
