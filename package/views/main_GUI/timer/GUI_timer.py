@@ -25,12 +25,16 @@ class GUITimer():
 
         try:
             self.read_eeg()  # Read new chunk
+            self.ui.widget_mrcp_extractor.clear()
             # print('chunk ', self.eeg.shape)
 
             if len(self.ts_list) > 0:
                 self.update_template_buffer()
                 self.filter_signal()  # Filter acquired data
                 self.update_ringbuffers()  # Update the plotting infor
+                # self.MRCP_plot(self.read_template_buffer()[:, 12])
+                # self.MRCP_plot(self.mrcp_buffer.window[20, :].T)
+
                 if (not self.stop_plot):
                     self.repaint()  # Call paint event
         except Exception as e:
@@ -118,9 +122,9 @@ class GUITimer():
 
             # print("TTTTTTTTTTTTTTTTTTTTT\ndata = ", data)
             # TODO: check and change to these two lines
-            # self.sr.acquire(blocking=False, decim=DECIM)
+            # self.sr.acquire("scope using",blocking=False)
             # data, self.ts_list = self.sr.get_window()
-
+            # print(data.shape)
             if len(self.ts_list) == 0:
                 # self.eeg= None
                 # self.tri= None
@@ -138,7 +142,7 @@ class GUITimer():
             trg_ch = self.config['tri_channels']
             if trg_ch is not None:
                 self.tri = np.reshape(data[:, trg_ch], (-1, 1))  # samples x 1
-            self.eeg = np.reshape(data[:, self.sr.eeg_channels],
+            self.eeg = np.reshape(data[:, self.sr.get_channels()],
                                   (-1, n))  # samples x channels
             # print("TTTTTTTTTTTTTTTTTTTTT\ndata = ", self.eeg)
             if DEBUG_TRIGGER:

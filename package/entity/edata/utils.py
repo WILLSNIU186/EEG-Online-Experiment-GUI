@@ -114,6 +114,16 @@ class Utils:
         return b, a
 
     @staticmethod
+    def butter_bandpass(lowcut, highcut, fs, order=5):
+        nyq = 0.5 * fs
+        low = lowcut / nyq
+        high = highcut / nyq
+        b, a = butter(order, [low, high], btype='band')
+        return b, a
+
+
+
+    @staticmethod
     def butter_notch(low_cut, high_cut, fs, order=2):
         data_out = []
         nyq = 0.5 * fs

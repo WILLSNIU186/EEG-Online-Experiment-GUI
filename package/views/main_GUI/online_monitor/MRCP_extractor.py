@@ -127,6 +127,7 @@ class MRCPExtractor():
 
 
 
+
     def plot_display_temp(self):
         """
         Plot certain MRCP templates selected by the text box below the MRCP plot window.

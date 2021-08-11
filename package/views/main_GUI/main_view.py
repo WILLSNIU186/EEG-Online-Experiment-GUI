@@ -9,7 +9,6 @@ Jiansheng Niu
 
 DEBUG_TRIGGER = False  # TODO: parameterize
 NUM_X_CHANNELS = 16  # TODO: parameterize
-import pdb
 import sys
 import numpy as np
 import pyqtgraph as pg
@@ -21,16 +20,18 @@ from pycnbi import logger
 from twisted.internet import task
 from pycnbi.stream_receiver.stream_receiver import StreamReceiver
 
-from package.views.eye_tracker import EyeTracker
+from package.views.main_GUI.control_switches.eye_tracker import EyeTracker
 from package.views.layouts import main_layout, subject_layout, eye_tracker_layout
 from package.router.router import Router
 from package.entity.edata.variables import Variables
 from package.entity.edata.utils import Utils
 from package.entity.base.participant import Participant
-from package.entity.base.trial import Trial
 from package.entity.base.event import Event
 from package.entity.base.protocol import Protocol
 from package.entity.base.bad_epoch import BadEpoch
+from package.entity.base.mrcp_buffer import MRCPBuffer
+
+from package.entity.base.filter import Filter
 
 from package.views.main_GUI.control_switches.main_switch import MainSwitch
 from package.views.main_GUI.control_switches.record_switch import RecordSwitch
@@ -55,7 +56,7 @@ from package.views.main_GUI.subject_info.subject_info import SubjectInfo
 
 from package.views.main_GUI.timer.run_timer import RunTimer
 from package.views.main_GUI.timer.GUI_timer import GUITimer
-
+import pdb
 
 class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtocol,\
                ChannelScaleManager, ChannelSelector, ChannelFilter, BadEpochMonitor, MRCPExtractor, MainSwitch,\
@@ -105,6 +106,11 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         self.event_obj  = Event()
         self.cue_change_flag = True
         self.bad_epoch = BadEpoch()
+        self.bp_filter = Filter(low_cut=0.05, hi_cut=3, order=2, sf=500, n_chan=32)
+        self.mrcp_buffer = MRCPBuffer(window_stride=0.1, window_size=2, buffer_size=10)
+        self.mrcp_buffer.start_timer()
+        self.ui.widget_mrcp_extractor.setYRange(-100, 100)
+
 
     def init_all(self):
         """
@@ -152,14 +158,14 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         """
         self.updating = False
         logger.info("init_loop runs")
-        self.sr = StreamReceiver(window_size=1, buffer_size=10,
+        self.sr = StreamReceiver(window_size=5, buffer_size=10,
                                  amp_serial=Variables.get_amp_serial(), amp_name=Variables.get_amp_name())
         srate = int(self.sr.sample_rate)
         # n_channels= self.sr.channels
 
         # 12 unsigned ints (4 bytes)
         ########## TODO: assumkng 32 samples chunk => make it read from LSL header
-        data = ['EEG', srate, ['L', 'R'], 32, len(self.sr.get_eeg_channels()),
+        data = ['EEG', srate, ['L', 'R'], 32, len(self.sr.get_channels()),
                 0, self.sr.get_trigger_channel(), None, None, None, None, None]
 
         logger.info('Trigger channel is %d' % self.sr.get_trigger_channel())
@@ -526,7 +532,7 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
                 self.channel_labels.append('CH ' + str(x + 1))
         '''
         ch_names = np.array(self.sr.get_channel_names())
-        self.channel_labels = ch_names[self.sr.get_eeg_channels()]
+        self.channel_labels = ch_names[self.sr.get_channels()]
         for x in range(0, len(self.channels_to_show_idx)):
             values.append((-x * self.scale,
                            self.channel_labels[self.channels_to_show_idx[x]]))

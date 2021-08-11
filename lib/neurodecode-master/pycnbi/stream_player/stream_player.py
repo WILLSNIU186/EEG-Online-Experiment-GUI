@@ -65,9 +65,16 @@ def stream_player(fif_file, server_name='StreamPlayer', chunk_size=8, auto_resta
         nominal_srate=sfreq, type='EEG', source_id=server_name)
     desc = sinfo.desc()
     channel_desc = desc.append_child("channels")
-    for ch in raw.ch_names:
+    ch_types = raw.get_channel_types()
+    for ind, ch in enumerate (raw.ch_names):
+        if ch_types[ind] == 'eeg':
+            type = 'EEG'
+        elif ch_types[ind] =='emg':
+            type = 'EMG'
+        else:
+            type = 'None'
         channel_desc.append_child('channel').append_child_value('label', str(ch))\
-            .append_child_value('type','EMG').append_child_value('unit','microvolts')
+            .append_child_value('type', type).append_child_value('unit','microvolts')
     desc.append_child('amplifier').append_child('settings').append_child_value('is_slave', 'false')
     desc.append_child('acquisition').append_child_value('manufacturer', 'PyCNBI').append_child_value('serial_number', 'N/A')
     outlet = pylsl.StreamOutlet(sinfo, chunk_size=chunk_size)
