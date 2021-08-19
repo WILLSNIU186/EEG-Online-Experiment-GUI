@@ -151,6 +151,7 @@ class StreamReceiver:
                         self._lsl_tr_channel = None
                         channels += si.channel_count()
                         ch_list = pu.lsl_channel_list(inlet)
+                        # self.channel_type = ['eeg']*27
                         #TODO: set channel_type inside streamInfo
                         self.channel_type = ['eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'emg', 'emg', 'eeg',
                                              'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg',

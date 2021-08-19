@@ -4,6 +4,10 @@ import subprocess
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
 from package.views.layouts import record_replay
+import mne
+from package.entity.edata.variables import Variables
+import pylsl
+import multiprocessing as mp
 import pycnbi.stream_player.stream_player as sp
 import threading
 
@@ -54,6 +58,8 @@ class RecordReplaySelector():
                                                   "fif files (*.fif)", options=options)
         if fileName:
             self.path = fileName
+            raw = mne.io.Raw(self.path, preload=True)
+            Variables.set_stream_player_raw(raw)
             self.run_stream_player()
             self.replay_record_window.hide()
             self.button_clicked = True
@@ -68,10 +74,12 @@ class RecordReplaySelector():
         chunk_size = 8  # chunk streaming frequency in Hz
         print(self.path)
         command = ["python", "lib\\neurodecode-master\pycnbi\stream_player\stream_player.py", self.path]
-
         p = subprocess.Popen(command)
-        # subprocess.Popen('python C:\\Users\WILLS\PycharmProjects\\uw_eboinics_experimental_interface\lib\\neurodecode-master\pycnbi\stream_player\stream_player.py self.path')
-        # self.thread = threading.Thread(target=sp.stream_player(server_name, fif_file, chunk_size))
-        # self.thread.start()
+        Variables.set_stream_player_starting_time(pylsl.local_clock())
 
-        # sp.stream_player(server_name, fif_file, chunk_size)
+
+
+
+    def stop_stream_player(self):
+        pass
+

@@ -6,6 +6,8 @@ from package.entity.edata.variables import Variables
 from package.entity.edata.utils import Utils
 from package.entity.base.filter import Filter
 import numpy as np
+from PyQt5.QtWidgets import QMainWindow
+from PyQt5 import QtCore
 import pdb
 
 
@@ -37,8 +39,8 @@ class Buffer:
                  'bsf; ---- band stop filter (notch filter)
 
     '''
-    def __init__(self, window_stride=0.1, window_size=1, buffer_size=10, filter=None, filter_type=None):
-        self.timer = task.LoopingCall(self.loop)
+    def __init__(self, window_stride, window_size, buffer_size, filter, filter_type):
+        # self.timer = task.LoopingCall(self.loop)
         self.window_stride = window_stride
         self.window_size = window_size
         self.buffer_size = buffer_size
@@ -46,14 +48,16 @@ class Buffer:
                                  buffer_size=self.buffer_size,
                                  amp_serial=Variables.get_amp_serial(),
                                  amp_name=Variables.get_amp_name())
-        self.ch_names = self.sr.ch_list
+        self.ch_names = self.sr.get_channel_names()
+        self.ch_labels = np.array(self.ch_names)[self.sr.get_channels()]
         self.ch_types = self.sr.channel_type
-        self.n_ch = int(self.sr.get_num_channels())
+        self.n_ch = int(len(self.sr.get_channels()))
         self.eeg_ch_idx = self.sr.get_eeg_channels()
+        # pdb.set_trace()
         self.eeg_ch_names = self.sr.get_eeg_channel_names()
-
+        self.sf = int(self.sr.sample_rate)
         self.n_eeg_ch = int(len(self.eeg_ch_idx))
-        self.n_sample = int(self.window_size * self.sr.sample_rate)
+        self.n_sample = int(self.window_size * self.sf)
         self.window = np.zeros((self.n_ch, self.n_sample))
         self.eeg_window = np.zeros((self.n_eeg_ch, self.n_sample))
         self.filter = filter
@@ -68,20 +72,34 @@ class Buffer:
                 self.filter.build_butter_notch()
 
         print('Buffer window', self.window.shape)
+        self.init_timer()
+
+    def init_timer(self):
+        """
+        Initialize main timer used for refreshing oscilloscope window. This refreshes every 20ms.
+        """
+        QtCore.QCoreApplication.processEvents()
+        QtCore.QCoreApplication.flush()
+        self.timer = QtCore.QTimer()
+        self.timer.setTimerType(QtCore.Qt.PreciseTimer)
+        self.timer.timeout.connect(self.loop)
+
 
     def start_timer(self):
         '''
         start timer in a different thread and call loop() from now on every 'window_stride' seconds.
+
         '''
-        self.timer.start(self.window_stride)
-        t = Thread(target=reactor.run, args=(False,))
-        t.start()
+        self.timer.start(self.window_stride*1000)
+        # self.timer.start(self.window_stride)
+        # t = Thread(target=reactor.run, args=(False,))
+        # t.start()
 
     def stop_timer(self):
         '''
         stop timer and stop calling loop()
         '''
-        reactor.stop()
+        # reactor.stop()
         self.timer.stop()
 
 
@@ -91,7 +109,6 @@ class Buffer:
         specify what should be done.
         '''
         pass
-
 
 
 if __name__ == '__main__':

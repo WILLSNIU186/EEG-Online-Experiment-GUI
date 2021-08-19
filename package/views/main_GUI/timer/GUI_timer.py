@@ -26,6 +26,7 @@ class GUITimer():
         try:
             self.read_eeg()  # Read new chunk
             self.ui.widget_mrcp_extractor.clear()
+            self.add_stream_player_event()
             # print('chunk ', self.eeg.shape)
 
             if len(self.ts_list) > 0:
@@ -33,7 +34,7 @@ class GUITimer():
                 self.filter_signal()  # Filter acquired data
                 self.update_ringbuffers()  # Update the plotting infor
                 # self.MRCP_plot(self.read_template_buffer()[:, 12])
-                # self.MRCP_plot(self.mrcp_buffer.window[20, :].T)
+                # self.MRCP_plot(self.mrcp_buffer.eeg_window[20, :])
 
                 if (not self.stop_plot):
                     self.repaint()  # Call paint event

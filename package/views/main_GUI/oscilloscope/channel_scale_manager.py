@@ -64,6 +64,8 @@ class ChannelScaleManager():
         """
         Update stuff on the interface. Only graphical updates should be added here
         """
+
+        # logger.info('paintinterface')
         for x in range(0, len(self.channels_to_show_idx)):
 
             self.curve_eeg[x].setData(x=self.x_ticks_sub,

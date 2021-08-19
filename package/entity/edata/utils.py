@@ -208,3 +208,8 @@ class Utils:
             writer = csv.writer(f, delimiter=',')
             writer.writerow(row)
 
+    @staticmethod
+    def find_nearest(array, value):
+        array = np.asarray(array)
+        idx = (np.abs(array - value)).argmin()
+        return array[idx], idx

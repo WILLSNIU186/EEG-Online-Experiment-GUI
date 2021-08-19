@@ -29,7 +29,9 @@ from package.entity.base.participant import Participant
 from package.entity.base.event import Event
 from package.entity.base.protocol import Protocol
 from package.entity.base.bad_epoch import BadEpoch
+from package.entity.base.buffer import Buffer
 from package.entity.base.mrcp_buffer import MRCPBuffer
+from package.entity.base.scope import Scope
 
 from package.entity.base.filter import Filter
 
@@ -56,15 +58,19 @@ from package.views.main_GUI.subject_info.subject_info import SubjectInfo
 
 from package.views.main_GUI.timer.run_timer import RunTimer
 from package.views.main_GUI.timer.GUI_timer import GUITimer
+
+from package.views.main_GUI.online_testing.online_test import OnlineTest
 import pdb
 
-class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtocol,\
-               ChannelScaleManager, ChannelSelector, ChannelFilter, BadEpochMonitor, MRCPExtractor, MainSwitch,\
-               ScopeSwitch, RecordSwitch, TaskSwitch, EventPlot, SSVEPExpProtocol, EyeTracker, RunTimer, GUITimer,\
-               CueManager):
+
+class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtocol, \
+               ChannelScaleManager, ChannelSelector, ChannelFilter, BadEpochMonitor, MRCPExtractor, MainSwitch, \
+               ScopeSwitch, RecordSwitch, TaskSwitch, EventPlot, SSVEPExpProtocol, EyeTracker, RunTimer, GUITimer, \
+               CueManager, OnlineTest):
     """
     MainView class controls the GUI frontend interaction
     """
+
     def __init__(self, amp_name, amp_serial, state=mp.Value('i', 1), queue=None):
         """
         Initialize experimenter window GUI and subject view window GUI
@@ -85,7 +91,6 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         self.eye_tracker_window = eye_tracker_layout.Ui_Dialog()
         self.eye_tracker_window.setupUi(self.eye_tracker_dialog)
 
-
         # redirect_stdout_to_queue(logger, queue, 'INFO')
         logger.info('Viewer launched')
 
@@ -94,23 +99,37 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         self.state = state
         self.init_all()
 
+        self.ui.widget_mrcp_extractor.show()
         self.participant = Participant()
         self.cue_list = []
         self.cue_image = None
         self.cue_sound = None
+
         self.trial_image = None
         self.trial_sound = None
         self.protocol = Protocol()
         self.trial_counter = 0
         self.cue_counter = 0
-        self.event_obj  = Event()
+        self.event_obj = Event()
         self.cue_change_flag = True
         self.bad_epoch = BadEpoch()
-        self.bp_filter = Filter(low_cut=0.05, hi_cut=3, order=2, sf=500, n_chan=32)
-        self.mrcp_buffer = MRCPBuffer(window_stride=0.1, window_size=2, buffer_size=10)
-        self.mrcp_buffer.start_timer()
-        self.ui.widget_mrcp_extractor.setYRange(-100, 100)
 
+
+        self.raw = Variables.get_stream_player_raw()
+        # pdb.set_trace()
+        self.event_counter = 0
+        self.prev_event_counter = -1
+        # self.ui.widget_mrcp_extractor.setYRange(-100, 100)
+        #
+        # self.scope = Scope(window_stride=0.1, window_size=2, buffer_size=10,
+        #                                 filter=self.bp_filter, filter_type='bpf', ica=True)
+        # self.scope_buffer.start_timer()
+        # self.scope = Scope(self, self.scope_buffer)
+
+        # self.b1 = Buffer(window_stride=0.1, window_size=2, buffer_size=10, filter=self.bp_filter, filter_type='bpf')
+        # self.b2 = Buffer(window_stride=0.1, window_size=2, buffer_size=10, filter=self.bp_filter, filter_type='bpf')
+        # self.b1.start_timer()
+        # self.b2.start_timer()
 
     def init_all(self):
         """
@@ -125,8 +144,6 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         self.init_timer()  # timer for scope refreshing
         self.init_Runtimer()  # timer for record, train and test
         self.init_eye_tracker()
-
-
 
     def init_config_file(self):
         """
@@ -202,7 +219,6 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         # Subject information
         self.ui.pushButton_save.clicked.connect(self.onClicked_button_save_subject_information)
 
-
         # Experimental protocol
         self.ui.pushButton_define_task_done.clicked.connect(self.onClicked_button_define_task_done)
         self.ui.pushButton_define_task_add.clicked.connect(self.onClicked_button_define_task_add)
@@ -247,6 +263,10 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         self.ui.pushButton_temp_view.clicked.connect(self.onClicked_button_temp_view)
         self.ui.pushButton_temp_remove.clicked.connect(self.onClicked_button_temp_remove)
 
+        self.ui.pushButton_test.clicked.connect(self.onClicked_pushButton_test)
+        self.ui.pushButton_scope_switch_mrcp.clicked.connect(self.onClicked_pushButton_scope_mrcp)
+        self.ui.lineEdit_window_stride_mrcp.textChanged.connect(self.change_window_stride)
+
     def init_panel_GUI(self):
         """
         Initialize experimenter GUI
@@ -257,18 +277,6 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         # self.ui.tab_Oscilloscope.setEnabled(False)
         self.ui.tab_experiment_type.setEnabled(False)
 
-        # Experimental protocol
-        # self.task_list = []
-        # self.new_task_list = []
-        # self.task_descriptor_list = []
-        # self.task_image_path = ""
-        # self.task_image_path_list = []
-        # self.task_sound_path = ""
-        # self.task_sound_path_list = []
-        # self.task_table = np.ndarray([])
-        # self.new_task_table = np.ndarray([])
-        # self.task_counter = 0
-        # self.protocol_path = ""
         # Button
         self.init_task_name_table()
         self.init_cue_name_table()
@@ -315,7 +323,6 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
                     self.ui.table_channels.item(x, y).setTextAlignment(
                         QtCore.Qt.AlignCenter)
                 idx += 1
-
         self.ui.table_channels.verticalHeader().setStretchLastSection(True)
         self.ui.table_channels.horizontalHeader().setStretchLastSection(True)
         self.channel_to_scale_row_index = -1
@@ -325,12 +332,48 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         self.selected_channel_column_index = 0
         self.single_channel_scale = 1
 
+        # # BP initialization
+        # self.apply_bandpass = 1
+        # if (self.apply_bandpass):
+        #     self.ui.doubleSpinBox_lp.setValue(40.0)
+        #     self.ui.doubleSpinBox_hp.setValue(1.0)
+        #     self.ui.doubleSpinBox_lp.setMinimum(0)
+        #     self.ui.doubleSpinBox_lp.setMaximum(self.sr.sample_rate / 2 - 0.1)
+        #     self.ui.doubleSpinBox_lp.setSingleStep(1)
+        #     self.ui.doubleSpinBox_hp.setMinimum(0)
+        #     self.ui.doubleSpinBox_hp.setMaximum(self.sr.sample_rate / 2 - 0.1)
+        #     self.ui.doubleSpinBox_hp.setSingleStep(1)
+        #     self.ui.pushButton_bp.click()
+        #
+        # # notch initialization
+        # self.apply_notch = 1
+        # if (self.apply_notch):
+        #     self.ui.doubleSpinBox_lc_notch.setValue(58.0)
+        #     self.ui.doubleSpinBox_hc_notch.setValue(62.0)
+        #     self.ui.doubleSpinBox_lc_notch.setMinimum(0.1)
+        #     self.ui.doubleSpinBox_lc_notch.setMaximum(self.sr.sample_rate / 2 - 0.1)
+        #     self.ui.doubleSpinBox_lc_notch.setSingleStep(1)
+        #     self.ui.doubleSpinBox_hc_notch.setMinimum(0.1)
+        #     self.ui.doubleSpinBox_hc_notch.setMaximum(self.sr.sample_rate / 2 - 0.1)
+        #     self.ui.doubleSpinBox_hc_notch.setSingleStep(1)
+        #     self.ui.pushButton_apply_notch.click()
+        #
+        # self.ui.checkBox_bandpass.setChecked(self.apply_bandpass)
+        #
+        # self.b_bandpass_scope_refilter = self.b_bandpass_scope
+        # self.a_bandpass_scope_refilter = self.a_bandpass_scope
+        # self.zi_bandpass_scope_refilter = self.zi_bandpass_scope
+        # self.b_notch_scope_refilter = self.b_notch_scope
+        # self.a_notch_scope_refilter = self.a_notch_scope
+        # self.zi_notch_scope_refilter = self.zi_notch_scope
+
         # MRCP tab
         self.init_class_epoch_counter_table()
         self.init_class_bad_epoch_table()
         self.show_TID_events = False
         self.show_LPT_events = False
-        self.show_Key_events = False
+        self.show_Key_events = True
+
         self.raw_trial_MRCP = np.ndarray([])
         self.processed_trial_MRCP = np.ndarray([])
         self.total_trials_MRCP = []
@@ -444,7 +487,7 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         self.init_class_bad_epoch_table()
         self.show_TID_events = False
         self.show_LPT_events = False
-        self.show_Key_events = False
+        self.show_Key_events = True
         self.raw_trial_MRCP = np.ndarray([])
         self.processed_trial_MRCP = np.ndarray([])
         self.total_trials_MRCP = []
@@ -481,15 +524,6 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         self.SVStatus = 0
         self.starttime = 0
         self.SV_time = 0
-
-        # self.idle_time = int(self.ui.idleTimeLineEdit.text())
-        # self.focus_time = self.idle_time + int(self.ui.focusTimeLineEdit.text())
-        # self.prepare_time = self.focus_time + int(self.ui.prepareTimeLineEdit.text())
-        # self.two_time = self.prepare_time + int(self.ui.twoTimeLineEdit.text())
-        # self.one_time = self.two_time + int(self.ui.oneTimeLineEdit.text())
-        # self.task_time = self.one_time + int(self.ui.taskTimeLineEdit.text())
-        # self.relax_time = self.task_time + 2
-        # self.cycle_time = self.relax_time
         self.is_experiment_on = False
 
     def init_scope_GUI(self):
@@ -540,7 +574,6 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         values_axis = []
         values_axis.append(values)
         values_axis.append([])
-
         # Update table labels with current names
         idx = 0
         for y in range(0, 4):
@@ -584,16 +617,14 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         self.x_ticks_sub = np.zeros(self.subsampling_freq * self.seconds_to_show)
         # pdb.set_trace()
 
-
         for i, x in enumerate(np.arange(0, self.config['sf'] * self.seconds_to_show, self.subsampling_ratio)):
             self.x_ticks_sub[i] = (x * 1) / float(self.config['sf'])
-
 
         # EEG data for plotting
         self.data_plot = np.zeros((self.config['sf'] * self.seconds_to_show,
                                    self.config['eeg_channels']))
 
-        self.data_plot_sub = np.zeros((self.subsampling_freq * self.seconds_to_show,self.config['eeg_channels'] ))
+        self.data_plot_sub = np.zeros((self.subsampling_freq * self.seconds_to_show, self.config['eeg_channels']))
 
         print('self.data plot shape: ', self.data_plot.shape)
 
@@ -644,8 +675,12 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         # notch initialization
         self.apply_notch = 1
         if (self.apply_notch):
-            self.ui.doubleSpinBox_lc_notch.setValue(58.0)
-            self.ui.doubleSpinBox_hc_notch.setValue(62.0)
+            if self.sr.sample_rate / 2 - 0.1 > 58:
+                self.ui.doubleSpinBox_lc_notch.setValue(58.0)
+                self.ui.doubleSpinBox_hc_notch.setValue(62.0)
+            else:
+                self.ui.doubleSpinBox_lc_notch.setValue(1.0)
+                self.ui.doubleSpinBox_hc_notch.setValue(2.0)
             self.ui.doubleSpinBox_lc_notch.setMinimum(0.1)
             self.ui.doubleSpinBox_lc_notch.setMaximum(self.sr.sample_rate / 2 - 0.1)
             self.ui.doubleSpinBox_lc_notch.setSingleStep(1)
@@ -677,8 +712,6 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
 
         # Force repaint even when we shouldn't repaint.
         self.force_repaint = 1
-
-
 
     def init_timer(self):
         """
@@ -714,7 +747,6 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         self.eye_tracker_window.pushButton_8.clicked.connect(self.update_cal8)
         self.eye_tracker_window.pushButton_9.clicked.connect(self.update_cal9)
 
-
         self.eye_tracker_window.pushButton_12.clicked.connect(self.update_current_gaze_loc)
         self.eye_tracker_window.pushButton_13.clicked.connect(self.recording_data)
         self.eye_tracker_window.pushButton_14.clicked.connect(self.recording_stop)
@@ -731,7 +763,7 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         self.UTC_time = 0
 
         # List of values in 9 points
-        self.points = np.zeros((9,2))
+        self.points = np.zeros((9, 2))
 
         self.gaze_loc = 0
 
@@ -743,7 +775,6 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
             self.help.setZValue(1)
         else:
             self.main_plot_handler.removeItem(self.help)
-
 
     def eventFilter(self, source, event):
         """

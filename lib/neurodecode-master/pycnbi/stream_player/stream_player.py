@@ -21,6 +21,7 @@ import pycnbi.utils.pycnbi_utils as pu
 from pycnbi.triggers.trigger_def import trigger_def
 from pycnbi import logger
 from builtins import input
+from package.entity.edata.variables import Variables
 
 def stream_player(fif_file, server_name='StreamPlayer', chunk_size=8, auto_restart=True, wait_start=True, repeat=float('inf'), high_resolution=False, trigger_file=None):
     """
@@ -40,6 +41,7 @@ def stream_player(fif_file, server_name='StreamPlayer', chunk_size=8, auto_resta
     
     """
     raw, events = pu.load_raw(fif_file)
+    # Variables.set_stream_player_raw(raw)
     sfreq = raw.info['sfreq']  # sampling frequency
     n_channels = len(raw.ch_names)  # number of channels
     if trigger_file is not None:

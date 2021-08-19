@@ -3,6 +3,10 @@ import numpy as np
 import pyqtgraph as pg
 from PyQt5.QtGui import QPainter
 from pycnbi import logger
+import pdb
+from package.entity.edata.variables import Variables
+from package.entity.edata.utils import Utils
+import pylsl
 
 class EventPlot():
 
@@ -57,6 +61,8 @@ class EventPlot():
             color = pg.mkColor(255, 0, 0)
         elif (event_name == "LPT"):
             color = pg.mkColor(0, 255, 0)
+        elif (event_name == 'D'):
+            color = pg.mkColor(255, 0, 0)
         else:
             color = pg.mkColor(255, 255, 255)
 
@@ -74,16 +80,29 @@ class EventPlot():
         self.events_text.append(text)
         self.main_plot_handler.addItem(self.events_text[-1])
 
+    def add_stream_player_event(self):
+        time_diff = pylsl.local_clock() - Variables.get_stream_player_starting_time()
+        event_onset = self.raw.annotations.onset[self.event_counter]
+        print(abs(time_diff - event_onset))
+        _, self.event_counter = Utils.find_nearest(self.raw.annotations.onset, time_diff)
+
+        if abs(time_diff - event_onset) < 0.03 and self.prev_event_counter != self.event_counter:
+            self.addEventPlot(self.raw.annotations.description[self.event_counter], self.raw.annotations.description[self.event_counter])
+            self.prev_event_counter = self.event_counter
+
+
+
 
     def paintEvent(self, e):
         """
         Paint the oscilloscope
         """
-        # logger.info('called')
+        # logger.info('paintEvent')
         # Distinguish between paint events from timer and event QT widget resizing, clicking etc (sender is None)
         # We should only paint when the timer triggered the event.
         # Just in case, there's a flag to force a repaint even when we shouldn't repaint
         sender = self.sender()
+        # pdb.set_trace()
         if 'force_repaint' not in self.__dict__.keys():
             logger.warning('force_repaint is not set! Is it a Qt bug?')
             self.force_repaint = 0

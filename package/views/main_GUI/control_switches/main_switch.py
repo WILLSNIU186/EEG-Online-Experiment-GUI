@@ -13,6 +13,7 @@ class MainSwitch():
             self.ui.groupBox_task_manager.setEnabled(False)
         else:
             self.ui.statusBar.showMessage("System is Off")
+
             self.ui.tab_experimental_protocol.setEnabled(False)
             self.ui.tab_subjec_information.setEnabled(False)
             self.ui.tab_Oscilloscope.setEnabled(False)
