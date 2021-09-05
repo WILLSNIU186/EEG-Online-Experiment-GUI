@@ -1,6 +1,6 @@
 
 from package.entity.edata.utils import Utils
-
+import pdb
 class ChannelFilter():
     def onActivated_checkbox_car(self):
         """
@@ -60,6 +60,7 @@ class ChannelFilter():
         Event listener for Apply Notch in Filter Manager in Oscilloscope tab
         Apply notch filter to displaying data
         """
+        # pdb.set_trace()
         if self.ui.checkBox_change_filter.isChecked():
             if (self.ui.doubleSpinBox_hc_notch.value() > self.ui.doubleSpinBox_lc_notch.value()):
                 self.apply_notch = True
@@ -71,6 +72,7 @@ class ChannelFilter():
                     self.config['eeg_channels'])
         else:
             if (self.ui.doubleSpinBox_hc_notch.value() > self.ui.doubleSpinBox_lc_notch.value()):
+                # pdb.set_trace()
                 self.apply_notch = True
                 self.b_notch_scope, self.a_notch_scope, self.zi_notch_scope = Utils.butter_notch_scope(
                     self.ui.doubleSpinBox_hc_notch.value(),

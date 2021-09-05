@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from numpy import mean, sqrt, square
 from scipy.signal import butter, lfilter, lfilter_zi
-
+import csv
 from .variables import Variables
 
 
@@ -114,6 +114,16 @@ class Utils:
         return b, a
 
     @staticmethod
+    def butter_bandpass(lowcut, highcut, fs, order=5):
+        nyq = 0.5 * fs
+        low = lowcut / nyq
+        high = highcut / nyq
+        b, a = butter(order, [low, high], btype='band')
+        return b, a
+
+
+
+    @staticmethod
     def butter_notch(low_cut, high_cut, fs, order=2):
         data_out = []
         nyq = 0.5 * fs
@@ -192,3 +202,14 @@ class Utils:
 
         return task_table
 
+    @staticmethod
+    def write_data_during_recording(file, row):
+        with open(file, 'a', newline='') as f:
+            writer = csv.writer(f, delimiter=',')
+            writer.writerow(row)
+
+    @staticmethod
+    def find_nearest(array, value):
+        array = np.asarray(array)
+        idx = (np.abs(array - value)).argmin()
+        return array[idx], idx

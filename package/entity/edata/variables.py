@@ -21,6 +21,8 @@ class Variables:
     __protocol_path = ""
     __run_counter = 0
     __raw_eeg_file_path = ""
+    __stream_player_raw = None
+    __stream_player_start_time = 0
 
     @classmethod
     def init_Variables_for_next_run(cls):
@@ -175,3 +177,19 @@ class Variables:
     @classmethod
     def get_raw_eeg_timestamp_file_path(cls):
         return cls.__raw_eeg_timestamp_file_path
+
+    @classmethod
+    def set_stream_player_raw(cls, raw):
+        cls.__stream_player_raw = raw
+
+    @classmethod
+    def get_stream_player_raw(cls):
+        return cls.__stream_player_raw
+
+    @classmethod
+    def set_stream_player_starting_time(cls, lsl_time):
+        cls.__stream_player_start_time = lsl_time
+
+    @classmethod
+    def get_stream_player_starting_time(cls):
+        return cls.__stream_player_start_time

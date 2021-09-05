@@ -1,6 +1,11 @@
 from psychopy import visual, event, core
 import numpy as np
 import time
+import threading
+import subprocess
+import multiprocessing as mp
+
+
 
 frequencies_list = [8.423, 9.374, 9.961, 10.84, 11.79, 13.4, 14.87]
 positions_list = [(-64, 128), (64, 128), (-128, 0), (0, 0), (128, 0), (-64, -128), (64, -128)]
@@ -56,6 +61,46 @@ def generate_flickering_stimulus_list(win, positions_list, stimulus_size, radial
 
 stim_type = 'ssmvep'
 
+
+def run_ssvep_protocol(stim_type=stim_type, stimulus_sequence=stimulus_sequence,
+                       positions_list=positions_list, screen_refresh_rate=screen_refresh_rate,
+                       frequencies_list=frequencies_list):
+    # self.hide()
+
+    win = visual.Window(screen_size, color=(-1.0, -1.0, -1.0))
+    if stim_type == 'ssvep':
+        stimulus_list = generate_flickering_stimulus_list(win, positions_list, stimulus_size)
+        stimulus_mask_list = None
+    elif stim_type == 'ssmvep':
+        stimulus_list, stimulus_mask_list = generate_radial_stimulus_list(win, positions_list, stimulus_size)
+
+    for sequence_idx, stimulus_id in enumerate(stimulus_sequence):
+        message = visual.TextStim(win, text='1', height=0.1, color=(0, 1, 0))
+        message.setAutoDraw(True)
+        message.pos = (
+            positions_list[stimulus_id - 1][0] / screen_size[0] * 2,
+            positions_list[stimulus_id - 1][1] / screen_size[1] * 2)
+        win.flip()
+        time.sleep(cue_period)
+        message.setAutoDraw(False)
+        for frame_number in range(1, int(stimulation_period * screen_refresh_rate)):
+            if not event.getKeys():
+                for stimulus_idx, stimulus in enumerate(stimulus_list):
+                    if stim_type == 'ssvep':
+                        stimulus.opacity = get_frame_intensity(frame_number, frequencies_list[stimulus_idx])
+                        stimulus.draw()
+                    elif stim_type == 'ssmvep':
+                        stimulus.radialPhase = get_frame_movement_phase(frame_number,
+                                                                        frequencies_list[stimulus_idx])
+                        stimulus.draw()
+                        stimulus_mask_list[stimulus_idx].draw()
+                win.flip()
+            else:
+                win.close()
+                core.quit()
+        win.flip()
+        time.sleep(break_period)
+
 class SSVEPExpProtocol():
     def __init__(self):
         pass
@@ -63,47 +108,16 @@ class SSVEPExpProtocol():
     def onClicked_pushButton_ssvep_task(self):
 
         # Thread(target=self.play_task_sound, args=(self.new_task_table[self.task_counter][3],)).start()
-        self.run_ssvep_protocol()
+        # self.run_ssvep_protocol()
+        # command = ["python", "package\\views\main_GUI\exp_protocol_design\ssvep_exp_protocol_seperate.py"]
+        # p = subprocess.Popen(command)
+        proc = mp.Process(target=run_ssvep_protocol, args=["ssvep"])
+        proc.start()
+        # self.thread = threading.Thread(target=self.run_ssvep_protocol)
+        # self.thread.start()
         # run_ssvep_protocol(win=win, stim_type='ssvep')
 
 
-    def run_ssvep_protocol(self, stim_type='ssmvep', stimulus_sequence=stimulus_sequence,
-                           positions_list=positions_list, screen_refresh_rate=screen_refresh_rate,
-                           frequencies_list=frequencies_list):
-        self.hide()
-        win = visual.Window(screen_size, color=(-1.0, -1.0, -1.0))
-        if stim_type == 'ssvep':
-            stimulus_list = generate_flickering_stimulus_list(win, positions_list, stimulus_size)
-            stimulus_mask_list = None
-        elif stim_type == 'ssmvep':
-            stimulus_list, stimulus_mask_list = generate_radial_stimulus_list(win, positions_list, stimulus_size)
-
-        for sequence_idx, stimulus_id in enumerate(stimulus_sequence):
-            message = visual.TextStim(win, text='1', height=0.1, color=(0, 1, 0))
-            message.setAutoDraw(True)
-            message.pos = (
-                positions_list[stimulus_id - 1][0] / screen_size[0] * 2,
-                positions_list[stimulus_id - 1][1] / screen_size[1] * 2)
-            win.flip()
-            time.sleep(cue_period)
-            message.setAutoDraw(False)
-            for frame_number in range(1, int(stimulation_period * screen_refresh_rate)):
-                if not event.getKeys():
-                    for stimulus_idx, stimulus in enumerate(stimulus_list):
-                        if stim_type == 'ssvep':
-                            stimulus.opacity = get_frame_intensity(frame_number, frequencies_list[stimulus_idx])
-                            stimulus.draw()
-                        elif stim_type == 'ssmvep':
-                            stimulus.radialPhase = get_frame_movement_phase(frame_number,
-                                                                            frequencies_list[stimulus_idx])
-                            stimulus.draw()
-                            stimulus_mask_list[stimulus_idx].draw()
-                    win.flip()
-                else:
-                    win.close()
-                    core.quit()
-            win.flip()
-            time.sleep(break_period)
 
 
 if __name__ == '__main__':

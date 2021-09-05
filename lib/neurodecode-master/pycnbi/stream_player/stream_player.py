@@ -21,6 +21,7 @@ import pycnbi.utils.pycnbi_utils as pu
 from pycnbi.triggers.trigger_def import trigger_def
 from pycnbi import logger
 from builtins import input
+from package.entity.edata.variables import Variables
 
 def stream_player(fif_file, server_name='StreamPlayer', chunk_size=8, auto_restart=True, wait_start=True, repeat=float('inf'), high_resolution=False, trigger_file=None):
     """
@@ -40,6 +41,7 @@ def stream_player(fif_file, server_name='StreamPlayer', chunk_size=8, auto_resta
     
     """
     raw, events = pu.load_raw(fif_file)
+    # Variables.set_stream_player_raw(raw)
     sfreq = raw.info['sfreq']  # sampling frequency
     n_channels = len(raw.ch_names)  # number of channels
     if trigger_file is not None:
@@ -65,9 +67,16 @@ def stream_player(fif_file, server_name='StreamPlayer', chunk_size=8, auto_resta
         nominal_srate=sfreq, type='EEG', source_id=server_name)
     desc = sinfo.desc()
     channel_desc = desc.append_child("channels")
-    for ch in raw.ch_names:
+    ch_types = raw.get_channel_types()
+    for ind, ch in enumerate (raw.ch_names):
+        if ch_types[ind] == 'eeg':
+            type = 'EEG'
+        elif ch_types[ind] =='emg':
+            type = 'EMG'
+        else:
+            type = 'None'
         channel_desc.append_child('channel').append_child_value('label', str(ch))\
-            .append_child_value('type','EMG').append_child_value('unit','microvolts')
+            .append_child_value('type', type).append_child_value('unit','microvolts')
     desc.append_child('amplifier').append_child('settings').append_child_value('is_slave', 'false')
     desc.append_child('acquisition').append_child_value('manufacturer', 'PyCNBI').append_child_value('serial_number', 'N/A')
     outlet = pylsl.StreamOutlet(sinfo, chunk_size=chunk_size)

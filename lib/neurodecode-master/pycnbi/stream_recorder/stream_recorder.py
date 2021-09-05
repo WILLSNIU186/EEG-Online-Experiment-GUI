@@ -74,12 +74,19 @@ def record(recordState, amp_name, amp_serial, record_dir, eeg_only, recordLogger
     qc.print_c('\n>> Press Enter to stop recording', 'G')
     tm = qc.Timer(autoreset=True)
     next_sec = 1
+    # eeg_file = r'Downloads\eeg.csv'
+    # csvfile = open(eeg_file, 'w', newline='')
+    # writer = csv.writer(csvfile)
     while recordState.value == 1:
         sr.acquire()
         if sr.get_buflen() > next_sec:
             duration = str(datetime.timedelta(seconds=int(sr.get_buflen())))
             recordLogger.info('RECORDING %s' % duration)
             next_sec += 1
+            # buffers, times = sr.get_buffer()
+            # new_lines = np.c_[times, buffers]
+            # writer.writerows(new_lines)
+            # self.streamReceiver.flush_buffer()
         tm.sleep_atleast(0.001)
 
     # record stop
@@ -119,7 +126,7 @@ def run(record_dir, amp_name, amp_serial, recordLogger=logger, eeg_only=False, q
     input()
     recordState.value = 0
     recordLogger.info('(main) Waiting for recorder process to finish.')
-    #proc.join(10)
+    proc.join(10)
     if proc.is_alive():
         recordLogger.error('Recorder process not finishing. Are you running from Spyder?')
         recordLogger.error('Dropping into a shell')
@@ -181,4 +188,5 @@ if __name__ == '__main__':
         amp_name = sys.argv[2]
     if len(sys.argv) > 1:
         record_dir = sys.argv[1]
+    amp_name, amp_serial = pu.list_lsl_streams_cmd(ignore_markers=False)
     batch_run(record_dir, amp_name, amp_serial)

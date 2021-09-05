@@ -72,7 +72,10 @@ class StreamReceiver:
         self.eeg_only = eeg_only
         self.amp_name = amp_name
         self.tr_channel = None  # trigger indx used by StreamReceiver class
+        self.channels = []
         self.eeg_channels = []  # signal indx used by StreamReceiver class
+        self.eeg_channel_names = []
+        self.emg_channels = []
         self._lsl_tr_channel = None  # raw trigger indx in pylsl.pull_chunk()
         self._lsl_eeg_channels = []  # raw signal indx in pylsl.pull_chunk()
         self.ready = False  # False until the buffer is filled for the first time
@@ -148,6 +151,12 @@ class StreamReceiver:
                         self._lsl_tr_channel = None
                         channels += si.channel_count()
                         ch_list = pu.lsl_channel_list(inlet)
+                        # self.channel_type = ['eeg']*27
+                        #TODO: set channel_type inside streamInfo
+                        self.channel_type = ['eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'emg', 'emg', 'eeg',
+                                             'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg',
+                                             'eeg',  'emg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg',
+                                             'eeg', 'eeg', 'eeg', 'eeg','emg']
                         amps.append(si)
                         server_found = True
                         self.multiplier = 10**6
@@ -176,9 +185,14 @@ class StreamReceiver:
                         # ch_list = ['P7', 'P4', 'Cz', 'Pz', 'P3', 'P8', 'O1', 'O2', 'T8', 'F8', 'C4', 'F4', 'Fp2', 'Fz',
                         #                'C3', 'F3', 'Fp1', 'T7', 'F7', 'Fpz', 'PO4', 'FC6', 'FC2', 'AF4', 'CP6', 'CP2', 'CP1',
                         #            'CP5', 'FC1', 'FC5', 'AF3', 'C1']
-                        ch_list = ['P7', 'P4', 'Cz', 'Pz', 'P3', 'P8', 'EMG_WE_right', 'EMG_IE_right', 'T8', 'F8', 'C4', 'F4', 'Fp2', 'Fz',
-                                   'C3', 'F3', 'Fp1', 'T7', 'F7', 'EMG_WE_left', 'EMG_IE_left', 'FC6', 'FC2', 'C2', 'CP6', 'CP2', 'CP1',
-                                   'CP5', 'FC1', 'FC5', 'C1', 'None']
+                        ch_list = ['P7', 'P4', 'Cz', 'Pz', 'P3', 'P8', 'EMG_WE_right', 'EMG_IE_right', 'T8',
+                                   'F8', 'C4', 'F4', 'Fp2', 'Fz', 'C3', 'F3', 'Fp1', 'T7',
+                                   'F7', 'NU', 'EMG_IE_left', 'FC6', 'FC2', 'C2', 'CP6', 'CP2', 'CP1',
+                                   'CP5', 'FC1', 'FC5', 'C1', 'EMG_WE_left']
+                        self.channel_type = ['eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'emg', 'emg', 'eeg',
+                                             'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg',
+                                             'eeg', 'NU', 'emg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg',
+                                             'eeg', 'eeg', 'eeg', 'eeg','emg']
                         # ch_list = ['P7', 'P4', 'Cz', 'Pz', 'P3', 'P8', 'EMG4', 'O2', 'T8', 'F8', 'C4', 'F4', 'Fp2', 'Fz', 'C3', 'F3', 'Fp1', 'T7', 'F7', 'C2', 'FC6', 'EMG2', 'FC2', 'EMG3', 'CP6', 'CP2', 'CP1', 'CP5', 'FC1', 'FC5', 'EMG1', 'C1']
                         # self._lsl_tr_channel = find_event_channel(ch_names=ch_list)
                         channels = len(ch_list)
@@ -209,7 +223,7 @@ class StreamReceiver:
         self._lsl_eeg_channels = np.array(self._lsl_eeg_channels)
 
         self.tr_channel = 0  # trigger channel is always set to 0.
-        self.eeg_channels = np.arange(1, channels + 1)  # signal channels start from 1.
+        self.channels = np.arange(1, channels + 1)  # signal channels start from 1.
 
 
         # create new inlets to read from the stream
@@ -310,6 +324,8 @@ class StreamReceiver:
                 # give up and return empty values to avoid deadlock
                 return np.empty((0, len(self.ch_list))), []
         data = np.array(chunk)
+        self.data_size = data.shape
+        # print('sr chunk', data.shape)
 
         # BioSemi has pull-up resistor instead of pull-down
         if self.amp_name == 'BioSemi' and self._lsl_tr_channel is not None:
@@ -470,11 +486,36 @@ class StreamReceiver:
         """
         return len(self.ch_list)
 
+    def get_channels(self):
+        """
+        Returns indices of eeg channels excluding trigger channel
+        """
+        return self.channels
+
     def get_eeg_channels(self):
         """
         Returns indices of eeg channels excluding trigger channel
         """
+        for ind, ch_type in enumerate(self.channel_type):
+            if ch_type == 'eeg':
+                self.eeg_channels.append(ind)
         return self.eeg_channels
+
+    def get_eeg_channel_names(self):
+        ch_list_no_trigger = self.ch_list[1:]
+        for ind, ch_type in enumerate(self.channel_type):
+            if ch_type == 'eeg':
+                self.eeg_channel_names.append(ch_list_no_trigger[ind])
+        return self.eeg_channel_names
+
+    def get_emg_channels(self):
+        """
+        Returns indices of eeg channels excluding trigger channel
+        """
+        for ind, ch_type in enumerate(self.channel_type):
+            if ch_type == 'emg':
+                self.emg_channels.append(ind)
+        return self.emg_channels
 
     def get_trigger_channel(self):
         """
@@ -507,6 +548,9 @@ class StreamReceiver:
         Returns True if the buffer is not empty.
         """
         return self.ready
+
+    def my_name(self):
+        print("tttttttttttttttttttttttttttaaaaaaaaaaaaaaaa")
 
 
 """

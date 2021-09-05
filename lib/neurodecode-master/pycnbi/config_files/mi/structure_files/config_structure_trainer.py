@@ -1,7 +1,7 @@
 ########################################################################
 class Basic:
     """
-    Contains the basic parameters to train the Motor Imagery algorithm
+    Contains the basic parameters to train the Motor Imagery offline training
     """
 
     #-------------------------------------------
@@ -50,7 +50,7 @@ class Basic:
 ########################################################################
 class Advanced:
     """
-    Contains the advanced parameters to train the Motor Imagery algorithm`
+    Contains the advanced parameters to train the Motor Imagery offline training`
     """
 
     #-------------------------------------------
