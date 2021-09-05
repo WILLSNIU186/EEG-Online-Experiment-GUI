@@ -27,7 +27,7 @@ PyQt5-sip==12.7.1
 pyqtgraph==0.10.0
 pyserial==3.4
 python-dateutil==2.8.1
-pywin32==227
+pywin32==301
 pyxdf==1.16.2
 qtwidgets==0.11
 scikit-learn==0.22.1
