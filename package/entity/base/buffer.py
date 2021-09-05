@@ -32,7 +32,7 @@ class Buffer:
     window_stride: (second) Time interval between two windows
     window_size: (second) length of time window
     buffer_size: (second) length of buffer in StreamReceiver
-    filer: object of Filter class
+    filer: None or object of Filter class
     filter_type: 'bpf' ---- band pass filter
                  'lpf' ---- low pass filter
                  'hpf' ---- high pass filter

@@ -119,17 +119,7 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         # pdb.set_trace()
         self.event_counter = 0
         self.prev_event_counter = -1
-        # self.ui.widget_mrcp_extractor.setYRange(-100, 100)
-        #
-        # self.scope = Scope(window_stride=0.1, window_size=2, buffer_size=10,
-        #                                 filter=self.bp_filter, filter_type='bpf', ica=True)
-        # self.scope_buffer.start_timer()
-        # self.scope = Scope(self, self.scope_buffer)
 
-        # self.b1 = Buffer(window_stride=0.1, window_size=2, buffer_size=10, filter=self.bp_filter, filter_type='bpf')
-        # self.b2 = Buffer(window_stride=0.1, window_size=2, buffer_size=10, filter=self.bp_filter, filter_type='bpf')
-        # self.b1.start_timer()
-        # self.b2.start_timer()
 
     def init_all(self):
         """
