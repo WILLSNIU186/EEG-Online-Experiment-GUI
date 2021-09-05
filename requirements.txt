@@ -170,7 +170,7 @@ traitlets==4.3.3
 Twisted==20.3.0
 typing-extensions==3.7.4.3
 ujson==4.0.2
-urllib3==1.25.10
+urllib3==1.26.5
 wcwidth==0.1.8
 webencodings==0.5.1
 websocket-client==1.1.0
