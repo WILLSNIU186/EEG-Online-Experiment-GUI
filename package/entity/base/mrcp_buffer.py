@@ -113,7 +113,7 @@ class MRCPBuffer(Buffer):
                     self.main_view.addEventPlot('D_{}'.format(self.model_name), 'D_{}'.format(self.model_name))
                 else:
                     self.mrcp_online_test_window.label.setText('')
-                print(pred)
+                # print(pred)
             # pdb.set_trace()
 
             self.eeg_window = window_epoch.get_data()[0, :, :]

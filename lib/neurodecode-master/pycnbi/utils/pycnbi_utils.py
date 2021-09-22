@@ -663,7 +663,11 @@ def lsl_channel_list(inlet):
     # pdb.set_trace()
     ch_list = []
     for ch in desc.find('channels').getchildren():
-        ch_name = ch.find('label').text
+        try:
+            ch_name = ch.find('label').text
+        except Exception as e:
+            ch_name = ch.find('name').text
+            logger.info(e)
         ch_list.append(ch_name)
 
     ''' This code may throw access violation error due to bug in pylsl.XMLElement
