@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>781</width>
+    <width>1173</width>
     <height>740</height>
    </rect>
   </property>
@@ -15,52 +15,6 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_main_switch">
-      <property name="text">
-       <string>Main</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="6">
-     <widget class="QLCDNumber" name="lcdNumber_timer">
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="2">
-     <widget class="QPushButton" name="pushButton_rec">
-      <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset resource="images.qrc">
-        <normaloff>:/play/play.jpg</normaloff>
-        <normalon>:/pause/pause.jpg</normalon>:/play/play.jpg</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>41</width>
-        <height>41</height>
-       </size>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="2">
-     <widget class="QLabel" name="label_Record">
-      <property name="text">
-       <string>Record</string>
-      </property>
-     </widget>
-    </item>
     <item row="2" column="0">
      <widget class="QPushButton" name="pushButton_Main_switch">
       <property name="text">
@@ -106,10 +60,70 @@
       </property>
      </widget>
     </item>
+    <item row="3" column="2">
+     <widget class="QLabel" name="label_Record">
+      <property name="text">
+       <string>Record</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QPushButton" name="pushButton_rec">
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="images.qrc">
+        <normaloff>:/play/play.jpg</normaloff>
+        <normalon>:/pause/pause.jpg</normalon>:/play/play.jpg</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>41</width>
+        <height>41</height>
+       </size>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_main_switch">
+      <property name="text">
+       <string>Main</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="6">
+     <widget class="QLCDNumber" name="lcdNumber_timer">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="5">
+     <widget class="QLabel" name="label_run_number">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
     <item row="3" column="1">
      <widget class="QLabel" name="label_scope">
       <property name="text">
        <string>Scope</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="3">
+     <widget class="QLabel" name="label_Task">
+      <property name="text">
+       <string>Task</string>
       </property>
      </widget>
     </item>
@@ -140,24 +154,45 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="5">
-     <widget class="QLabel" name="label_run_number">
+    <item row="1" column="5">
+     <widget class="QLabel" name="label_run">
       <property name="text">
-       <string/>
+       <string>Run </string>
       </property>
      </widget>
     </item>
-    <item row="3" column="3">
-     <widget class="QLabel" name="label_Task">
+    <item row="2" column="4">
+     <widget class="QPushButton" name="pushButton_test">
       <property name="text">
-       <string>Task</string>
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="images.qrc">
+        <normaloff>:/play/play.jpg</normaloff>
+        <normalon>:/pause/pause.jpg</normalon>:/play/play.jpg</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>41</width>
+        <height>41</height>
+       </size>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="4">
+     <widget class="QLabel" name="label_Test">
+      <property name="text">
+       <string>Test</string>
       </property>
      </widget>
     </item>
     <item row="0" column="0" colspan="7">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>4</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_subjec_information">
        <attribute name="title">
@@ -427,17 +462,17 @@
              </property>
             </widget>
            </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_6">
-             <property name="text">
-              <string>Break on every</string>
-             </property>
-            </widget>
-           </item>
            <item row="3" column="1">
             <widget class="QLineEdit" name="lineEdit_break_trial_number">
              <property name="text">
               <string>30</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_6">
+             <property name="text">
+              <string>Break on every</string>
              </property>
             </widget>
            </item>
@@ -447,7 +482,7 @@
         <item row="0" column="0" colspan="2">
          <widget class="QTabWidget" name="tabWidget_protocol">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab_ERP">
            <attribute name="title">
@@ -830,6 +865,285 @@
            <attribute name="title">
             <string>SSVEP</string>
            </attribute>
+           <widget class="QGroupBox" name="groupBoxStimulusParameters">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>20</y>
+              <width>411</width>
+              <height>301</height>
+             </rect>
+            </property>
+            <property name="title">
+             <string>Stimulus Parameters</string>
+            </property>
+            <widget class="QLabel" name="StimulusType">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>20</y>
+               <width>81</width>
+               <height>19</height>
+              </rect>
+             </property>
+             <property name="toolTip">
+              <string>the number of tasks for each class</string>
+             </property>
+             <property name="text">
+              <string>Stimulus Type</string>
+             </property>
+            </widget>
+            <widget class="QComboBox" name="SSVEPStimulusTypeDropDownSelection">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>40</y>
+               <width>141</width>
+               <height>31</height>
+              </rect>
+             </property>
+             <item>
+              <property name="text">
+               <string>SSVEP_Flicker</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>SSMVEP_Checkerboard</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>AO_Gait</string>
+              </property>
+             </item>
+            </widget>
+            <widget class="QLineEdit" name="lineEdit_InputSSVEPStimulusFrequencies">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>100</y>
+               <width>231</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="placeholderText">
+              <string>e.g. 8,10,12,15</string>
+             </property>
+            </widget>
+            <widget class="QLineEdit" name="lineEdit_InputSSVEPStimulusPositions">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>156</y>
+               <width>231</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="placeholderText">
+              <string>e.g. (0, 0);(60, 0);(0, 60);(60, 60)</string>
+             </property>
+            </widget>
+            <widget class="QLineEdit" name="lineEdit_InputSSVEPNumberOfTrials">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>260</y>
+               <width>231</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="placeholderText">
+              <string>e.g. 5</string>
+             </property>
+            </widget>
+            <widget class="QLineEdit" name="lineEdit_InputSSVEPStimulusSize">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>207</y>
+               <width>231</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="placeholderText">
+              <string>e.g. (128, 128)</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="SSVEPStimulusFrequency">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>80</y>
+               <width>81</width>
+               <height>19</height>
+              </rect>
+             </property>
+             <property name="toolTip">
+              <string>the number of tasks for each class</string>
+             </property>
+             <property name="text">
+              <string>Stimulus Frequency</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="SSVEPStimulusPosition">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>136</y>
+               <width>81</width>
+               <height>19</height>
+              </rect>
+             </property>
+             <property name="toolTip">
+              <string>the number of tasks for each class</string>
+             </property>
+             <property name="text">
+              <string>Stimulus Position</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="SSVEPStimulusNumberOfTrials">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>240</y>
+               <width>81</width>
+               <height>19</height>
+              </rect>
+             </property>
+             <property name="toolTip">
+              <string>the number of tasks for each class</string>
+             </property>
+             <property name="text">
+              <string>Number of Trials</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="SSVEPStimulusSize">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>187</y>
+               <width>81</width>
+               <height>19</height>
+              </rect>
+             </property>
+             <property name="toolTip">
+              <string>the number of tasks for each class</string>
+             </property>
+             <property name="text">
+              <string>Stimulus Size</string>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QGroupBox" name="groupBoxSessionRunProtocol">
+            <property name="geometry">
+             <rect>
+              <x>440</x>
+              <y>20</y>
+              <width>391</width>
+              <height>301</height>
+             </rect>
+            </property>
+            <property name="title">
+             <string>Session Run Protocol</string>
+            </property>
+            <widget class="QLabel" name="SSVEPCuePeriod">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>30</y>
+               <width>81</width>
+               <height>19</height>
+              </rect>
+             </property>
+             <property name="toolTip">
+              <string>the number of tasks for each class</string>
+             </property>
+             <property name="text">
+              <string>Cue Period (s)</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="SSVEPStimulationPeriod">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>80</y>
+               <width>81</width>
+               <height>19</height>
+              </rect>
+             </property>
+             <property name="toolTip">
+              <string>the number of tasks for each class</string>
+             </property>
+             <property name="text">
+              <string>Stimulation Period (s)</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="SSVEPBreakPeriod">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>140</y>
+               <width>81</width>
+               <height>19</height>
+              </rect>
+             </property>
+             <property name="toolTip">
+              <string>the number of tasks for each class</string>
+             </property>
+             <property name="text">
+              <string>Break Period (s)</string>
+             </property>
+            </widget>
+            <widget class="QLineEdit" name="lineEdit_InputSSVEPStimulationPeriod">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>50</y>
+               <width>171</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>2</string>
+             </property>
+             <property name="placeholderText">
+              <string>e.g. 6</string>
+             </property>
+            </widget>
+            <widget class="QLineEdit" name="lineEdit_InputSSVEPBreakPeriod">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>100</y>
+               <width>171</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>6</string>
+             </property>
+             <property name="placeholderText">
+              <string>e.g. 4</string>
+             </property>
+            </widget>
+            <widget class="QLineEdit" name="lineEdit_InputSSVEPCuePeriod">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>160</y>
+               <width>171</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>4</string>
+             </property>
+             <property name="placeholderText">
+              <string>e.g. 6</string>
+             </property>
+            </widget>
+           </widget>
           </widget>
          </widget>
         </item>
@@ -1595,7 +1909,7 @@
             <item row="0" column="1">
              <widget class="QTabWidget" name="tabWidget_2">
               <property name="currentIndex">
-               <number>2</number>
+               <number>1</number>
               </property>
               <widget class="QWidget" name="tab_MRCP">
                <attribute name="title">
@@ -1760,14 +2074,14 @@
                <widget class="QPushButton" name="pushButton_ssvep_task">
                 <property name="geometry">
                  <rect>
-                  <x>150</x>
-                  <y>130</y>
-                  <width>75</width>
-                  <height>23</height>
+                  <x>340</x>
+                  <y>220</y>
+                  <width>111</width>
+                  <height>51</height>
                  </rect>
                 </property>
                 <property name="text">
-                 <string>SSVEP task</string>
+                 <string>Start SSVEP task</string>
                 </property>
                </widget>
               </widget>
@@ -1890,41 +2204,6 @@
       </widget>
      </widget>
     </item>
-    <item row="1" column="5">
-     <widget class="QLabel" name="label_run">
-      <property name="text">
-       <string>Run </string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="4">
-     <widget class="QPushButton" name="pushButton_test">
-      <property name="text">
-       <string/>
-      </property>
-      <property name="icon">
-       <iconset resource="images.qrc">
-        <normaloff>:/play/play.jpg</normaloff>
-        <normalon>:/pause/pause.jpg</normalon>:/play/play.jpg</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>41</width>
-        <height>41</height>
-       </size>
-      </property>
-      <property name="checkable">
-       <bool>false</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="4">
-     <widget class="QLabel" name="label_Test">
-      <property name="text">
-       <string>Test</string>
-      </property>
-     </widget>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -1932,8 +2211,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>781</width>
-     <height>21</height>
+     <width>1173</width>
+     <height>18</height>
     </rect>
    </property>
   </widget>

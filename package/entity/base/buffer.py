@@ -71,7 +71,7 @@ class Buffer:
             elif filter_type == 'bsf':
                 self.filter.build_butter_notch()
 
-        print('Buffer window', self.window.shape)
+        # print('Buffer window', self.window.shape)
         self.init_timer()
 
     def init_timer(self):

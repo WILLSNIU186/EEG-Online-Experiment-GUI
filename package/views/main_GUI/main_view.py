@@ -242,7 +242,7 @@ class MainView(QMainWindow, SubjectInfo, TaskManager, SequenceManager, ExpProtoc
         self.ui.table_channels.viewport().installEventFilter(self)
 
         # SSVEP
-        self.ui.pushButton_ssvep_task.clicked.connect(self.onClicked_pushButton_ssvep_task)
+        self.ui.pushButton_ssvep_task.clicked.connect(self.on_clicked_push_button_ssvep_task)
 
         # eye tracker
         self.ui.pushButton_open_eye_tracker_ui.clicked.connect(self.onClicked_pushButton_open_eye_tracker_ui)
