@@ -54,7 +54,8 @@ class TaskSwitch():
             # It's the last cue, move to next trial
             else:
                 # Take a break
-                if self.trial_counter == self.protocol.break_trial_number -1:
+                # if self.trial_counter == self.protocol.break_trial_number -1:
+                if (self.trial_counter + 1) % self.protocol.break_trial_number == 0:
                     self.is_experiment_on = False
 
                 # Not the last trial
@@ -68,8 +69,8 @@ class TaskSwitch():
                     self.trial_counter += 1
                     self.set_epoch_number()
                     next_trial = self.protocol.trial_list[self.trial_counter]
-
-                    self.event_obj.add_event(next_trial.event_number, self.router.get_server_clock())
+                    if self.is_experiment_on:
+                        self.event_obj.add_event(next_trial.event_number, self.router.get_server_clock())
 
                     self.SV_window.label_current_trial.setText(str(self.trial_counter + 1))
                     if next_trial.name:
@@ -92,7 +93,7 @@ class TaskSwitch():
             if self.cue_change_flag:
                 self.cue_change_flag = False
                 current_cue = self.protocol.trial_list[self.trial_counter].cue_list[self.cue_counter]
-
+                # if self.is_experiment_on:
                 self.event_obj.add_event(current_cue.event_number, self.router.get_server_clock())
 
                 if self.ui.checkBox_show_text_as_image.isChecked() and current_cue.name:

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1173</width>
-    <height>740</height>
+    <height>853</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -482,384 +482,380 @@
         <item row="0" column="0" colspan="2">
          <widget class="QTabWidget" name="tabWidget_protocol">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab_ERP">
            <attribute name="title">
             <string>ERP</string>
            </attribute>
-           <widget class="QTabWidget" name="tabWidget_exp">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>10</y>
-              <width>711</width>
-              <height>361</height>
-             </rect>
-            </property>
-            <property name="currentIndex">
-             <number>0</number>
-            </property>
-            <widget class="QWidget" name="tab_cue">
-             <attribute name="title">
-              <string>Cue</string>
-             </attribute>
-             <layout class="QGridLayout" name="gridLayout_5">
-              <item row="0" column="0">
-               <widget class="QGroupBox" name="groupBox_cue_manager">
-                <property name="title">
-                 <string>Cue manager</string>
-                </property>
-                <layout class="QGridLayout" name="gridLayout_6">
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_define_cue">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="text">
-                    <string>Define cue:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QLineEdit" name="lineEdit_define_cue">
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="placeholderText">
-                    <string>e.g. IDLE</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="label_cue_duration">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="text">
-                    <string>Cue duration (second):</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="0">
-                  <widget class="QLineEdit" name="lineEdit_cue_duration">
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="placeholderText">
-                    <string>e.g. 1 or 1 - 2</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="0">
-                  <widget class="QLabel" name="label_cue_event_number">
-                   <property name="text">
-                    <string>event number</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="5" column="0">
-                  <widget class="QLineEdit" name="lineEdit_cue_event_number"/>
-                 </item>
-                 <item row="6" column="0">
-                  <widget class="QCheckBox" name="checkBox_show_text_as_image">
-                   <property name="text">
-                    <string>show text as image</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="7" column="0">
-                  <widget class="QLabel" name="label_choose_image_for_cue">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="text">
-                    <string>Choose image for cue:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="8" column="0">
-                  <widget class="QLabel" name="label_task_instruction_image_cue">
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="pixmap">
-                    <pixmap>:/blank/blank.jpg</pixmap>
-                   </property>
-                   <property name="scaledContents">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="8" column="1">
-                  <widget class="QToolButton" name="toolButton_choose_image_cue">
-                   <property name="text">
-                    <string>...</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="9" column="0">
-                  <widget class="QLabel" name="label_choose_sound_for_cue">
-                   <property name="text">
-                    <string>Choose sound for cue:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="9" column="1">
-                  <widget class="QToolButton" name="toolButton_choose_sound_cue">
-                   <property name="text">
-                    <string>...</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="10" column="0">
-                  <widget class="QPushButton" name="pushButton_define_cue_add">
-                   <property name="toolTip">
-                    <string>add a task class, be sure to click done when all task classes are added</string>
-                   </property>
-                   <property name="text">
-                    <string>ADD</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="11" column="0">
-                  <widget class="QPushButton" name="pushButton_define_cue_done">
-                   <property name="toolTip">
-                    <string>click this to finish task class adding</string>
-                   </property>
-                   <property name="text">
-                    <string>Done</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QGroupBox" name="groupBox_cue_table">
-                <property name="title">
-                 <string>Cue table</string>
-                </property>
-                <layout class="QGridLayout" name="gridLayout_32">
-                 <item row="0" column="0">
-                  <widget class="QTableWidget" name="tableWidget_cue">
-                   <property name="wordWrap">
-                    <bool>false</bool>
-                   </property>
-                   <attribute name="horizontalHeaderCascadingSectionResizes">
-                    <bool>true</bool>
-                   </attribute>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-            <widget class="QWidget" name="tab_trial">
-             <attribute name="title">
-              <string>Trial</string>
-             </attribute>
-             <layout class="QGridLayout" name="gridLayout_33">
-              <item row="0" column="0">
-               <widget class="QGroupBox" name="groupBox_task_manager">
-                <property name="title">
-                 <string>Task manager</string>
-                </property>
-                <layout class="QGridLayout" name="gridLayout_30">
-                 <item row="4" column="0">
-                  <widget class="QLabel" name="label_event_number">
-                   <property name="text">
-                    <string>event number:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="6" column="0">
-                  <widget class="QLabel" name="label_choose_image_for_task">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="text">
-                    <string>Choose image for task:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="6" column="1">
-                  <widget class="QToolButton" name="toolButton_choose_image_task">
-                   <property name="text">
-                    <string>...</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="7" column="0">
-                  <widget class="QLabel" name="label_task_instruction_image">
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="pixmap">
-                    <pixmap>:/blank/blank.jpg</pixmap>
-                   </property>
-                   <property name="scaledContents">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="8" column="0">
-                  <widget class="QLabel" name="label_choose_sound_for_task">
-                   <property name="text">
-                    <string>Choose sound for task:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="8" column="1">
-                  <widget class="QToolButton" name="toolButton_choose_sound_task">
-                   <property name="text">
-                    <string>...</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="0" colspan="2">
-                  <widget class="QLineEdit" name="lineEdit_subject_view_description">
-                   <property name="placeholderText">
-                    <string>e.g. ankel dorsiflexion left</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="10" column="0">
-                  <widget class="QPushButton" name="pushButton_define_task_done">
-                   <property name="toolTip">
-                    <string>click this to finish task class adding</string>
-                   </property>
-                   <property name="text">
-                    <string>Done</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="0" colspan="2">
-                  <widget class="QLabel" name="label_subject_view_task_description">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="text">
-                    <string>Subject view task description:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0" colspan="2">
-                  <widget class="QLineEdit" name="lineEdit_define_task">
-                   <property name="placeholderText">
-                    <string>e.g. AD_L</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_define_task">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="text">
-                    <string>Define task:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="9" column="0">
-                  <widget class="QPushButton" name="pushButton_define_task_add">
-                   <property name="toolTip">
-                    <string>add a task class, be sure to click done when all task classes are added</string>
-                   </property>
-                   <property name="text">
-                    <string>ADD</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="5" column="0" colspan="2">
-                  <widget class="QLineEdit" name="lineEdit_task_event_number"/>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-              <item row="0" column="1" rowspan="2">
-               <widget class="QGroupBox" name="groupBox_task_table">
-                <property name="title">
-                 <string>Task table</string>
-                </property>
-                <layout class="QGridLayout" name="gridLayout_26">
-                 <item row="0" column="0">
-                  <widget class="QTableWidget" name="tableWidget_tasks">
-                   <property name="wordWrap">
-                    <bool>false</bool>
-                   </property>
-                   <attribute name="horizontalHeaderCascadingSectionResizes">
-                    <bool>true</bool>
-                   </attribute>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QGroupBox" name="groupBox_sequence_manager">
-                <property name="title">
-                 <string>Sequence manager</string>
-                </property>
-                <layout class="QGridLayout" name="gridLayout_29">
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_group_number">
-                   <property name="toolTip">
-                    <string>the number of tasks for each class</string>
-                   </property>
-                   <property name="text">
-                    <string>Group Number:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="1">
-                  <widget class="QLineEdit" name="lineEdit_group_number"/>
-                 </item>
-                 <item row="1" column="0" colspan="2">
-                  <widget class="QPushButton" name="pushButton_create_sequence">
-                   <property name="toolTip">
-                    <string>add all tasks to task table</string>
-                   </property>
-                   <property name="text">
-                    <string>Create Sequence</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="0" colspan="2">
-                  <widget class="QPushButton" name="pushButton_randomize">
-                   <property name="toolTip">
-                    <string>randomize tasks</string>
-                   </property>
-                   <property name="text">
-                    <string>Randomize</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </widget>
+           <layout class="QGridLayout" name="gridLayout_7">
+            <item row="0" column="0">
+             <widget class="QTabWidget" name="tabWidget_exp">
+              <property name="currentIndex">
+               <number>0</number>
+              </property>
+              <widget class="QWidget" name="tab_cue">
+               <attribute name="title">
+                <string>Cue</string>
+               </attribute>
+               <layout class="QGridLayout" name="gridLayout_5">
+                <item row="0" column="0">
+                 <widget class="QGroupBox" name="groupBox_cue_manager">
+                  <property name="title">
+                   <string>Cue manager</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_6">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_define_cue">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>Define cue:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLineEdit" name="lineEdit_define_cue">
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="placeholderText">
+                      <string>e.g. IDLE</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="label_cue_duration">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>Cue duration (second):</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLineEdit" name="lineEdit_cue_duration">
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="placeholderText">
+                      <string>e.g. 1 or 1 - 2</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="label_cue_event_number">
+                     <property name="text">
+                      <string>event number</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="0">
+                    <widget class="QLineEdit" name="lineEdit_cue_event_number"/>
+                   </item>
+                   <item row="6" column="0">
+                    <widget class="QCheckBox" name="checkBox_show_text_as_image">
+                     <property name="text">
+                      <string>show text as image</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="7" column="0">
+                    <widget class="QLabel" name="label_choose_image_for_cue">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>Choose image for cue:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="8" column="0">
+                    <widget class="QLabel" name="label_task_instruction_image_cue">
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="pixmap">
+                      <pixmap>:/blank/blank.jpg</pixmap>
+                     </property>
+                     <property name="scaledContents">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="8" column="1">
+                    <widget class="QToolButton" name="toolButton_choose_image_cue">
+                     <property name="text">
+                      <string>...</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="9" column="0">
+                    <widget class="QLabel" name="label_choose_sound_for_cue">
+                     <property name="text">
+                      <string>Choose sound for cue:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="9" column="1">
+                    <widget class="QToolButton" name="toolButton_choose_sound_cue">
+                     <property name="text">
+                      <string>...</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="10" column="0">
+                    <widget class="QPushButton" name="pushButton_define_cue_add">
+                     <property name="toolTip">
+                      <string>add a task class, be sure to click done when all task classes are added</string>
+                     </property>
+                     <property name="text">
+                      <string>ADD</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="11" column="0">
+                    <widget class="QPushButton" name="pushButton_define_cue_done">
+                     <property name="toolTip">
+                      <string>click this to finish task class adding</string>
+                     </property>
+                     <property name="text">
+                      <string>Done</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QGroupBox" name="groupBox_cue_table">
+                  <property name="title">
+                   <string>Cue table</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_32">
+                   <item row="0" column="0">
+                    <widget class="QTableWidget" name="tableWidget_cue">
+                     <property name="wordWrap">
+                      <bool>false</bool>
+                     </property>
+                     <attribute name="horizontalHeaderCascadingSectionResizes">
+                      <bool>true</bool>
+                     </attribute>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QWidget" name="tab_trial">
+               <attribute name="title">
+                <string>Trial</string>
+               </attribute>
+               <layout class="QGridLayout" name="gridLayout_33">
+                <item row="0" column="0">
+                 <widget class="QGroupBox" name="groupBox_task_manager">
+                  <property name="title">
+                   <string>Task manager</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_30">
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="label_event_number">
+                     <property name="text">
+                      <string>event number:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="6" column="0">
+                    <widget class="QLabel" name="label_choose_image_for_task">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>Choose image for task:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="6" column="1">
+                    <widget class="QToolButton" name="toolButton_choose_image_task">
+                     <property name="text">
+                      <string>...</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="7" column="0">
+                    <widget class="QLabel" name="label_task_instruction_image">
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="pixmap">
+                      <pixmap>:/blank/blank.jpg</pixmap>
+                     </property>
+                     <property name="scaledContents">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="8" column="0">
+                    <widget class="QLabel" name="label_choose_sound_for_task">
+                     <property name="text">
+                      <string>Choose sound for task:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="8" column="1">
+                    <widget class="QToolButton" name="toolButton_choose_sound_task">
+                     <property name="text">
+                      <string>...</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0" colspan="2">
+                    <widget class="QLineEdit" name="lineEdit_subject_view_description">
+                     <property name="placeholderText">
+                      <string>e.g. ankel dorsiflexion left</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="10" column="0">
+                    <widget class="QPushButton" name="pushButton_define_task_done">
+                     <property name="toolTip">
+                      <string>click this to finish task class adding</string>
+                     </property>
+                     <property name="text">
+                      <string>Done</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0" colspan="2">
+                    <widget class="QLabel" name="label_subject_view_task_description">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>Subject view task description:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0" colspan="2">
+                    <widget class="QLineEdit" name="lineEdit_define_task">
+                     <property name="placeholderText">
+                      <string>e.g. AD_L</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_define_task">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>Define task:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="9" column="0">
+                    <widget class="QPushButton" name="pushButton_define_task_add">
+                     <property name="toolTip">
+                      <string>add a task class, be sure to click done when all task classes are added</string>
+                     </property>
+                     <property name="text">
+                      <string>ADD</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="0" colspan="2">
+                    <widget class="QLineEdit" name="lineEdit_task_event_number"/>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item row="0" column="1" rowspan="2">
+                 <widget class="QGroupBox" name="groupBox_task_table">
+                  <property name="title">
+                   <string>Task table</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_26">
+                   <item row="0" column="0">
+                    <widget class="QTableWidget" name="tableWidget_tasks">
+                     <property name="wordWrap">
+                      <bool>false</bool>
+                     </property>
+                     <attribute name="horizontalHeaderCascadingSectionResizes">
+                      <bool>true</bool>
+                     </attribute>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QGroupBox" name="groupBox_sequence_manager">
+                  <property name="title">
+                   <string>Sequence manager</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_29">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_group_number">
+                     <property name="toolTip">
+                      <string>the number of tasks for each class</string>
+                     </property>
+                     <property name="text">
+                      <string>Group Number:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QLineEdit" name="lineEdit_group_number"/>
+                   </item>
+                   <item row="1" column="0" colspan="2">
+                    <widget class="QPushButton" name="pushButton_create_sequence">
+                     <property name="toolTip">
+                      <string>add all tasks to task table</string>
+                     </property>
+                     <property name="text">
+                      <string>Create Sequence</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0" colspan="2">
+                    <widget class="QPushButton" name="pushButton_randomize">
+                     <property name="toolTip">
+                      <string>randomize tasks</string>
+                     </property>
+                     <property name="text">
+                      <string>Randomize</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+           </layout>
           </widget>
           <widget class="QWidget" name="tab_SSVEP">
            <attribute name="title">
@@ -2212,7 +2208,7 @@
      <x>0</x>
      <y>0</y>
      <width>1173</width>
-     <height>18</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
