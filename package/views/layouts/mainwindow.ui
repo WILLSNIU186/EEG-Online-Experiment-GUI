@@ -482,7 +482,7 @@
         <item row="0" column="0" colspan="2">
          <widget class="QTabWidget" name="tabWidget_protocol">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab_ERP">
            <attribute name="title">
@@ -864,10 +864,10 @@
            <widget class="QGroupBox" name="groupBoxStimulusParameters">
             <property name="geometry">
              <rect>
-              <x>10</x>
+              <x>20</x>
               <y>20</y>
-              <width>411</width>
-              <height>301</height>
+              <width>541</width>
+              <height>351</height>
              </rect>
             </property>
             <property name="title">
@@ -877,9 +877,9 @@
              <property name="geometry">
               <rect>
                <x>10</x>
-               <y>20</y>
-               <width>81</width>
-               <height>19</height>
+               <y>7</y>
+               <width>241</width>
+               <height>31</height>
               </rect>
              </property>
              <property name="toolTip">
@@ -893,8 +893,8 @@
              <property name="geometry">
               <rect>
                <x>10</x>
-               <y>40</y>
-               <width>141</width>
+               <y>39</y>
+               <width>241</width>
                <height>31</height>
               </rect>
              </property>
@@ -918,9 +918,9 @@
              <property name="geometry">
               <rect>
                <x>10</x>
-               <y>100</y>
-               <width>231</width>
-               <height>20</height>
+               <y>108</y>
+               <width>281</width>
+               <height>31</height>
               </rect>
              </property>
              <property name="placeholderText">
@@ -931,9 +931,9 @@
              <property name="geometry">
               <rect>
                <x>10</x>
-               <y>156</y>
-               <width>231</width>
-               <height>20</height>
+               <y>176</y>
+               <width>281</width>
+               <height>31</height>
               </rect>
              </property>
              <property name="placeholderText">
@@ -944,9 +944,9 @@
              <property name="geometry">
               <rect>
                <x>10</x>
-               <y>260</y>
-               <width>231</width>
-               <height>20</height>
+               <y>311</y>
+               <width>281</width>
+               <height>31</height>
               </rect>
              </property>
              <property name="placeholderText">
@@ -957,9 +957,9 @@
              <property name="geometry">
               <rect>
                <x>10</x>
-               <y>207</y>
-               <width>231</width>
-               <height>20</height>
+               <y>240</y>
+               <width>281</width>
+               <height>31</height>
               </rect>
              </property>
              <property name="placeholderText">
@@ -970,9 +970,9 @@
              <property name="geometry">
               <rect>
                <x>10</x>
-               <y>80</y>
-               <width>81</width>
-               <height>19</height>
+               <y>74</y>
+               <width>281</width>
+               <height>31</height>
               </rect>
              </property>
              <property name="toolTip">
@@ -986,9 +986,9 @@
              <property name="geometry">
               <rect>
                <x>10</x>
-               <y>136</y>
-               <width>81</width>
-               <height>19</height>
+               <y>143</y>
+               <width>281</width>
+               <height>31</height>
               </rect>
              </property>
              <property name="toolTip">
@@ -1002,9 +1002,9 @@
              <property name="geometry">
               <rect>
                <x>10</x>
-               <y>240</y>
-               <width>81</width>
-               <height>19</height>
+               <y>279</y>
+               <width>281</width>
+               <height>31</height>
               </rect>
              </property>
              <property name="toolTip">
@@ -1018,9 +1018,9 @@
              <property name="geometry">
               <rect>
                <x>10</x>
-               <y>187</y>
-               <width>81</width>
-               <height>19</height>
+               <y>210</y>
+               <width>281</width>
+               <height>31</height>
               </rect>
              </property>
              <property name="toolTip">
@@ -1034,10 +1034,10 @@
            <widget class="QGroupBox" name="groupBoxSessionRunProtocol">
             <property name="geometry">
              <rect>
-              <x>440</x>
+              <x>570</x>
               <y>20</y>
-              <width>391</width>
-              <height>301</height>
+              <width>541</width>
+              <height>351</height>
              </rect>
             </property>
             <property name="title">
@@ -1047,9 +1047,9 @@
              <property name="geometry">
               <rect>
                <x>10</x>
-               <y>30</y>
-               <width>81</width>
-               <height>19</height>
+               <y>12</y>
+               <width>201</width>
+               <height>31</height>
               </rect>
              </property>
              <property name="toolTip">
@@ -1063,9 +1063,9 @@
              <property name="geometry">
               <rect>
                <x>10</x>
-               <y>80</y>
-               <width>81</width>
-               <height>19</height>
+               <y>88</y>
+               <width>201</width>
+               <height>41</height>
               </rect>
              </property>
              <property name="toolTip">
@@ -1079,9 +1079,9 @@
              <property name="geometry">
               <rect>
                <x>10</x>
-               <y>140</y>
-               <width>81</width>
-               <height>19</height>
+               <y>170</y>
+               <width>201</width>
+               <height>31</height>
               </rect>
              </property>
              <property name="toolTip">
@@ -1091,52 +1091,52 @@
               <string>Break Period (s)</string>
              </property>
             </widget>
+            <widget class="QLineEdit" name="lineEdit_InputSSVEPCuePeriod">
+             <property name="geometry">
+              <rect>
+               <x>10</x>
+               <y>44</y>
+               <width>201</width>
+               <height>31</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>3</string>
+             </property>
+             <property name="placeholderText">
+              <string>e.g. 3</string>
+             </property>
+            </widget>
             <widget class="QLineEdit" name="lineEdit_InputSSVEPStimulationPeriod">
              <property name="geometry">
               <rect>
                <x>10</x>
-               <y>50</y>
-               <width>171</width>
-               <height>20</height>
+               <y>130</y>
+               <width>201</width>
+               <height>31</height>
               </rect>
              </property>
              <property name="text">
-              <string>2</string>
+              <string>20</string>
              </property>
              <property name="placeholderText">
-              <string>e.g. 6</string>
+              <string>e.g. 20</string>
              </property>
             </widget>
             <widget class="QLineEdit" name="lineEdit_InputSSVEPBreakPeriod">
              <property name="geometry">
               <rect>
                <x>10</x>
-               <y>100</y>
-               <width>171</width>
-               <height>20</height>
+               <y>210</y>
+               <width>201</width>
+               <height>31</height>
               </rect>
              </property>
              <property name="text">
-              <string>6</string>
+              <string>7</string>
              </property>
              <property name="placeholderText">
-              <string>e.g. 4</string>
-             </property>
-            </widget>
-            <widget class="QLineEdit" name="lineEdit_InputSSVEPCuePeriod">
-             <property name="geometry">
-              <rect>
-               <x>10</x>
-               <y>160</y>
-               <width>171</width>
-               <height>20</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>4</string>
-             </property>
-             <property name="placeholderText">
-              <string>e.g. 6</string>
+              <string>e.g. 7</string>
              </property>
             </widget>
            </widget>
@@ -1867,7 +1867,7 @@
         <item row="0" column="0">
          <widget class="QTabWidget" name="tabWidget_EXG">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab_EEG">
            <attribute name="title">
@@ -2070,10 +2070,10 @@
                <widget class="QPushButton" name="pushButton_ssvep_task">
                 <property name="geometry">
                  <rect>
-                  <x>340</x>
-                  <y>220</y>
-                  <width>111</width>
-                  <height>51</height>
+                  <x>310</x>
+                  <y>230</y>
+                  <width>211</width>
+                  <height>131</height>
                  </rect>
                 </property>
                 <property name="text">
@@ -2208,7 +2208,7 @@
      <x>0</x>
      <y>0</y>
      <width>1173</width>
-     <height>21</height>
+     <height>18</height>
     </rect>
    </property>
   </widget>
