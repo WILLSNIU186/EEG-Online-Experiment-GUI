@@ -53,23 +53,6 @@ def generate_radial_stimulus_list(win, positions_list, stimulus_size):
         
     return stimulus_list
 
-
-# def generate_radial_stimulus_list(win, positions_list, stimulus_size, radial_cycles=5, angular_cycles=12):
-#     stimulus_list = []
-#     stimulus_mask_list = []
-#     for stim_position in positions_list:
-#         wedge = visual.RadialStim(win, tex='sqrXsqr', color=-1, size=stimulus_size[0], pos=stim_position, units='pix',
-#                                   visibleWedge=[0, 360], radialCycles=5, angularCycles=12, interpolate=False,
-#                                   autoLog=False)
-#         stimulus_list.append(wedge)
-#         circle_target = visual.Circle(win, fillColor=[0.5, 0.5, 0.5], size=10, pos=stim_position, units='pix')
-#         stimulus_mask_list.append(circle_target)
-
-#     return stimulus_list, stimulus_mask_list
-
-
-
-
 def get_ao_stimuli_paths(ao_images_folder_path):
     ao_stimuli_image_paths = []
     for image_idx in range(1, 17):
@@ -83,11 +66,6 @@ def get_utc_time():
     utc_timestamp = utc_time.timestamp()
     
     return utc_timestamp
-
-# def get_frame_movement_phase(frame_number, stimulus_frequency, screen_refresh_rate):
-#     movement_phase = ((np.pi / 2) + (np.pi / 2) * np.sin(
-#         (2 * np.pi * frame_number * (stimulus_frequency / (2 * screen_refresh_rate))) - (np.pi / 2))) / np.pi * 0.5
-#     return movement_phase
 
 def get_frame_intensity(frame_number, stimulus_frequency, screen_refresh_rate):
     stimulus_intensity = np.sin(2 * np.pi * frame_number * (stimulus_frequency / (screen_refresh_rate)))
