@@ -13,9 +13,45 @@ stimulus_type_dict = {'SSVEP_Flicker': 'ssvep',
                       'SSMVEP_Checkerboard': 'ssmvep',
                       'AO_Gait': 'ao_gait'}
 
-screen_size = [1024, 512]
+screen_size = [1700, 900]
 
-ao_images_folder_path = 'D:\Aravind\dev\code\ssvep_stimulus_gen\subset_compressed'
+ao_images_folder_path = 'D:\Aravind\dev\code\ssvep_stimulus_gen\subset_compressed_contrast_modified'
+
+
+checkerboard_size = (1.25*128, 1.25*128)
+screen_refresh_rate = 60
+
+rcycles = 14
+M = 12
+D = 10
+L = 18
+stimulus_size = 64
+
+xylim = 2 * np.pi * rcycles
+x1, y1 = np.meshgrid(np.linspace(-xylim, xylim, stimulus_size), np.linspace(-xylim, xylim, stimulus_size))
+angle_xy = np.arctan2(x1, y1)
+temp_circle = (x1**2 + y1**2)
+radius_values = np.sqrt(temp_circle)
+circle1 = (temp_circle <= xylim**2)*1
+circle2 = (temp_circle >= 80)*1
+mask = circle1 * circle2
+first_term = (np.pi*radius_values/D)
+second_term = np.cos(angle_xy*M)
+
+
+def get_frame_movement_phase(frame_number, stimulus_frequency, screen_refresh_rate):
+    movement_phase = ((np.pi/2)+(np.pi/2)*np.sin((2*np.pi*frame_number*(stimulus_frequency/(2*screen_refresh_rate)))-(np.pi/2)))
+    checks = np.sign(np.cos(first_term+movement_phase*(L/D))*second_term) * mask
+    
+    return checks
+
+def generate_radial_stimulus_list(win, positions_list, stimulus_size):
+    stimulus_list = []
+    for stim_position in positions_list:
+        wedge = visual.GratingStim(win, size=checkerboard_size[0], pos=stim_position, units='pix')  
+        stimulus_list.append(wedge)
+        
+    return stimulus_list
 
 def get_ao_stimuli_paths(ao_images_folder_path):
     ao_stimuli_image_paths = []
@@ -31,27 +67,10 @@ def get_utc_time():
     
     return utc_timestamp
 
-def get_frame_movement_phase(frame_number, stimulus_frequency, screen_refresh_rate):
-    movement_phase = ((np.pi / 2) + (np.pi / 2) * np.sin(
-        (2 * np.pi * frame_number * (stimulus_frequency / (2 * screen_refresh_rate))) - (np.pi / 2))) / np.pi * 0.5
-    return movement_phase
-
 def get_frame_intensity(frame_number, stimulus_frequency, screen_refresh_rate):
     stimulus_intensity = np.sin(2 * np.pi * frame_number * (stimulus_frequency / (screen_refresh_rate)))
     return stimulus_intensity
 
-def generate_radial_stimulus_list(win, positions_list, stimulus_size, radial_cycles=5, angular_cycles=12):
-    stimulus_list = []
-    stimulus_mask_list = []
-    for stim_position in positions_list:
-        wedge = visual.RadialStim(win, tex='sqrXsqr', color=-1, size=stimulus_size[0], pos=stim_position, units='pix',
-                                  visibleWedge=[0, 360], radialCycles=5, angularCycles=12, interpolate=False,
-                                  autoLog=False)
-        stimulus_list.append(wedge)
-        circle_target = visual.Circle(win, fillColor=[0.5, 0.5, 0.5], size=10, pos=stim_position, units='pix')
-        stimulus_mask_list.append(circle_target)
-
-    return stimulus_list, stimulus_mask_list
 
 def generate_flickering_stimulus_list(win, positions_list, stimulus_size, radial_cycles=5, angular_cycles=12):
     stimulus_list = []
@@ -76,12 +95,13 @@ def run_ssvep_protocol(stim_type='ssvep', serial=None, name=None, base_folder_pa
     sr = StreamReceiver(window_size=1, buffer_size=10,
                         amp_serial=serial, amp_name=name)
     data, times = sr.acquire("from ssvep", blocking=False)
-    win = visual.Window(screen_size, color=(-1.0, -1.0, -1.0))
+    win = visual.Window(screen_size, color=(0.0, 0.0, 0.0))
     if stim_type == 'ssvep':
         stimulus_list = generate_flickering_stimulus_list(win, positions_list, stimulus_size)
         stimulus_mask_list = None
     elif stim_type == 'ssmvep':
-        stimulus_list, stimulus_mask_list = generate_radial_stimulus_list(win, positions_list, stimulus_size)
+        # stimulus_list, stimulus_mask_list = generate_radial_stimulus_list(win, positions_list, stimulus_size)
+        stimulus_list = generate_radial_stimulus_list(win, positions_list, stimulus_size)
 
     for sequence_idx, stimulus_id in enumerate(stimulus_sequence):
         data, times = sr.acquire("from ssvep", blocking=False)    
@@ -104,11 +124,17 @@ def run_ssvep_protocol(stim_type='ssvep', serial=None, name=None, base_folder_pa
                                                                screen_refresh_rate)
                         stimulus.draw()
                     elif stim_type == 'ssmvep':
-                        stimulus.radialPhase = get_frame_movement_phase(frame_number,
-                                                                        frequencies_list[stimulus_idx],
-                                                                        screen_refresh_rate)
-                        stimulus.draw()
-                        stimulus_mask_list[stimulus_idx].draw()
+                        # stimulus.radialPhase = get_frame_movement_phase(frame_number,
+                        #                                                 frequencies_list[stimulus_idx],
+                        #                                                 screen_refresh_rate)
+                        
+                        for stimulus_idx, stimulus in enumerate(stimulus_list):
+                            stimulus.tex = get_frame_movement_phase(frame_number,
+                                                                frequencies_list[stimulus_idx],
+                                                                screen_refresh_rate)
+                        for stimulus_idx, stimulus in enumerate(stimulus_list):
+                            stimulus.draw()
+                        # stimulus_mask_list[stimulus_idx].draw()
                 win.flip()
             else:
                 win.close()
@@ -128,6 +154,7 @@ def run_ao_gait_protocol(stimulus_type='ao_gait', serial=None, name=None, base_f
                          stimulus_size=(128, 128), cue_period=2, stimulation_period=6,
                          break_period=4, ao_stimuli_image_paths=None):
     #TODO: Refactor the code
+    print('Cue: ', cue_period, 'Stim: ', stimulation_period, 'Break: ', break_period)
     event_times_df = pd.DataFrame({'event_name': [], 'timestamp': [], 'utc_time': [], 'lsl_time': []})
     sr = StreamReceiver(window_size=1, buffer_size=10,
                         amp_serial=serial, amp_name=name)
@@ -142,6 +169,8 @@ def run_ao_gait_protocol(stimulus_type='ao_gait', serial=None, name=None, base_f
         win.flip()
         time.sleep(cue_period)
         message.setAutoDraw(False)
+        data, times = sr.acquire("from ssvep", blocking=False)    
+        event_times_df = event_times_df.append({'event_name': f'stim_{stimulus_id}', 'timestamp': sr.timestamps[-1][-1], 'utc_time': get_utc_time(), 'lsl_time': sr.get_lsl_clock()}, ignore_index=True)
         stimulus_current_elapsed_time_1 = time.time()
         stimulus_current_elapsed_time_2 = time.time()
         img_idx_1 = 0
@@ -221,8 +250,10 @@ class SSVEPExpProtocol():
         self.input_ssvep_stim_frequencies()
         self.input_ssvep_stim_positions()
         self.input_protocol_parameters()
+        print('Cue: ', self.cue_period, 'Stim: ', self.stimulation_period, 'Break: ', self.break_period)
         self.screen_refresh_rate = 60 #TODO infer from the pyqt or psychopy
         if self.stimulus_type=='ao_gait':
+            print('Cue: ', self.cue_period, 'Stim: ', self.stimulation_period, 'Break: ', self.break_period)
             self.ao_stimuli_image_paths = get_ao_stimuli_paths(ao_images_folder_path)
             proc = mp.Process(target=run_ao_gait_protocol, args=[self.stimulus_type, Variables.get_amp_serial(), Variables.get_amp_name(),
                                                                  Variables.get_base_folder_path(), self.stimulus_sequence,

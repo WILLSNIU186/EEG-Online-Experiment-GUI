@@ -81,14 +81,15 @@ class EventPlot():
         self.main_plot_handler.addItem(self.events_text[-1])
 
     def add_stream_player_event(self):
-        time_diff = pylsl.local_clock() - Variables.get_stream_player_starting_time()
-        event_onset = self.raw.annotations.onset[self.event_counter]
-        # print(abs(time_diff - event_onset))
-        _, self.event_counter = Utils.find_nearest(self.raw.annotations.onset, time_diff)
+        if self.raw is not None:
+            time_diff = pylsl.local_clock() - Variables.get_stream_player_starting_time()
+            event_onset = self.raw.annotations.onset[self.event_counter]
+            # print(abs(time_diff - event_onset))
+            _, self.event_counter = Utils.find_nearest(self.raw.annotations.onset, time_diff)
 
-        if abs(time_diff - event_onset) < 0.03 and self.prev_event_counter != self.event_counter:
-            self.addEventPlot(self.raw.annotations.description[self.event_counter], self.raw.annotations.description[self.event_counter])
-            self.prev_event_counter = self.event_counter
+            if abs(time_diff - event_onset) < 0.03 and self.prev_event_counter != self.event_counter:
+                self.addEventPlot(self.raw.annotations.description[self.event_counter], self.raw.annotations.description[self.event_counter])
+                self.prev_event_counter = self.event_counter
 
 
 
