@@ -4,8 +4,8 @@ from package.entity.base.filter import Filter
 
 class OnlineTest():
     def onClicked_pushButton_test(self):
-        self.bp_filter_full = Filter(low_cut=0.05, hi_cut=40, order=2, sf=500, n_chan=31)
-        self.bp_filter_low = Filter(low_cut=0.05, hi_cut=5, order=2, sf=500, n_chan=31)
+        self.bp_filter_full = Filter(low_cut=0.05, hi_cut=40, order=2, sf=500, n_chan=32)
+        self.bp_filter_low = Filter(low_cut=0.05, hi_cut=5, order=2, sf=500, n_chan=32)
         self.EEGNET_buffer = MRCPBuffer(self, window_stride=0.1, window_size=2, buffer_size=10,
                                       filter=self.bp_filter_full, filter_type='bpf',
                                       ica_path=r'model/sub146_ica_005_40.fiff', downsample=100,

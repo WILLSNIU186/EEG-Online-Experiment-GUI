@@ -26,7 +26,8 @@ class GUITimer():
         try:
             self.read_eeg()  # Read new chunk
             self.ui.widget_mrcp_extractor.clear()
-            self.add_stream_player_event()
+            # if replay:
+            # self.add_stream_player_event()
             # print('chunk ', self.eeg.shape)
 
             if len(self.ts_list) > 0:

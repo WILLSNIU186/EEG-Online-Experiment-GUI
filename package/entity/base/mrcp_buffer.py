@@ -69,6 +69,8 @@ class MRCPBuffer(Buffer):
         self.mrcp_online_test_window.setupUi(self.mrcp_test_win)
 
         self.mrcp_test_win.setWindowTitle(self.model_name)
+        self.pred_flag = False
+        self.pred_flag_counter = 0
 
     def loop(self):
         '''
@@ -77,6 +79,16 @@ class MRCPBuffer(Buffer):
         Processing steps include filter, downsample, ica, prediction.
 
         '''
+        print('pred_flag{} counter{}'.format(self.pred_flag, self.pred_flag_counter))
+
+        if self.pred_flag and self.pred_flag_counter < 10:
+            self.mrcp_online_test_window.label.setText('Detected')
+            self.pred_flag_counter += 1
+        else:
+            self.pred_flag = False
+            self.mrcp_online_test_window.label.setText('')
+            self.pred_flag_counter = 0
+
         data, self.ts_list = self.sr.acquire("buffer using", blocking=True)
         if len(self.ts_list) > 0:
             data = data[:, self.sr.get_channels()].T / self.sr.multiplier
@@ -109,10 +121,13 @@ class MRCPBuffer(Buffer):
                     pred = int(self.model.predict(predict_window).argmax(axis=-1))
 
                 if pred == 1:
-                    self.mrcp_online_test_window.label.setText('Detected')
+                    self.pred_flag = True
+                    self.pred_flag_counter = 0
+                    # self.mrcp_online_test_window.label.setText('Detected')
                     self.main_view.addEventPlot('D_{}'.format(self.model_name), 'D_{}'.format(self.model_name))
-                else:
-                    self.mrcp_online_test_window.label.setText('')
+                # else:
+                #     self.pred_flag = False
+                #     self.mrcp_online_test_window.label.setText('')
                 # print(pred)
             # pdb.set_trace()
 
