@@ -15,7 +15,9 @@ stimulus_type_dict = {'SSVEP_Flicker': 'ssvep',
 
 screen_size = [1700, 900]
 
-ao_images_folder_path = 'D:\Aravind\dev\code\ssvep_stimulus_gen\subset_compressed_contrast_modified'
+# ao_images_folder_path = 'D:\Aravind\dev\code\ssvep_stimulus_gen\subset_compressed_contrast_modified'
+# ao_images_folder_path = 'D:\Aravind\dev\code\ssvep_stimulus_gen\gait_flipped_modified'
+ao_images_folder_path = 'D:\Aravind\dev\code\ssvep_stimulus_gen\second_subset_compressed_contrast_modified'
 
 
 checkerboard_size = (1.25*128, 1.25*128)
@@ -38,6 +40,9 @@ mask = circle1 * circle2
 first_term = (np.pi*radius_values/D)
 second_term = np.cos(angle_xy*M)
 
+clock = core.Clock()
+clock_2 = core.Clock()
+clock_3 = core.Clock()
 
 def get_frame_movement_phase(frame_number, stimulus_frequency, screen_refresh_rate):
     movement_phase = ((np.pi/2)+(np.pi/2)*np.sin((2*np.pi*frame_number*(stimulus_frequency/(2*screen_refresh_rate)))-(np.pi/2)))
@@ -105,7 +110,8 @@ def run_ssvep_protocol(stim_type='ssvep', serial=None, name=None, base_folder_pa
 
     for sequence_idx, stimulus_id in enumerate(stimulus_sequence):
         data, times = sr.acquire("from ssvep", blocking=False)    
-        event_times_df = event_times_df.append({'event_name': 'cue_start', 'timestamp': sr.timestamps[-1][-1], 'utc_time': get_utc_time(), 'lsl_time': sr.get_lsl_clock()}, ignore_index=True)
+        event_times_df = event_times_df.append({'event_name': 'cue_start', 'timestamp': sr.timestamps[-1][-1], 
+                                                'utc_time': get_utc_time(), 'lsl_time': sr.get_lsl_clock()}, ignore_index=True)
         message = visual.TextStim(win, text='1', height=0.1, color=(0, 1, 0))
         message.setAutoDraw(True)
         message.pos = (
@@ -124,17 +130,12 @@ def run_ssvep_protocol(stim_type='ssvep', serial=None, name=None, base_folder_pa
                                                                screen_refresh_rate)
                         stimulus.draw()
                     elif stim_type == 'ssmvep':
-                        # stimulus.radialPhase = get_frame_movement_phase(frame_number,
-                        #                                                 frequencies_list[stimulus_idx],
-                        #                                                 screen_refresh_rate)
-                        
                         for stimulus_idx, stimulus in enumerate(stimulus_list):
                             stimulus.tex = get_frame_movement_phase(frame_number,
                                                                 frequencies_list[stimulus_idx],
                                                                 screen_refresh_rate)
                         for stimulus_idx, stimulus in enumerate(stimulus_list):
                             stimulus.draw()
-                        # stimulus_mask_list[stimulus_idx].draw()
                 win.flip()
             else:
                 win.close()
@@ -159,53 +160,57 @@ def run_ao_gait_protocol(stimulus_type='ao_gait', serial=None, name=None, base_f
     sr = StreamReceiver(window_size=1, buffer_size=10,
                         amp_serial=serial, amp_name=name)
     data, times = sr.acquire("from ssvep", blocking=False)
-    win = visual.Window(screen_size, color=(-1.0, -1.0, -1.0))
+    win = visual.Window(screen_size, color=(0.0, 0.0, 0.0), multiSample=True)
+    
     for sequence_idx, stimulus_id in enumerate(stimulus_sequence):
+        clock.reset()
+        img_idx_1 = 0
+        img_idx_2 = 0
         data, times = sr.acquire("from ssvep", blocking=False)    
-        event_times_df = event_times_df.append({'event_name': 'cue_start', 'timestamp': sr.timestamps[-1][-1], 'utc_time': get_utc_time(), 'lsl_time': sr.get_lsl_clock()}, ignore_index=True)
+        event_times_df = event_times_df.append({'event_name': 'cue_start', 'timestamp': sr.timestamps[-1][-1], 
+                                                'utc_time': get_utc_time(), 'lsl_time': sr.get_lsl_clock()}, ignore_index=True)
         message = visual.TextStim(win, text=f'{stimulus_id}', height=0.1, color=(0, 1, 0))
         message.setAutoDraw(True)
         message.pos = (positions_list[stimulus_id-1][0], positions_list[stimulus_id-1][1])
         win.flip()
-        time.sleep(cue_period)
+        core.wait(cue_period)
         message.setAutoDraw(False)
+        stimulation_start = clock.getTime()
         data, times = sr.acquire("from ssvep", blocking=False)    
-        event_times_df = event_times_df.append({'event_name': f'stim_{stimulus_id}', 'timestamp': sr.timestamps[-1][-1], 'utc_time': get_utc_time(), 'lsl_time': sr.get_lsl_clock()}, ignore_index=True)
-        stimulus_current_elapsed_time_1 = time.time()
-        stimulus_current_elapsed_time_2 = time.time()
-        img_idx_1 = 0
-        img_idx_2 = 0
-        stimulation_start = time.time()
-        while (time.time() - stimulation_start) < stimulation_period:
+        event_times_df = event_times_df.append({'event_name': f'stim_{stimulus_id}', 'timestamp': sr.timestamps[-1][-1], 
+                                                'utc_time': get_utc_time(), 'lsl_time': sr.get_lsl_clock()}, ignore_index=True)
+        clock_2.reset()
+        clock_3.reset()
+        while (clock.getTime() - stimulation_start) < stimulation_period:
             if not event.getKeys():
                 ao_stimulus_1 = visual.ImageStim(win, image=ao_stimuli_image_paths[img_idx_1], size=stimulus_size, pos=positions_list[0])
                 ao_stimulus_1.draw()
                 ao_stimulus_2 = visual.ImageStim(win, image=ao_stimuli_image_paths[img_idx_2], size=stimulus_size, pos=positions_list[1])
                 ao_stimulus_2.draw()
-                if (time.time() - stimulus_current_elapsed_time_1) >= (frequencies_list[0]/screen_refresh_rate):
+                
+                if (clock_2.getTime() >= frequencies_list[0]/screen_refresh_rate):
+                    clock_2.reset()
                     img_idx_1 += 1
                     img_idx_1 = img_idx_1 % len(ao_stimuli_image_paths)
-                    ao_stimulus_1 = visual.ImageStim(win, image=ao_stimuli_image_paths[img_idx_1], size=stimulus_size, pos=positions_list[0])
-                    ao_stimulus_1.draw()
-                    stimulus_current_elapsed_time_1 = time.time()
-                # print(time.time() - stimulus_current_elapsed_time_2)
-                if (time.time() - stimulus_current_elapsed_time_2) >= (frequencies_list[1]/screen_refresh_rate):
+                    
+                if (clock_3.getTime() >= frequencies_list[1]/screen_refresh_rate):
+                    clock_3.reset()
                     img_idx_2 += 1
-                    img_idx_2 = img_idx_2 % len(ao_stimuli_image_paths)
-                    ao_stimulus_2 = visual.ImageStim(win, image=ao_stimuli_image_paths[img_idx_2], size=stimulus_size, pos=positions_list[1])
-                    ao_stimulus_2.draw()
-                    stimulus_current_elapsed_time_2 = time.time()
+                    img_idx_2 = img_idx_2 % len(ao_stimuli_image_paths)                    
                 win.flip()
+                
             else:
                 win.close()
                 save_timestamps_dataframe(event_times_df, base_folder_path, stimulus_type)
                 core.quit()
         win.flip()
         data, times = sr.acquire("from ssvep", blocking=False)    
-        event_times_df = event_times_df.append({'event_name': 'break_start', 'timestamp': sr.timestamps[-1][-1], 'utc_time': get_utc_time(), 'lsl_time': sr.get_lsl_clock()}, ignore_index=True)
-        time.sleep(break_period)
+        event_times_df = event_times_df.append({'event_name': 'break_start', 'timestamp': sr.timestamps[-1][-1], 
+                                                'utc_time': get_utc_time(), 'lsl_time': sr.get_lsl_clock()}, ignore_index=True)
+        core.wait(break_period)
         data, times = sr.acquire("from ssvep", blocking=False)    
-        event_times_df = event_times_df.append({'event_name': 'break_end', 'timestamp': sr.timestamps[-1][-1], 'utc_time': get_utc_time(), 'lsl_time': sr.get_lsl_clock()}, ignore_index=True)
+        event_times_df = event_times_df.append({'event_name': 'break_end', 'timestamp': sr.timestamps[-1][-1], 
+                                                'utc_time': get_utc_time(), 'lsl_time': sr.get_lsl_clock()}, ignore_index=True)
     save_timestamps_dataframe(event_times_df, base_folder_path, stimulus_type)
         
     
