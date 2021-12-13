@@ -77,7 +77,7 @@ keras==2.6.0
 Keras-Preprocessing==1.1.2
 kiwisolver==1.1.0
 libmagic==1.0
-lxml==4.6.3
+lxml==4.6.5
 macropy3==1.1.0b2
 Markdown==3.3.4
 MarkupSafe==1.1.1
