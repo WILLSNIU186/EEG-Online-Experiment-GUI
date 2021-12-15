@@ -1,36 +1,114 @@
-from package.entity.base.buffer import Buffer
+
 import numpy as np
-from pycnbi.stream_receiver.stream_receiver import StreamReceiver
+import joblib
+import os
+import mne
+from PyQt5.QtWidgets import QMainWindow
+from package.entity.base.buffer import Buffer
+from package.views.layouts import online_test_layout
+from package.entity.base.utils import SSVEPCCAAnalysis
+import pdb
 
 
 class SSVEPBuffer(Buffer):
-    def __init__(self, window_stride=0.1, window_size=1, buffer_size=10, filter=None, filter_type=None,
-                 serial_number=None, amp_name=None):
-        super().__init__(self)
+    '''
+    SSVEPBuffer is a child class of Buffer, it handles online processing and online testing.
 
-        self.serial_number = serial_number
-        self.amp_name = amp_name
-        self.sr = StreamReceiver(window_size=self.window_size,
-                                 buffer_size=self.buffer_size,
-                                 amp_serial=self.serial_number,
-                                 amp_name=self.amp_name)
+    Parameter
+    ----------
+    window_stride: (second) Time interval between two windows
+    window_size: (second) length of time window
+    buffer_size: (second) length of buffer in StreamReceiver
+    l_filter: None or object of Filter class
+    filter_type: 'bpf' ---- band pass filter
+                 'lpf' ---- low pass filter
+                 'hpf' ---- high pass filter
+                 'bsf; ---- band stop filter (notch filter)
+    downsample: None or int, downsample rate
+    model_path: None or file path containing .pkl file
+    model_type: 'sklearn' or 'keras'. Further updating could be added for each configuration.
+    model_name: name of classifier. E.g. cca, etc.
 
-        self.window_stride = window_stride
-        self.window_size = window_size
-        self.buffer_size = buffer_size
-        if filter:
-            self.filter = filter
-            if filter_type == 'bpf':
-                self.filter.build_butter_band_pass()
-            elif filter_type == 'lpf':
-                self.filter.build_butter_low_pass()
-            elif filter_type == 'hpf':
-                self.filter.build_butter_high_pass()
-            elif filter_type == 'bsf':
-                self.filter.build_butter_notch()
+    '''
+    def __init__(self,main_view, window_stride=0.1, window_size=2, buffer_size=10,
+                 l_filter=None, filter_type=None, ica_path=None, downsample=None, model_path=None,
+                 model_type=None, model_name='cca'):
+        super().__init__(window_stride, window_size, buffer_size, l_filter, filter_type)    
+        self.main_view = main_view
+        self.downsample = downsample
+        self.cca_pipeline = 0
+        self.ica_model = None
+        self.predicted_class = None
+        
+        if downsample:
+            self.sf = downsample
+            self.n_sample = int(self.window_size * self.sf)
+            self.window = np.zeros((self.n_ch, self.n_sample))
+            self.eeg_window = np.zeros((self.n_eeg_ch, self.n_sample))
 
-    # overriding method
+        if ica_path is not None:
+            if os.path.exists(ica_path):
+                self.ica_model = mne.preprocessing.read_ica(ica_path)
+                
+        self.model_type = model_type
+        self.model_name = model_name
+        if self.model_name=='cca':
+            self.cca_pipeline = 1
+        else:
+            raise ImplementationError('Reqeusted method not implemented')
+        
+        self.model = None
+
+        self.mne_info = mne.create_info(ch_names=self.eeg_ch_names, sfreq=self.sf, ch_types='eeg')
+        self.mne_info.set_montage('standard_1020')
+    
     def loop(self):
-        data, self.ts_list = self.sr.acquire("buffer using", blocking=True)
-        self.window = np.roll(self.window, -len(self.ts_list), 1)
+        '''
+        Get called every window_stride seconds.
+        It reads chunks of data using stream_receiver and process them.
+        Processing steps include filter, downsample, ica, prediction.
 
+        '''
+        data, self.ts_list = self.sr.acquire("buffer using", blocking=True)
+        if len(self.ts_list) > 0:
+            data = data[:, self.sr.get_channels()].T / self.sr.multiplier
+            # pdb.set_trace()
+            self.window = np.roll(self.window, -len(self.ts_list), 1)
+            if self.filter:
+                filtered_data, _ = self.filter.apply_filter(data)
+                self.window[:, -len(self.ts_list):] = filtered_data
+
+            else:
+                self.window[:, -len(self.ts_list):] = data
+
+            self.eeg_window = self.window[self.eeg_ch_idx, :]
+
+            eeg_window_3d = np.expand_dims(self.eeg_window, axis=0)
+            window_epoch = mne.EpochsArray(eeg_window_3d, info=self.mne_info)
+            # pdb.set_trace()
+            if self.downsample:
+                window_epoch = window_epoch.resample(self.downsample)
+            if self.ica_model:
+                window_epoch = self.ica_model.apply(window_epoch)
+                # pdb.set_trace()
+            
+            # predict_window = window_epoch.get_data().copy()
+            self.eeg_window = window_epoch.get_data()[0, :, :]
+            
+            if self.cca_pipeline:
+                cca_analysis_object = SSVEPCCAAnalysis(fs=self.sf, data_len=self.window_size, target_freqs=[8, 10, 12, 15], num_harmonics=2)
+                corr_coeff = cca_analysis_object.apply_cca(self.eeg_window.T)
+                print('cca output: ', corr_coeff) 
+                self.predicted_class = np.argmax(corr_coeff, axis=-1)
+                print('predicted_class: ', self.predicted_class) 
+            
+            self.window[self.eeg_ch_idx, :] = self.eeg_window
+
+    def update_window_stride(self, new_stride):
+        '''
+        Update window stride on the fly
+        :param new_stride: int
+        '''
+        self.stop_timer()
+        self.start_timer()
+        self.window_stride = new_stride
