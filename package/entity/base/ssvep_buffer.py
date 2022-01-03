@@ -30,16 +30,29 @@ class SSVEPBuffer(Buffer):
     model_name: name of classifier. E.g. cca, etc.
 
     '''
-    def __init__(self,main_view, window_stride=0.1, window_size=2, buffer_size=10,
+    def __init__(self, main_view, window_stride=0.1, window_size=2, buffer_size=10,
                  l_filter=None, filter_type=None, ica_path=None, downsample=None, model_path=None,
-                 model_type=None, model_name='cca'):
+                 model_type=None, model_name='cca', stimulus_type='ssvep', channels_list=['O1', 'O2', 'Oz'],
+                 target_frequencies=None):
         super().__init__(window_stride, window_size, buffer_size, l_filter, filter_type)    
         self.main_view = main_view
         self.downsample = downsample
-        self.cca_pipeline = 0
         self.ica_model = None
+        self.stimulus_type = stimulus_type
+        self.model_type = model_type
+        self.model_name = model_name
+        self.target_frequencies = target_frequencies
+        self.cca_pipeline = 0
         self.predicted_class = None
-        
+        self.required_channels = channels_list
+        self.channel_indexes = []
+        print(self.eeg_ch_names)
+        for ch_name in self.required_channels:
+            if ch_name in self.eeg_ch_names:
+                self.channel_indexes.append(self.eeg_ch_names.index(ch_name))
+                
+        print('self.channel_indexes: ', self.channel_indexes)
+    
         if downsample:
             self.sf = downsample
             self.n_sample = int(self.window_size * self.sf)
@@ -50,14 +63,10 @@ class SSVEPBuffer(Buffer):
             if os.path.exists(ica_path):
                 self.ica_model = mne.preprocessing.read_ica(ica_path)
                 
-        self.model_type = model_type
-        self.model_name = model_name
         if self.model_name=='cca':
             self.cca_pipeline = 1
         else:
-            raise ImplementationError('Reqeusted method not implemented')
-        
-        self.model = None
+            raise NotImplementedError('Reqeusted method not implemented')
 
         self.mne_info = mne.create_info(ch_names=self.eeg_ch_names, sfreq=self.sf, ch_types='eeg')
         self.mne_info.set_montage('standard_1020')
@@ -69,7 +78,7 @@ class SSVEPBuffer(Buffer):
         Processing steps include filter, downsample, ica, prediction.
 
         '''
-        data, self.ts_list = self.sr.acquire("buffer using", blocking=True)
+        data, self.ts_list = self.sr.acquire('buffer using', blocking=True)
         if len(self.ts_list) > 0:
             data = data[:, self.sr.get_channels()].T / self.sr.multiplier
             # pdb.set_trace()
@@ -77,10 +86,9 @@ class SSVEPBuffer(Buffer):
             if self.filter:
                 filtered_data, _ = self.filter.apply_filter(data)
                 self.window[:, -len(self.ts_list):] = filtered_data
-
             else:
                 self.window[:, -len(self.ts_list):] = data
-
+            
             self.eeg_window = self.window[self.eeg_ch_idx, :]
 
             eeg_window_3d = np.expand_dims(self.eeg_window, axis=0)
@@ -94,10 +102,16 @@ class SSVEPBuffer(Buffer):
             
             # predict_window = window_epoch.get_data().copy()
             self.eeg_window = window_epoch.get_data()[0, :, :]
+            if len(self.channel_indexes)==len(self.required_channels):
+                self.detection_window = self.eeg_window[self.channel_indexes, :]
+            else:
+                raise NotImplementedError('Requested channels not in the channel list')
             
             if self.cca_pipeline:
-                cca_analysis_object = SSVEPCCAAnalysis(fs=self.sf, data_len=self.window_size, target_freqs=[8, 10, 12, 15], num_harmonics=2)
-                corr_coeff = cca_analysis_object.apply_cca(self.eeg_window.T)
+                cca_analysis_object = SSVEPCCAAnalysis(fs=self.sf, data_len=self.window_size, 
+                                                       target_freqs=self.target_frequencies, 
+                                                       num_harmonics=2)
+                corr_coeff = cca_analysis_object.apply_cca(self.detection_window.T)
                 print('cca output: ', corr_coeff) 
                 self.predicted_class = np.argmax(corr_coeff, axis=-1)
                 print('predicted_class: ', self.predicted_class) 

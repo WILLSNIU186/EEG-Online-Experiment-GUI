@@ -50,7 +50,7 @@ class Buffer:
                                  amp_name=Variables.get_amp_name())
         self.ch_names = self.sr.get_channel_names()
         self.ch_labels = np.array(self.ch_names)[self.sr.get_channels()]
-        self.ch_types = self.sr.channel_type
+        # self.ch_types = self.sr.channel_type
         self.n_ch = int(len(self.sr.get_channels()))
         self.eeg_ch_idx = self.sr.get_eeg_channels()
         # pdb.set_trace()

@@ -260,6 +260,7 @@ class SSVEPExpProtocol():
         if self.stimulus_type=='ao_gait':
             print('Cue: ', self.cue_period, 'Stim: ', self.stimulation_period, 'Break: ', self.break_period)
             self.ao_stimuli_image_paths = get_ao_stimuli_paths(ao_images_folder_path)
+            print('self.stimulus_sequence: ', self.stimulus_sequence)
             proc = mp.Process(target=run_ao_gait_protocol, args=[self.stimulus_type, Variables.get_amp_serial(), Variables.get_amp_name(),
                                                                  Variables.get_base_folder_path(), self.stimulus_sequence,
                                                                  self.stimulus_positions_list, self.screen_refresh_rate, self.stimulus_frequency_list,

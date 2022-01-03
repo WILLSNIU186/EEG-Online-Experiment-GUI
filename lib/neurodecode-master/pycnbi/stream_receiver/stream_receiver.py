@@ -126,6 +126,8 @@ class StreamReceiver:
                         logger.info('Found USBamp streaming server %s (type %s, amp_serial %s) @ %s.' % (amp_name, si.type(), amp_serial, si.hostname()))
                         self._lsl_tr_channel = 16
                         channels += si.channel_count()
+                        # ch_list = ['Cz', 'C1', 'FCz', 'C2', 'CPz', 'O1', 'Oz', 'O2']
+                        self.channel_type = ['eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'emg', 'emg', 'emg', 'emg']
                         ch_list = pu.lsl_channel_list(inlet)
                         amps.append(si)
                         server_found = True
@@ -143,6 +145,16 @@ class StreamReceiver:
                         self._lsl_tr_channel = 23
                         channels += si.channel_count()
                         ch_list = pu.lsl_channel_list(inlet)
+                        amps.append(si)
+                        server_found = True
+                        break
+                    elif 'Explore' in amp_name:
+                        logger.info('Found ExplorePy streaming server %s (type %s, amp_serial %s) @ %s.' % (amp_name, si.type(), amp_serial, si.hostname()))
+                        self._lsl_tr_channel = None
+                        channels += si.channel_count()
+                        # ch_list = pu.lsl_channel_list(inlet)
+                        ch_list = ['Cz', 'C1', 'FCz', 'C2', 'CPz', 'O1', 'Oz', 'O2']
+                        self.channel_type = ['eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg']
                         amps.append(si)
                         server_found = True
                         break
@@ -166,6 +178,7 @@ class StreamReceiver:
                         ch_list = pu.lsl_channel_list(inlet)
                         self._lsl_tr_channel = find_event_channel(ch_names=ch_list)
                         channels += si.channel_count()
+                        self.channel_type = ['eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'emg', 'emg', 'emg', 'emg']
                         amps.append(si)
                         server_found = True
                         # OpenVibe standard unit is Volts, which is not ideal for some numerical computations
@@ -204,6 +217,7 @@ class StreamReceiver:
                         logger.info('Found a streaming server %s (type %s, amp_serial %s) @ %s.' % (amp_name, si.type(), amp_serial, si.hostname()))
                         ch_list = pu.lsl_channel_list(inlet)
                         self._lsl_tr_channel = find_event_channel(ch_names=ch_list)
+                        self.channel_type = None
                         channels += si.channel_count()
                         amps.append(si)
                         server_found = True
@@ -496,25 +510,35 @@ class StreamReceiver:
         """
         Returns indices of eeg channels excluding trigger channel
         """
-        for ind, ch_type in enumerate(self.channel_type):
-            if ch_type == 'eeg':
-                self.eeg_channels.append(ind)
+        if self.channel_type is not None:
+            for ind, ch_type in enumerate(self.channel_type):
+                if ch_type == 'eeg':
+                    self.eeg_channels.append(ind)
+        else:
+            self.eeg_channels = []
         return self.eeg_channels
 
     def get_eeg_channel_names(self):
         ch_list_no_trigger = self.ch_list[1:]
-        for ind, ch_type in enumerate(self.channel_type):
-            if ch_type == 'eeg':
-                self.eeg_channel_names.append(ch_list_no_trigger[ind])
+        if self.channel_type is not None:
+            for ind, ch_type in enumerate(self.channel_type):
+                if ch_type == 'eeg':
+                    self.eeg_channel_names.append(ch_list_no_trigger[ind])
+        else:
+            self.eeg_channel_names = None
         return self.eeg_channel_names
 
     def get_emg_channels(self):
         """
         Returns indices of eeg channels excluding trigger channel
         """
-        for ind, ch_type in enumerate(self.channel_type):
-            if ch_type == 'emg':
-                self.emg_channels.append(ind)
+        
+        if self.channel_type is not None:    
+            for ind, ch_type in enumerate(self.channel_type):
+                if ch_type == 'emg':
+                    self.emg_channels.append(ind)
+        else:
+            self.emg_channels = None
         return self.emg_channels
 
     def get_trigger_channel(self):
