@@ -1,5 +1,6 @@
 from psychopy import visual, event, core
 import pdb
+import math
 import numpy as np
 import pandas as pd
 import time
@@ -13,7 +14,7 @@ stimulus_type_dict = {'SSVEP_Flicker': 'ssvep',
                       'SSMVEP_Checkerboard': 'ssmvep',
                       'AO_Gait': 'ao_gait'}
 
-screen_size = [1700, 900]
+screen_size = [1750, 950]
 
 # ao_images_folder_path = 'D:\Aravind\dev\code\ssvep_stimulus_gen\subset_compressed_contrast_modified'
 # ao_images_folder_path = 'D:\Aravind\dev\code\ssvep_stimulus_gen\gait_flipped_modified'
@@ -60,9 +61,10 @@ def generate_radial_stimulus_list(win, positions_list, stimulus_size):
 
 def get_ao_stimuli_paths(ao_images_folder_path):
     ao_stimuli_image_paths = []
+    ao_stimuli_images = []
     for image_idx in range(1, 17):
         ao_stimuli_image_paths.append(f'{ao_images_folder_path}/{image_idx}.jpg')
-    
+        
     return ao_stimuli_image_paths
 
 def get_utc_time():
@@ -161,9 +163,12 @@ def run_ao_gait_protocol(stimulus_type='ao_gait', serial=None, name=None, base_f
                         amp_serial=serial, amp_name=name)
     data, times = sr.acquire("from ssvep", blocking=False)
     win = visual.Window(screen_size, color=(0.0, 0.0, 0.0), multiSample=True)
-    
+    ao_stimulus_1 = []
+    ao_stimulus_2 = []
+    for img_idx in range(len(ao_stimuli_image_paths)):
+        ao_stimulus_1.append(visual.ImageStim(win, image=ao_stimuli_image_paths[img_idx], size=stimulus_size, pos=positions_list[0]))
+        ao_stimulus_2.append(visual.ImageStim(win, image=ao_stimuli_image_paths[img_idx], size=stimulus_size, pos=positions_list[1]))
     for sequence_idx, stimulus_id in enumerate(stimulus_sequence):
-        clock.reset()
         img_idx_1 = 0
         img_idx_2 = 0
         data, times = sr.acquire("from ssvep", blocking=False)    
@@ -179,30 +184,19 @@ def run_ao_gait_protocol(stimulus_type='ao_gait', serial=None, name=None, base_f
         data, times = sr.acquire("from ssvep", blocking=False)    
         event_times_df = event_times_df.append({'event_name': f'stim_{stimulus_id}', 'timestamp': sr.timestamps[-1][-1], 
                                                 'utc_time': get_utc_time(), 'lsl_time': sr.get_lsl_clock()}, ignore_index=True)
-        clock_2.reset()
-        clock_3.reset()
-        while (clock.getTime() - stimulation_start) < stimulation_period:
+        
+        for frame_number in range(0, int(stimulation_period * screen_refresh_rate)):
             if not event.getKeys():
-                ao_stimulus_1 = visual.ImageStim(win, image=ao_stimuli_image_paths[img_idx_1], size=stimulus_size, pos=positions_list[0])
-                ao_stimulus_1.draw()
-                ao_stimulus_2 = visual.ImageStim(win, image=ao_stimuli_image_paths[img_idx_2], size=stimulus_size, pos=positions_list[1])
-                ao_stimulus_2.draw()
-                
-                if (clock_2.getTime() >= frequencies_list[0]/screen_refresh_rate):
-                    clock_2.reset()
-                    img_idx_1 += 1
-                    img_idx_1 = img_idx_1 % len(ao_stimuli_image_paths)
-                    
-                if (clock_3.getTime() >= frequencies_list[1]/screen_refresh_rate):
-                    clock_3.reset()
-                    img_idx_2 += 1
-                    img_idx_2 = img_idx_2 % len(ao_stimuli_image_paths)                    
+                img_idx_1 = int((math.floor(frame_number/frequencies_list[0])) % len(ao_stimuli_image_paths))
+                img_idx_2 = int((math.floor(frame_number/frequencies_list[1])) % len(ao_stimuli_image_paths))
+                ao_stimulus_1[img_idx_1].draw()
+                ao_stimulus_2[img_idx_2].draw()
                 win.flip()
-                
             else:
                 win.close()
                 save_timestamps_dataframe(event_times_df, base_folder_path, stimulus_type)
                 core.quit()
+        
         win.flip()
         data, times = sr.acquire("from ssvep", blocking=False)    
         event_times_df = event_times_df.append({'event_name': 'break_start', 'timestamp': sr.timestamps[-1][-1], 
@@ -212,8 +206,7 @@ def run_ao_gait_protocol(stimulus_type='ao_gait', serial=None, name=None, base_f
         event_times_df = event_times_df.append({'event_name': 'break_end', 'timestamp': sr.timestamps[-1][-1], 
                                                 'utc_time': get_utc_time(), 'lsl_time': sr.get_lsl_clock()}, ignore_index=True)
     save_timestamps_dataframe(event_times_df, base_folder_path, stimulus_type)
-        
-    
+            
 class SSVEPExpProtocol():
     
     def input_stimulus_type(self):
