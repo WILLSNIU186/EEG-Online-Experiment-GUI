@@ -12,7 +12,7 @@ joblib==0.14.1
 kiwisolver==1.1.0
 matplotlib==3.2.0rc3
 mne==0.19.2
-numpy==1.18.1
+numpy==1.22.0
 opencv-python==4.2.0.32
 parso==0.6.1
 pickleshare==0.7.5
