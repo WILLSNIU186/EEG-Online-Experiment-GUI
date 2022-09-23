@@ -115,7 +115,7 @@ playsound==1.2.2
 proglog==0.1.9
 prometheus-client==0.8.0
 prompt-toolkit==3.0.3
-protobuf==3.17.3
+protobuf==3.18.3
 psutil==5.7.0
 PsychoPy==2021.2.0
 psychtoolbox==3.0.17.8
