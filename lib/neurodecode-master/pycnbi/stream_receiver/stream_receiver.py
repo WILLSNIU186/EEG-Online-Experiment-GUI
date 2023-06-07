@@ -195,17 +195,21 @@ class StreamReceiver:
                     elif 'NE-EEG' in amp_name:
                         logger.info('Found an NE server %s (type %s, amp_serial %s) @ %s.' % (amp_name, si.type(), amp_serial, si.hostname()))
                         # ch_list = pu.lsl_channel_list(inlet)
-                        # ch_list = ['P7', 'P4', 'Cz', 'Pz', 'P3', 'P8', 'O1', 'O2', 'T8', 'F8', 'C4', 'F4', 'Fp2', 'Fz',
-                        #                'C3', 'F3', 'Fp1', 'T7', 'F7', 'Fpz', 'PO4', 'FC6', 'FC2', 'AF4', 'CP6', 'CP2', 'CP1',
-                        #            'CP5', 'FC1', 'FC5', 'AF3', 'C1']
-                        ch_list = ['P7', 'P4', 'Cz', 'Pz', 'P3', 'P8', 'EMG_WE_right', 'EMG_IE_right', 'T8',
-                                   'F8', 'C4', 'F4', 'Fp2', 'Fz', 'C3', 'F3', 'Fp1', 'T7',
-                                   'F7', 'NU', 'EMG_IE_left', 'FC6', 'FC2', 'C2', 'CP6', 'CP2', 'CP1',
-                                   'CP5', 'FC1', 'FC5', 'C1', 'EMG_WE_left']
-                        self.channel_type = ['eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'emg', 'emg', 'eeg',
+                        ch_list = ['P7', 'P4', 'Cz', 'Pz', 'P3', 'P8', 'O1', 'O2', 'T8', 'F8', 'C4', 'F4', 'Fp2', 'Fz',
+                                   'C3', 'F3', 'Fp1', 'T7', 'F7', 'Fpz', 'PO4', 'FC6', 'FC2', 'AF4', 'CP6', 'CP2', 'CP1',
+                                   'CP5', 'FC1', 'FC5', 'AF3', 'C1']
+                        # ch_list = ['P7', 'P4', 'Cz', 'Pz', 'P3', 'P8', 'EMG_WE_right', 'EMG_IE_right', 'T8',
+                        #            'F8', 'C4', 'F4', 'Fp2', 'Fz', 'C3', 'F3', 'Fp1', 'T7',
+                        #            'F7', 'NU', 'EMG_IE_left', 'FC6', 'FC2', 'C2', 'CP6', 'CP2', 'CP1',
+                        #            'CP5', 'FC1', 'FC5', 'C1', 'EMG_WE_left']
+                        # self.channel_type = ['eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'emg', 'emg', 'eeg',
+                        #                      'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg',
+                        #                      'eeg', 'NU', 'emg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg',
+                        #                      'eeg', 'eeg', 'eeg', 'eeg','emg']
+                        self.channel_type = ['eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg',
                                              'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg',
-                                             'eeg', 'NU', 'emg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg',
-                                             'eeg', 'eeg', 'eeg', 'eeg','emg']
+                                             'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg', 'eeg',
+                                             'eeg', 'eeg', 'eeg', 'eeg','eeg']
                         # ch_list = ['P7', 'P4', 'Cz', 'Pz', 'P3', 'P8', 'EMG4', 'O2', 'T8', 'F8', 'C4', 'F4', 'Fp2', 'Fz', 'C3', 'F3', 'Fp1', 'T7', 'F7', 'C2', 'FC6', 'EMG2', 'FC2', 'EMG3', 'CP6', 'CP2', 'CP1', 'CP5', 'FC1', 'FC5', 'EMG1', 'C1']
                         # self._lsl_tr_channel = find_event_channel(ch_names=ch_list)
                         channels = len(ch_list)

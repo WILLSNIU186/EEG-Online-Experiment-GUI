@@ -15,6 +15,7 @@ stimulus_type_dict = {'SSVEP_Flicker': 'ssvep',
                       'AO_Gait': 'ao_gait'}
 
 screen_size = [1750, 950]
+# screen_size = [1080, 600]
 
 # ao_images_folder_path = 'D:\Aravind\dev\code\ssvep_stimulus_gen\subset_compressed_contrast_modified'
 # ao_images_folder_path = 'D:\Aravind\dev\code\ssvep_stimulus_gen\gait_flipped_modified'
@@ -75,6 +76,16 @@ def get_utc_time():
     return utc_timestamp
 
 def get_frame_intensity(frame_number, stimulus_frequency, screen_refresh_rate):
+    """_summary_
+
+    Args:
+        frame_number (_type_): _description_
+        stimulus_frequency (_type_): _description_
+        screen_refresh_rate (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """    
     stimulus_intensity = np.sin(2 * np.pi * frame_number * (stimulus_frequency / (screen_refresh_rate)))
     return stimulus_intensity
 
